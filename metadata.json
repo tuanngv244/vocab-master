@@ -1,0 +1,6 @@
+{
+  "name": "VocabMaster",
+  "description": "Ứng dụng học 1000+ từ vựng tiếng Anh theo chủ đề với Flashcards và bài tập trắc nghiệm sinh động, dễ thương.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
