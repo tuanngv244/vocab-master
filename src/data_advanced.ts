@@ -2,6 +2,40 @@ import { ReadingArticle, ListeningExercise } from "./types";
 
 export const readingArticles: ReadingArticle[] = [
   {
+    id: "r4",
+    title: "The Mechanics of Cryptocurrencies",
+    level: "IELTS 6.5",
+    category: "Technology",
+    image: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=800&q=80",
+    content: [
+      "Cryptocurrencies operate on a technology called blockchain, which is essentially a decentralized ledger. Unlike traditional fiat currencies controlled by central banks, cryptocurrencies rely on a network of computers to verify and record transactions.",
+      "When a transaction occurs, it is combined with other recent transactions into a 'block'. This block is then encrypted using complex algorithms and linked to the preceding block, forming a 'chain' of chronological data. This structure makes it incredibly difficult to alter historical data, providing a high level of security and transparency.",
+      "However, the cryptocurrency market is notoriously volatile. Prices are largely driven by speculation rather than intrinsic value, leading to severe fluctuations. Investors and financial regulators differ on whether digital currencies represent the future of finance or a high-stakes bubble waiting to burst."
+    ],
+    questions: [
+      {
+        question: "How do cryptocurrencies verify transactions?",
+        options: [
+          "Through a central bank.",
+          "Using a network of computers to verify and record them.",
+          "By printing physical receipts for each transaction.",
+          "By employing specialized financial consultants."
+        ],
+        answer: "Using a network of computers to verify and record them."
+      },
+      {
+        question: "Why is it difficult to alter historical data on a blockchain?",
+        options: [
+          "Because each block is locked in a physical vault.",
+          "Because blocks are encrypted and linked chronologically.",
+          "Because only the government has the password.",
+          "Because historical data is immediately deleted."
+        ],
+        answer: "Because blocks are encrypted and linked chronologically."
+      }
+    ]
+  },
+  {
     id: "r3",
     title: "The Rise of E-commerce and its Effect on Retail",
     level: "IELTS 6.0",
@@ -139,6 +173,35 @@ export const readingArticles: ReadingArticle[] = [
 ];
 
 export const listeningExercises: ListeningExercise[] = [
+  {
+    id: "l4",
+    title: "Understanding Microplastics",
+    level: "IELTS 6.5",
+    durationLabel: "40 seconds",
+    script: "Microplastics are tiny plastic particles, typically less than five millimeters in length, that are increasingly polluting our environment. They originate from a variety of sources, including the breakdown of larger plastic debris, microbeads in cosmetics, and synthetic fibers shedding from clothing during washing. Because of their small size, microplastics easily slip through water filtration systems and end up in oceans and rivers. Marine life often mistakes these particles for food, leading to severe health issues for the animals and potentially entering the human food chain. Addressing this issue requires comprehensive policy changes and a shift in consumer habits.",
+    questions: [
+      {
+        question: "What is one source of microplastics mentioned in the talk?",
+        options: [
+          "Metal shavings from factories.",
+          "Synthetic fibers from clothing during washing.",
+          "Natural degradation of rocks.",
+          "Wood particles from deforestation."
+        ],
+        answer: "Synthetic fibers from clothing during washing."
+      },
+      {
+        question: "Why do microplastics end up in oceans and rivers?",
+        options: [
+          "Because they are intentionally dumped there.",
+          "Because they evaporate and fall as rain.",
+          "Because they slip through water filtration systems due to their small size.",
+          "Because marine life carries them there."
+        ],
+        answer: "Because they slip through water filtration systems due to their small size."
+      }
+    ]
+  },
   {
     id: "l3",
     title: "The Importance of Sleep for Memory",
