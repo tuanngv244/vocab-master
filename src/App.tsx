@@ -19,6 +19,7 @@ type View = "home" | "study" | "quiz" | "reading" | "listening";
 export interface UserData {
   learned: Record<string, number>;
   activity: string[];
+  reviews?: Record<string, { count: number; lastReviewAt: number }>;
 }
 
 export default function App() {
@@ -77,7 +78,7 @@ export default function App() {
 
   const startDailyQuiz = () => {
     const now = Date.now();
-    const TWO_DAYS = 2 * 24 * 60 * 60 * 1000;
+    const ONE_DAY = 24 * 60 * 60 * 1000;
     
     let dueWords: Word[] = [];
     let otherLearned: Word[] = [];
@@ -86,10 +87,22 @@ export default function App() {
       t.words.forEach(w => {
         const learnedAt = userData.learned[w.id];
         if (learnedAt) {
-          if (now - learnedAt >= TWO_DAYS) {
-            dueWords.push(w);
+          const reviewInfo = userData.reviews?.[w.id];
+          if (reviewInfo) {
+            const { count, lastReviewAt } = reviewInfo;
+            const delayMs = (count + 1) * ONE_DAY;
+            if (now - lastReviewAt >= delayMs) {
+              dueWords.push(w);
+            } else {
+              otherLearned.push(w);
+            }
           } else {
-            otherLearned.push(w);
+            // First time review in daily quiz: 1 day after learning
+            if (now - learnedAt >= ONE_DAY) {
+              dueWords.push(w);
+            } else {
+              otherLearned.push(w);
+            }
           }
         }
       });
@@ -122,7 +135,20 @@ export default function App() {
 
   const handleQuizComplete = (score: number) => {
     setUserData((prev) => {
-       const next = markActivityToday(prev);
+       let next = markActivityToday(prev);
+       if (quizTitle === "Daily Quiz" && quizWords) {
+         let reviews = { ...(next.reviews || {}) };
+         const now = Date.now();
+         quizWords.forEach(w => {
+           const r = reviews[w.id];
+           if (r) {
+             reviews[w.id] = { count: r.count + 1, lastReviewAt: now };
+           } else {
+             reviews[w.id] = { count: 1, lastReviewAt: now };
+           }
+         });
+         next = { ...next, reviews };
+       }
        saveUserData(next);
        return next;
     });

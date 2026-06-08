@@ -123,13 +123,14 @@ export default function QuizMode({ topicName, words, allWords, onBack, onComplet
       </header>
 
       <div className="text-center mb-8 flex-1 flex flex-col justify-center min-h-[200px]">
-        {/* Emoji with 50% opacity in Quiz Mode as requested */}
-        <div className="inline-flex w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-full items-center justify-center text-5xl sm:text-7xl shadow-xl shadow-slate-200 border border-slate-100 mb-6 sm:mb-8 mx-auto shrink-0 opacity-50 blur-[1px]">
+        {/* Emoji cut by 50% in Quiz Mode as requested, revealed when an answer is selected */}
+        <div className="inline-flex w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-full items-center justify-center text-5xl sm:text-7xl shadow-xl shadow-slate-200 border border-slate-100 mb-6 sm:mb-8 mx-auto shrink-0 relative">
           <motion.div
              key={currentWord.id}
              initial={{ scale: 0.5, opacity: 0 }}
              animate={{ scale: 1, opacity: 1 }}
              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+             style={!selectedAnswer ? { clipPath: 'inset(0 50% 0 0)' } : undefined}
           >
             {currentWord.emoji}
           </motion.div>
