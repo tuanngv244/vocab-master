@@ -1,4 +1,8 @@
 import { Topic } from "./types";
+import { extraTopics } from "./data_extra";
+import { extraTopics2 } from "./data_extra2";
+import { extraTopics3 } from "./data_extra3";
+import { extraTopics4 } from "./data_extra4";
 
 export const topics: Topic[] = [
   {
@@ -384,5 +388,30 @@ export const topics: Topic[] = [
       { id: "tr9", word: "journey", pronunciation: "/ˈdʒɜː.ni/", meaning: "chuyến hành trình", example: "It was a long journey.", emoji: "🚂" },
       { id: "tr10", word: "destination", pronunciation: "/ˌdes.tɪˈneɪ.ʃən/", meaning: "điểm đến", example: "We reached our destination.", emoji: "📍" }
     ]
-  }
+  },
+  ...extraTopics,
+  ...extraTopics2,
+  ...extraTopics3,
+  ...extraTopics4
 ];
+
+import { ext1 } from "./data_ext_1";
+import { ext2 } from "./data_ext_2";
+import { ext3 } from "./data_ext_3";
+import { ext4 } from "./data_ext_4";
+import { loadExtra } from "./data_extension_loader";
+
+topics.forEach(topic => {
+  if (ext1[topic.id]) {
+    topic.words.push(...loadExtra(topic.id, ext1[topic.id]));
+  }
+  if (ext2[topic.id]) {
+    topic.words.push(...loadExtra(topic.id, ext2[topic.id]));
+  }
+  if (ext3[topic.id]) {
+    topic.words.push(...loadExtra(topic.id + 'b', ext3[topic.id]));
+  }
+  if (ext4[topic.id]) {
+    topic.words.push(...loadExtra(topic.id + 'c', ext4[topic.id]));
+  }
+});
