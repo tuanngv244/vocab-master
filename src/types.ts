@@ -28,6 +28,7 @@ export interface ReadingArticle {
   category: string;
   image: string;
   content: string[];
+  translationVi?: string[];
   questions: QuizQuestion[];
 }
 
