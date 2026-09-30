@@ -14,6 +14,8 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
   const [submitted, setSubmitted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTranscript, setShowTranscript] = useState(false);
+  const [filterLevel, setFilterLevel] = useState<"all" | "beginner" | "advanced">("all");
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(0.85);
 
   const synth = window.speechSynthesis;
 
@@ -22,6 +24,15 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
       synth.cancel();
     };
   }, [synth]);
+
+  const beginnerCount = exercises.filter(e => e.level.toLowerCase().includes("beginner")).length;
+  const advancedCount = exercises.filter(e => !e.level.toLowerCase().includes("beginner")).length;
+
+  const filteredExercises = exercises.filter(e => {
+    if (filterLevel === "beginner") return e.level.toLowerCase().includes("beginner");
+    if (filterLevel === "advanced") return !e.level.toLowerCase().includes("beginner");
+    return true;
+  });
 
   const togglePlay = () => {
     if (!selectedExercise) return;
@@ -32,7 +43,7 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
     } else {
       const utterance = new SpeechSynthesisUtterance(selectedExercise.script);
       utterance.lang = "en-US";
-      utterance.rate = 0.9; // slightly slower for listening practice
+      utterance.rate = playbackSpeed;
       utterance.onend = () => setIsPlaying(false);
       synth.speak(utterance);
       setIsPlaying(true);
@@ -56,34 +67,91 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
   if (!selectedExercise) {
     return (
       <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-12 min-h-full">
-        <header className="mb-8 md:mb-12">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">Listening Practice 🎧</h1>
+        <header className="mb-6 md:mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Listening Practice 🎧</h1>
+            <span className="text-xs font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">{exercises.length} bài nghe</span>
+          </div>
           <p className="text-slate-500 font-medium text-base md:text-lg">Select an exercise to test your listening comprehension.</p>
         </header>
 
+        {/* Level Filters */}
+        <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-2 scrollbar-none">
+          <button
+            onClick={() => setFilterLevel("all")}
+            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all shrink-0 ${
+              filterLevel === "all"
+                ? "bg-slate-900 text-white shadow-md shadow-slate-900/20"
+                : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+            }`}
+          >
+            Tất cả ({exercises.length})
+          </button>
+          <button
+            onClick={() => setFilterLevel("beginner")}
+            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all shrink-0 flex items-center gap-1.5 ${
+              filterLevel === "beginner"
+                ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/25"
+                : "bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200"
+            }`}
+          >
+            <span>🌱</span> Người mới (A1-A2) ({beginnerCount})
+          </button>
+          <button
+            onClick={() => setFilterLevel("advanced")}
+            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all shrink-0 flex items-center gap-1.5 ${
+              filterLevel === "advanced"
+                ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/25"
+                : "bg-indigo-50 text-indigo-800 hover:bg-indigo-100 border border-indigo-200"
+            }`}
+          >
+            <span>⚡</span> Nâng cao (IELTS) ({advancedCount})
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {exercises.map((exercise, index) => (
-            <motion.div
-              key={exercise.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              onClick={() => { setSelectedExercise(exercise); setAnswers({}); setSubmitted(false); setShowTranscript(false); synth.cancel(); setIsPlaying(false); }}
-              className="bg-white rounded-[24px] border border-slate-100 overflow-hidden cursor-pointer hover:shadow-xl hover:shadow-slate-200/50 transition-all p-6 sm:p-8 flex items-start gap-6 group"
-            >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                <Headphones size={32} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-2 flex-wrap">
-                   <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">{exercise.level}</span>
-                   <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{exercise.durationLabel} lengths</span>
+          {filteredExercises.map((exercise, index) => {
+            const isBeginner = exercise.level.toLowerCase().includes("beginner");
+            return (
+              <motion.div
+                key={exercise.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                onClick={() => {
+                  setSelectedExercise(exercise);
+                  setAnswers({});
+                  setSubmitted(false);
+                  setShowTranscript(false);
+                  setPlaybackSpeed(isBeginner ? 0.82 : 0.9);
+                  synth.cancel();
+                  setIsPlaying(false);
+                }}
+                className="bg-white rounded-[24px] border border-slate-100 overflow-hidden cursor-pointer hover:shadow-xl hover:shadow-slate-200/50 transition-all p-6 sm:p-8 flex items-start gap-5 sm:gap-6 group"
+              >
+                <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform ${
+                  isBeginner ? "bg-emerald-100 text-emerald-600" : "bg-indigo-100 text-indigo-600"
+                }`}>
+                  <Headphones size={28} />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-4 line-clamp-2">{exercise.title}</h3>
-                <span className="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg">{exercise.questions.length} Questions</span>
-              </div>
-            </motion.div>
-          ))}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                      isBeginner ? "bg-emerald-100 text-emerald-800" : "bg-indigo-100 text-indigo-800"
+                    }`}>
+                      {exercise.level}
+                    </span>
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{exercise.durationLabel}</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-3 line-clamp-2">{exercise.title}</h3>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">{exercise.questions.length} câu hỏi</span>
+                    <span className="text-sm font-bold text-emerald-600 group-hover:translate-x-1 transition-transform">Luyện nghe →</span>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     );
@@ -121,6 +189,30 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
             <p className="mt-6 font-bold text-slate-300 uppercase tracking-widest text-sm sm:text-base">
               {isPlaying ? "Audio Playing..." : "Play Audio"}
             </p>
+
+            {/* Speed Controls */}
+            <div className="mt-4 flex items-center gap-2 bg-slate-800/80 rounded-full p-1 border border-slate-700 relative z-10">
+              <span className="text-[11px] font-bold text-slate-400 px-2 uppercase">Speed:</span>
+              {[0.75, 0.85, 1.0].map((s) => (
+                <button
+                  key={s}
+                  onClick={() => {
+                    setPlaybackSpeed(s);
+                    if (isPlaying) {
+                      synth.cancel();
+                      setIsPlaying(false);
+                    }
+                  }}
+                  className={`px-2.5 py-1 rounded-full text-xs font-bold transition-all ${
+                    playbackSpeed === s
+                      ? "bg-emerald-500 text-white shadow-sm"
+                      : "text-slate-300 hover:text-white"
+                  }`}
+                >
+                  {s}x
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Transcript Toggle */}

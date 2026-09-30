@@ -12,6 +12,16 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
   const [selectedArticle, setSelectedArticle] = useState<ReadingArticle | null>(null);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [filterLevel, setFilterLevel] = useState<"all" | "beginner" | "advanced">("all");
+
+  const beginnerCount = articles.filter(a => a.level.toLowerCase().includes("beginner")).length;
+  const advancedCount = articles.filter(a => !a.level.toLowerCase().includes("beginner")).length;
+
+  const filteredArticles = articles.filter(a => {
+    if (filterLevel === "beginner") return a.level.toLowerCase().includes("beginner");
+    if (filterLevel === "advanced") return !a.level.toLowerCase().includes("beginner");
+    return true;
+  });
 
   const handleSelectAnswer = (qIndex: number, option: string) => {
     if (submitted) return;
@@ -30,36 +40,83 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
   if (!selectedArticle) {
     return (
       <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-12 min-h-full">
-        <header className="mb-8 md:mb-12">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">Reading Practice 📖</h1>
+        <header className="mb-6 md:mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Reading Practice 📖</h1>
+            <span className="text-xs font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">{articles.length} bài đọc</span>
+          </div>
           <p className="text-slate-500 font-medium text-base md:text-lg">Select an article to test your reading comprehension.</p>
         </header>
 
+        {/* Level Filters */}
+        <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-2 scrollbar-none">
+          <button
+            onClick={() => setFilterLevel("all")}
+            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all shrink-0 ${
+              filterLevel === "all"
+                ? "bg-slate-900 text-white shadow-md shadow-slate-900/20"
+                : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+            }`}
+          >
+            Tất cả ({articles.length})
+          </button>
+          <button
+            onClick={() => setFilterLevel("beginner")}
+            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all shrink-0 flex items-center gap-1.5 ${
+              filterLevel === "beginner"
+                ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/25"
+                : "bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200"
+            }`}
+          >
+            <span>🌱</span> Người mới (A1-A2) ({beginnerCount})
+          </button>
+          <button
+            onClick={() => setFilterLevel("advanced")}
+            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all shrink-0 flex items-center gap-1.5 ${
+              filterLevel === "advanced"
+                ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/25"
+                : "bg-indigo-50 text-indigo-800 hover:bg-indigo-100 border border-indigo-200"
+            }`}
+          >
+            <span>⚡</span> Nâng cao (IELTS) ({advancedCount})
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {articles.map((article, index) => (
-            <motion.div
-              key={article.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              onClick={() => { setSelectedArticle(article); setAnswers({}); setSubmitted(false); }}
-              className="bg-white rounded-[24px] border border-slate-100 overflow-hidden cursor-pointer hover:shadow-xl hover:shadow-slate-200/50 transition-all group flex flex-col"
-            >
-              <div className="h-48 w-full bg-slate-200 overflow-hidden relative">
-                <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm border border-white/20">
-                  {article.level}
+          {filteredArticles.map((article, index) => {
+            const isBeginner = article.level.toLowerCase().includes("beginner");
+            return (
+              <motion.div
+                key={article.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                onClick={() => { setSelectedArticle(article); setAnswers({}); setSubmitted(false); }}
+                className="bg-white rounded-[24px] border border-slate-100 overflow-hidden cursor-pointer hover:shadow-xl hover:shadow-slate-200/50 transition-all group flex flex-col"
+              >
+                <div className="h-48 w-full bg-slate-200 overflow-hidden relative">
+                  <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className={`absolute top-4 right-4 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold shadow-sm border ${
+                    isBeginner 
+                      ? "bg-emerald-500 text-white border-emerald-400" 
+                      : "bg-indigo-600 text-white border-indigo-500"
+                  }`}>
+                    {article.level}
+                  </div>
                 </div>
-              </div>
-              <div className="p-6 flex-1 flex flex-col">
-                <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2 block">{article.category}</span>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">{article.title}</h3>
-                <div className="mt-auto">
-                  <span className="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg">{article.questions.length} Questions</span>
+                <div className="p-6 flex-1 flex flex-col">
+                  <span className={`text-xs font-bold uppercase tracking-widest mb-2 block ${isBeginner ? "text-emerald-600" : "text-indigo-600"}`}>
+                    {article.category}
+                  </span>
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">{article.title}</h3>
+                  <div className="mt-auto flex items-center justify-between">
+                    <span className="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg">{article.questions.length} Questions</span>
+                    <span className="text-sm font-bold text-emerald-600 group-hover:translate-x-1 transition-transform">Luyện đọc →</span>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     );
