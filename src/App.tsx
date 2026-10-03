@@ -12,9 +12,12 @@ import QuizMode from "./components/QuizMode";
 import { Menu, X } from "lucide-react";
 import ReadingMode from "./components/ReadingMode";
 import ListeningMode from "./components/ListeningMode";
+import QuestionMasteryMode from "./components/QuestionMasteryMode";
+import SyntaxMode from "./components/SyntaxMode";
+import TensesMode from "./components/TensesMode";
 import { readingArticles, listeningExercises } from "./data_advanced";
 
-type View = "home" | "study" | "quiz" | "reading" | "listening";
+type View = "home" | "study" | "quiz" | "reading" | "listening" | "questions" | "syntax" | "tenses";
 
 export interface UserData {
   learned: Record<string, number>;
@@ -198,66 +201,78 @@ export default function App() {
       )}
 
       {/* Sidebar Navigation */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 flex flex-col shrink-0 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        <div className="p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3 cursor-pointer" onClick={handleBackToHome}>
-              <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-200 shrink-0">
-                <span className="text-white font-bold text-xl">V</span>
+      <aside className={`fixed inset-y-0 left-0 z-50 w-60 lg:w-64 bg-white border-r border-slate-200 flex flex-col shrink-0 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+        <div className="p-3.5 sm:p-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2.5 cursor-pointer" onClick={handleBackToHome}>
+              <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-md shadow-emerald-200 shrink-0">
+                <span className="text-white font-black text-base">V</span>
               </div>
-              <h1 className="text-xl font-bold tracking-tight text-slate-900">VocabMaster</h1>
+              <h1 className="text-base sm:text-lg font-black tracking-tight text-slate-900">VocabMaster</h1>
             </div>
             <button 
-              className="md:hidden p-2 -mr-2 text-slate-500 hover:bg-slate-100 rounded-lg" 
+              className="md:hidden p-1.5 -mr-1 text-slate-500 hover:bg-slate-100 rounded-lg" 
               onClick={() => setIsSidebarOpen(false)}
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
           
-          <nav className="space-y-1">
+          <nav className="space-y-0.5">
             <button 
               onClick={handleBackToHome} 
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${view === 'home' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-slate-50'}`}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'home' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <span className="text-lg">📚</span> Learn
+              <span className="text-base">📚</span> Từ vựng (Learn)
             </button>
             <button 
               onClick={() => handleSelectStudy(currentTopicForNav)} 
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${view === 'study' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-slate-50'}`}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'study' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <span className="text-lg">⚡</span> Flashcards
+              <span className="text-base">⚡</span> Flashcards
             </button>
             <button 
-              onClick={startDailyQuiz} 
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${view === 'quiz' && quizTitle === 'Daily Quiz' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-slate-50'}`}
+              onClick={() => { setView('questions'); setIsSidebarOpen(false); }} 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'questions' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <span className="text-lg">🏆</span> Daily Quiz
+              <span className="text-base">❓</span> Cách viết câu hỏi
+            </button>
+            <button 
+              onClick={() => { setView('syntax'); setIsSidebarOpen(false); }} 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'syntax' ? 'bg-purple-50 text-purple-700 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
+            >
+              <span className="text-base">📐</span> Cú pháp câu
+            </button>
+            <button 
+              onClick={() => { setView('tenses'); setIsSidebarOpen(false); }} 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'tenses' ? 'bg-blue-50 text-blue-700 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
+            >
+              <span className="text-base">⏳</span> 12 Thì tiếng Anh
             </button>
             <button 
               onClick={() => { setView('reading'); setIsSidebarOpen(false); }} 
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${view === 'reading' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-slate-50'}`}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'reading' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <span className="text-lg">📖</span> Reading
+              <span className="text-base">📖</span> Đọc song ngữ
             </button>
             <button 
               onClick={() => { setView('listening'); setIsSidebarOpen(false); }} 
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${view === 'listening' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-slate-50'}`}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'listening' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <span className="text-lg">🎧</span> Listening
+              <span className="text-base">🎧</span> Luyện nghe
             </button>
             <button 
-              onClick={handleBackToHome} 
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-500 hover:bg-slate-50"
+              onClick={startDailyQuiz} 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'quiz' && quizTitle === 'Daily Quiz' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <span className="text-lg">📊</span> Progress
+              <span className="text-base">🏆</span> Daily Quiz
             </button>
           </nav>
         </div>
 
-        <div className="mt-auto p-4 sm:p-6 border-t border-slate-100 md:border-none">
-          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 px-2">Topic Categories</h3>
-          <div className="space-y-1 overflow-y-auto max-h-[250px] md:max-h-[300px] pr-2">
+        <div className="mt-auto p-3.5 sm:p-4 border-t border-slate-100">
+          <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">Chủ đề từ vựng ({topics.length})</h3>
+          <div className="space-y-0.5 overflow-y-auto max-h-[180px] lg:max-h-[220px] pr-1 scrollbar-thin">
             {topics.map(t => {
               const completedCount = t.words.filter(w => userData.learned[w.id]).length;
               const isActive = activeTopic?.id === t.id;
@@ -265,13 +280,13 @@ export default function App() {
                 <button 
                   key={t.id} 
                   onClick={() => { setActiveTopic(t); if(view === 'home') setView('study'); setIsSidebarOpen(false); }} 
-                  className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${isActive ? 'bg-white border border-slate-100 shadow-sm' : 'hover:bg-slate-50'}`}
+                  className={`w-full flex items-center justify-between p-2 rounded-lg transition-colors text-xs ${isActive ? 'bg-emerald-50 font-bold text-emerald-900 border border-emerald-100' : 'text-slate-600 hover:bg-slate-50'}`}
                 >
-                  <div className="flex items-center gap-3 truncate pr-2">
-                    <span className="text-xl shrink-0">{t.icon}</span>
-                    <span className={`text-sm font-semibold truncate ${isActive ? 'text-slate-800' : 'text-slate-600'}`}>{t.name}</span>
+                  <div className="flex items-center gap-2 truncate pr-1">
+                    <span className="text-base shrink-0">{t.icon}</span>
+                    <span className="truncate">{t.name}</span>
                   </div>
-                  <span className="text-xs text-slate-400 shrink-0">{completedCount}/{t.words.length}</span>
+                  <span className="text-[10px] text-slate-400 shrink-0">{completedCount}/{t.words.length}</span>
                 </button>
               );
             })}
@@ -280,33 +295,34 @@ export default function App() {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col min-w-0 w-full h-full">
-        {/* Header */}
-        <header className="h-16 md:h-20 bg-white border-b border-slate-200 px-4 md:px-8 flex items-center justify-between shrink-0">
-          <div className="flex items-center">
+      <main className="flex-1 flex flex-col min-w-0 w-full h-full overflow-hidden">
+        {/* Compact Header */}
+        <header className="h-13 md:h-14 bg-white border-b border-slate-200 px-3.5 md:px-6 flex items-center justify-between shrink-0 z-10">
+          <div className="flex items-center min-w-0">
             <button 
-              className="mr-3 md:hidden p-2 -ml-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors"
+              className="mr-2 md:hidden p-1.5 -ml-1 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
               onClick={() => setIsSidebarOpen(true)}
+              aria-label="Mở menu điều hướng"
             >
-              <Menu size={24} />
+              <Menu size={20} />
             </button>
-            <div className="flex flex-col min-w-0 mr-2 md:mr-4">
-              <span className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-wider">
-                {view === 'home' ? 'Dashboard' : view === 'study' ? 'Currently Learning' : view === 'reading' ? 'Practice' : view === 'listening' ? 'Practice' : 'Quiz Mode'}
+            <div className="flex flex-col min-w-0">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">
+                {view === 'home' ? 'Dashboard' : view === 'study' ? 'Học Thẻ Từ' : view === 'reading' ? 'Luyện Đọc' : view === 'listening' ? 'Luyện Nghe' : view === 'questions' ? 'Kỹ Năng Đặt Câu Hỏi' : view === 'syntax' ? 'Ngữ Pháp Cú Pháp' : view === 'tenses' ? '12 Thì' : 'Kiểm Tra'}
               </span>
-              <h2 className="text-base md:text-lg font-bold text-slate-800 truncate">
-                {view === 'quiz' ? quizTitle : view === 'reading' ? 'Reading' : view === 'listening' ? 'Listening' : activeTopic ? activeTopic.name : 'All Topics'}
+              <h2 className="text-sm md:text-base font-black text-slate-800 truncate mt-0.5">
+                {view === 'quiz' ? quizTitle : view === 'reading' ? 'Reading Song Ngữ' : view === 'listening' ? 'Listening Comprehension' : view === 'questions' ? 'Học Cách Viết Câu Hỏi' : view === 'syntax' ? 'Cú Pháp & Mô Hình Câu' : view === 'tenses' ? '12 Thì Tiếng Anh' : activeTopic ? activeTopic.name : 'Trang Chủ'}
               </h2>
             </div>
           </div>
           
-          <div className="flex items-center gap-3 md:gap-6 shrink-0">
-            <div className="flex items-center gap-1.5 md:gap-2 bg-orange-50 px-3 md:px-4 py-1.5 md:py-2 rounded-full">
-              <span className="text-orange-500 text-base md:text-xl leading-none flex items-center">🔥</span>
-              <span className="font-bold text-sm md:text-base text-orange-700 hidden sm:inline">{currentStreak} Day Streak</span>
-              <span className="font-bold text-sm text-orange-700 sm:hidden">{currentStreak}</span>
+          <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
+            <div className="flex items-center gap-1.5 bg-orange-50 px-2.5 py-1 rounded-full border border-orange-200/80">
+              <span className="text-orange-500 text-sm leading-none flex items-center">🔥</span>
+              <span className="font-bold text-xs text-orange-700 hidden sm:inline">{currentStreak} Ngày liên tục</span>
+              <span className="font-bold text-xs text-orange-700 sm:hidden">{currentStreak}</span>
             </div>
-            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-100 border-2 border-white shadow-sm shrink-0 flex items-center justify-center text-xl overflow-hidden">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 border border-slate-200 shrink-0 flex items-center justify-center overflow-hidden">
               <img src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=catbird" alt="avatar" className="w-full h-full object-cover" />
             </div>
           </div>
@@ -320,6 +336,9 @@ export default function App() {
               onSelectStudy={handleSelectStudy} 
               onSelectQuiz={handleSelectQuiz} 
               userData={userData}
+              onNavigateToQuestions={() => { setView('questions'); setIsSidebarOpen(false); }}
+              onNavigateToSyntax={() => { setView('syntax'); setIsSidebarOpen(false); }}
+              onNavigateToTenses={() => { setView('tenses'); setIsSidebarOpen(false); }}
             />
           )}
           {view === "study" && activeTopic && (
@@ -348,6 +367,21 @@ export default function App() {
           {view === "listening" && (
             <ListeningMode 
               exercises={listeningExercises} 
+              onBack={handleBackToHome} 
+            />
+          )}
+          {view === "questions" && (
+            <QuestionMasteryMode 
+              onBack={handleBackToHome} 
+            />
+          )}
+          {view === "syntax" && (
+            <SyntaxMode 
+              onBack={handleBackToHome} 
+            />
+          )}
+          {view === "tenses" && (
+            <TensesMode 
               onBack={handleBackToHome} 
             />
           )}

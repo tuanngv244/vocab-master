@@ -1,4 +1,5 @@
 import { Topic } from "./types";
+import { specializedTopics } from "./data_specialized";
 import { extraTopics } from "./data_extra";
 import { extraTopics2 } from "./data_extra2";
 import { extraTopics3 } from "./data_extra3";
@@ -6,6 +7,7 @@ import { extraTopics4 } from "./data_extra4";
 import { extraTopics5 } from "./data_extra5";
 
 export const topics: Topic[] = [
+  ...specializedTopics,
   {
     id: "fruits-veggies",
     name: "Rau củ & Trái cây",
