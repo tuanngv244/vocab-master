@@ -296,6 +296,83 @@ export default function QuestionMasteryMode({ onBack }: QuestionMasteryModeProps
 
               {activeTab === "practice" && (
                 <div className="space-y-6">
+                  {/* Practice Quick Jump Bar & Stats */}
+                  <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-black text-slate-900">
+                            Bộ bài tập đặt câu hỏi ({selectedPattern.quiz.length} câu)
+                          </span>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200">
+                            20 bài tập thực tiễn
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Tiến độ: {Object.keys(quizSubmitted).filter(k => selectedPattern.quiz.some(q => q.id === k)).length + Object.keys(puzzleResult).filter(k => selectedPattern.quiz.some(q => q.id === k) && puzzleResult[k] !== null).length} / {selectedPattern.quiz.length} câu đã làm
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const patternQuizIds: string[] = selectedPattern.quiz.map(q => q.id);
+                          setQuizAnswers(prev => {
+                            const next = { ...prev };
+                            patternQuizIds.forEach((id: string) => delete next[id]);
+                            return next;
+                          });
+                          setQuizSubmitted(prev => {
+                            const next = { ...prev };
+                            patternQuizIds.forEach((id: string) => delete next[id]);
+                            return next;
+                          });
+                          setPuzzleSelectedWords(prev => {
+                            const next = { ...prev };
+                            patternQuizIds.forEach((id: string) => delete next[id]);
+                            return next;
+                          });
+                          setPuzzleResult(prev => {
+                            const next = { ...prev };
+                            patternQuizIds.forEach((id: string) => delete next[id]);
+                            return next;
+                          });
+                        }}
+                        className="text-xs font-bold text-slate-500 hover:text-slate-800 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors"
+                      >
+                        🔄 Làm lại bài tập dạng này
+                      </button>
+                    </div>
+
+                    {/* Question Jump Pills */}
+                    <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+                      {selectedPattern.quiz.map((q, idx) => {
+                        const isSub = q.type === "reorder" ? (puzzleResult[q.id] !== undefined && puzzleResult[q.id] !== null) : quizSubmitted[q.id];
+                        const isCorr = q.type === "reorder" ? puzzleResult[q.id] === true : (quizAnswers[q.id] === q.answer);
+                        const hasAttempt = q.type === "reorder" ? (puzzleSelectedWords[q.id] && puzzleSelectedWords[q.id].length > 0) : Boolean(quizAnswers[q.id]);
+
+                        let pillClass = "bg-slate-100 text-slate-600 hover:bg-slate-200";
+                        if (isSub) {
+                          pillClass = isCorr ? "bg-emerald-500 text-white font-bold" : "bg-red-500 text-white font-bold";
+                        } else if (hasAttempt) {
+                          pillClass = "bg-indigo-100 text-indigo-800 font-bold border border-indigo-300";
+                        }
+
+                        return (
+                          <button
+                            key={q.id}
+                            onClick={() => {
+                              const el = document.getElementById(`question-q-${idx}`);
+                              el?.scrollIntoView({ behavior: "smooth", block: "center" });
+                            }}
+                            className={`w-7 h-7 rounded-lg text-xs font-bold transition-all flex items-center justify-center ${pillClass}`}
+                            title={`Chuyển đến câu ${idx + 1}`}
+                          >
+                            {idx + 1}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
                   {selectedPattern.quiz.map((q, idx) => {
                     const isSubmitted = quizSubmitted[q.id];
                     const selected = quizAnswers[q.id];
@@ -307,7 +384,7 @@ export default function QuestionMasteryMode({ onBack }: QuestionMasteryModeProps
                       const isPuzzleCorrect = puzzleResult[q.id] === true;
 
                       return (
-                        <div key={q.id} className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm">
+                        <div key={q.id} id={`question-q-${idx}`} className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm">
                           <div className="flex items-center gap-2 mb-3">
                             <span className="w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-black flex items-center justify-center">
                               {idx + 1}

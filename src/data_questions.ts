@@ -352,3 +352,12 @@ export const questionPatterns: QuestionPattern[] = [
     ]
   }
 ];
+
+import { questionsPool } from "./data_questions_pool";
+
+questionPatterns.forEach(pattern => {
+  if (questionsPool[pattern.id] && questionsPool[pattern.id].length > 0) {
+    pattern.quiz = questionsPool[pattern.id];
+  }
+});
+

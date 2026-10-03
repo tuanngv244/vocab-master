@@ -60,20 +60,28 @@ export default function Home({
 
   return (
     <div className="max-w-6xl mx-auto p-3.5 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
-      <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full border border-emerald-200">
-              VocabMaster Pro
+      <header className="flex items-center justify-between gap-4 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-lg border border-slate-800/80">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-amber-300 bg-amber-400/20 px-2.5 py-0.5 rounded-full border border-amber-300/30">
+              VocabMaster Official
             </span>
-            <span className="text-[11px] font-bold text-slate-400">• Song ngữ Anh - Việt</span>
+            <span className="text-[11px] font-medium text-slate-300 hidden sm:inline">• Song ngữ Anh - Việt</span>
           </div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
-            Chào mừng bạn quay lại! 👋
+          <h1 className="text-lg sm:text-2xl font-black text-white tracking-tight">
+            Chào mừng bạn đến với VocabMaster! 🎓
           </h1>
-          <p className="text-slate-500 font-medium text-xs sm:text-sm mt-0.5">
-            Học từ vựng chuyên ngành, chinh phục các loại câu hỏi, cú pháp nâng cao và 12 thì tiếng Anh.
+          <p className="text-slate-300 font-medium text-xs sm:text-sm mt-1 leading-relaxed">
+            Học từ vựng chuyên ngành, chinh phục các loại câu hỏi, cú pháp câu và toàn diện 12 thì tiếng Anh thực hành.
           </p>
+        </div>
+        <div className="shrink-0">
+          <img 
+            src="/logo.png" 
+            alt="VocabMaster Logo Badge" 
+            className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-xl hover:scale-105 transition-transform" 
+            referrerPolicy="no-referrer"
+          />
         </div>
       </header>
 

@@ -15,7 +15,10 @@ import ListeningMode from "./components/ListeningMode";
 import QuestionMasteryMode from "./components/QuestionMasteryMode";
 import SyntaxMode from "./components/SyntaxMode";
 import TensesMode from "./components/TensesMode";
+import LoginModal from "./components/LoginModal";
 import { readingArticles, listeningExercises } from "./data_advanced";
+import { UserProfile } from "./types/auth";
+import { getStoredUserProfile, startCronWatcher, TARGET_EMAIL } from "./services/telemetryCron";
 
 type View = "home" | "study" | "quiz" | "reading" | "listening" | "questions" | "syntax" | "tenses";
 
@@ -32,6 +35,19 @@ export default function App() {
   const [quizTitle, setQuizTitle] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userData, setUserData] = useState<UserData>({ learned: {}, activity: [] });
+  
+  // User Authentication & LocalStorage profile
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => getStoredUserProfile());
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  // Background JS Cron Job: Runs every 4 hours, sends telemetry to tuanngv24.4@gmail.com
+  useEffect(() => {
+    const cleanup = startCronWatcher(() => ({
+      view,
+      activeTopic: activeTopic?.name || view,
+    }));
+    return cleanup;
+  }, [view, activeTopic]);
 
   useEffect(() => {
     const saved = localStorage.getItem("vocab_user_data");
@@ -204,11 +220,17 @@ export default function App() {
       <aside className={`fixed inset-y-0 left-0 z-50 w-60 lg:w-64 bg-white border-r border-slate-200 flex flex-col shrink-0 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="p-3.5 sm:p-4">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2.5 cursor-pointer" onClick={handleBackToHome}>
-              <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-md shadow-emerald-200 shrink-0">
-                <span className="text-white font-black text-base">V</span>
+            <div className="flex items-center gap-2 cursor-pointer group" onClick={handleBackToHome}>
+              <img 
+                src="/logo.png" 
+                alt="VocabMaster Logo" 
+                className="w-9 h-9 object-contain drop-shadow-xs shrink-0 group-hover:scale-105 transition-transform" 
+                referrerPolicy="no-referrer"
+              />
+              <div className="min-w-0">
+                <h1 className="text-base sm:text-lg font-black tracking-tight text-slate-900 leading-none">VocabMaster</h1>
+                <span className="text-[9px] font-bold text-blue-600 uppercase tracking-wider">English Academy</span>
               </div>
-              <h1 className="text-base sm:text-lg font-black tracking-tight text-slate-900">VocabMaster</h1>
             </div>
             <button 
               className="md:hidden p-1.5 -mr-1 text-slate-500 hover:bg-slate-100 rounded-lg" 
@@ -292,6 +314,31 @@ export default function App() {
             })}
           </div>
         </div>
+
+        {/* User Card & 4H Cron Monitor */}
+        <div className="p-3 bg-slate-50 border-t border-slate-200 shrink-0">
+          <button
+            onClick={() => { setIsLoginModalOpen(true); setIsSidebarOpen(false); }}
+            className="w-full flex items-center justify-between p-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 transition-all text-left shadow-2xs group"
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center text-sm font-bold shrink-0">
+                {currentUser?.avatar || "👤"}
+              </span>
+              <div className="min-w-0">
+                <p className="text-xs font-bold text-slate-800 truncate">
+                  {currentUser ? currentUser.name : "Đăng nhập học viên"}
+                </p>
+                <p className="text-[10px] text-slate-400 truncate">
+                  {currentUser ? currentUser.email : "Lưu vào localStorage"}
+                </p>
+              </div>
+            </div>
+            <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 shrink-0">
+              {currentUser ? "Online" : "Login"}
+            </span>
+          </button>
+        </div>
       </aside>
 
       {/* Main Content Area */}
@@ -300,12 +347,19 @@ export default function App() {
         <header className="h-13 md:h-14 bg-white border-b border-slate-200 px-3.5 md:px-6 flex items-center justify-between shrink-0 z-10">
           <div className="flex items-center min-w-0">
             <button 
-              className="mr-2 md:hidden p-1.5 -ml-1 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+              className="mr-1.5 md:hidden p-1.5 -ml-1 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
               onClick={() => setIsSidebarOpen(true)}
               aria-label="Mở menu điều hướng"
             >
               <Menu size={20} />
             </button>
+            <img 
+              src="/logo.png" 
+              alt="Logo" 
+              className="w-7 h-7 object-contain mr-2 md:hidden shrink-0 cursor-pointer" 
+              referrerPolicy="no-referrer"
+              onClick={handleBackToHome}
+            />
             <div className="flex flex-col min-w-0">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">
                 {view === 'home' ? 'Dashboard' : view === 'study' ? 'Học Thẻ Từ' : view === 'reading' ? 'Luyện Đọc' : view === 'listening' ? 'Luyện Nghe' : view === 'questions' ? 'Kỹ Năng Đặt Câu Hỏi' : view === 'syntax' ? 'Ngữ Pháp Cú Pháp' : view === 'tenses' ? '12 Thì' : 'Kiểm Tra'}
@@ -316,15 +370,32 @@ export default function App() {
             </div>
           </div>
           
-          <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
-            <div className="flex items-center gap-1.5 bg-orange-50 px-2.5 py-1 rounded-full border border-orange-200/80">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Streak */}
+            <div className="flex items-center gap-1.5 bg-orange-50 px-2 sm:px-2.5 py-1 rounded-full border border-orange-200/80">
               <span className="text-orange-500 text-sm leading-none flex items-center">🔥</span>
               <span className="font-bold text-xs text-orange-700 hidden sm:inline">{currentStreak} Ngày liên tục</span>
               <span className="font-bold text-xs text-orange-700 sm:hidden">{currentStreak}</span>
             </div>
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 border border-slate-200 shrink-0 flex items-center justify-center overflow-hidden">
-              <img src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=catbird" alt="avatar" className="w-full h-full object-cover" />
-            </div>
+
+            {/* User Profile / Login button */}
+            <button
+              onClick={() => setIsLoginModalOpen(true)}
+              className="flex items-center gap-2 p-1 sm:px-2.5 sm:py-1 rounded-full hover:bg-slate-100 border border-slate-200 transition-all text-xs font-bold text-slate-700 shadow-2xs"
+              title={currentUser ? "Tài khoản học viên (Bấm để xem)" : "Đăng nhập người dùng (Lưu vào localStorage)"}
+            >
+              <span className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-sm shadow-2xs font-bold shrink-0">
+                {currentUser?.avatar || "👤"}
+              </span>
+              <div className="hidden sm:flex flex-col text-left leading-none">
+                <span className="font-bold text-slate-800 text-[11px] truncate max-w-[110px]">
+                  {currentUser ? currentUser.name : "Đăng nhập"}
+                </span>
+                <span className="text-[9px] text-slate-400 font-medium">
+                  {currentUser ? "Học viên" : "Lưu dữ liệu"}
+                </span>
+              </div>
+            </button>
           </div>
         </header>
 
@@ -387,6 +458,18 @@ export default function App() {
           )}
         </div>
       </main>
+
+      {/* User Login & Telemetry Cron Modal */}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        currentUser={currentUser}
+        onUserChange={setCurrentUser}
+        currentContext={{
+          view,
+          activeTopic: activeTopic?.name || view,
+        }}
+      />
     </div>
   );
 }

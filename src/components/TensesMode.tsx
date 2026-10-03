@@ -390,13 +390,80 @@ export default function TensesMode({ onBack }: TensesModeProps) {
 
               {activeTab === "practice" && (
                 <div className="space-y-4">
+                  {/* Practice Quick Jump Bar & Stats */}
+                  <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-black text-slate-900">
+                            Bộ bài tập thực hành ({selectedTense.quiz.length} câu)
+                          </span>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200">
+                            20 bài tập thực tiễn
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Tiến độ: {Object.keys(quizSubmitted).filter(k => selectedTense.quiz.some(q => q.id === k)).length} / {selectedTense.quiz.length} câu đã làm
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const tenseQuizIds: string[] = selectedTense.quiz.map(q => q.id);
+                          setQuizAnswers(prev => {
+                            const next = { ...prev };
+                            tenseQuizIds.forEach((id: string) => delete next[id]);
+                            return next;
+                          });
+                          setQuizSubmitted(prev => {
+                            const next = { ...prev };
+                            tenseQuizIds.forEach((id: string) => delete next[id]);
+                            return next;
+                          });
+                        }}
+                        className="text-xs font-bold text-slate-500 hover:text-slate-800 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors"
+                      >
+                        🔄 Làm lại bài tập thì này
+                      </button>
+                    </div>
+
+                    {/* Question Jump Pills */}
+                    <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+                      {selectedTense.quiz.map((q, idx) => {
+                        const isSub = quizSubmitted[q.id];
+                        const sel = quizAnswers[q.id];
+                        const isCorr = sel === q.answer;
+
+                        let pillClass = "bg-slate-100 text-slate-600 hover:bg-slate-200";
+                        if (isSub) {
+                          pillClass = isCorr ? "bg-emerald-500 text-white font-bold" : "bg-red-500 text-white font-bold";
+                        } else if (sel) {
+                          pillClass = "bg-blue-100 text-blue-800 font-bold border border-blue-300";
+                        }
+
+                        return (
+                          <button
+                            key={q.id}
+                            onClick={() => {
+                              const el = document.getElementById(`tense-q-${idx}`);
+                              el?.scrollIntoView({ behavior: "smooth", block: "center" });
+                            }}
+                            className={`w-7 h-7 rounded-lg text-xs font-bold transition-all flex items-center justify-center ${pillClass}`}
+                            title={`Chuyển đến câu ${idx + 1}`}
+                          >
+                            {idx + 1}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
                   {selectedTense.quiz.map((q, idx) => {
                     const isSubmitted = quizSubmitted[q.id];
                     const selected = quizAnswers[q.id];
                     const isCorrect = selected === q.answer;
 
                     return (
-                      <div key={q.id} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/90 shadow-xs">
+                      <div key={q.id} id={`tense-q-${idx}`} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/90 shadow-xs">
                         <div className="flex flex-wrap items-center gap-2 mb-2">
                           <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-[10px] font-black flex items-center justify-center">
                             {idx + 1}

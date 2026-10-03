@@ -1,3 +1,5 @@
+import { tensesPool } from "./data_tenses_pool";
+
 export interface TenseExercise {
   id: string;
   type?: "choice" | "fill";
@@ -38,7 +40,7 @@ export interface TenseDetail {
   quiz: TenseExercise[];
 }
 
-export const englishTenses: TenseDetail[] = [
+const rawEnglishTenses: TenseDetail[] = [
   {
     id: "present-simple",
     name: "Present Simple",
@@ -382,6 +384,33 @@ export const englishTenses: TenseDetail[] = [
     ]
   },
   {
+    id: "past-perfect-continuous",
+    name: "Past Perfect Continuous",
+    nameVi: "Quá khứ hoàn thành tiếp diễn",
+    category: "past",
+    icon: "⏪",
+    badge: "Kéo dài trước quá khứ",
+    formula: {
+      positive: "S + had + been + V-ing",
+      negative: "S + had + not + been + V-ing",
+      question: "Had + S + been + V-ing?"
+    },
+    timelineLabel: "Hành động diễn ra liên tục, kéo dài suốt một khoảng thời gian cho tới trước một thời điểm hoặc hành động khác trong quá khứ",
+    timelinePoint: "span-past",
+    usages: [
+      { context: "Nhấn mạnh tính liên tục của hành động trước quá khứ", exampleEn: "He was out of breath because he had been running for an hour.", exampleVi: "Anh ấy thở hổn hển vì đã chạy bộ liên tục suốt một tiếng đồng hồ." },
+      { context: "Chỉ nguyên nhân để lại kết quả trong quá khứ", exampleEn: "The pavement was wet because it had been raining heavily all morning.", exampleVi: "Vỉa hè bị ướt vì trời đã mưa tầm tã suốt cả buổi sáng trước đó." }
+    ],
+    signals: ["for (+ khoảng thời gian)", "since (+ mốc thời gian)", "until then", "by the time (+ QKĐ)", "before (+ QKĐ)"],
+    tipsAndPitfalls: {
+      tip: "Dùng để nhấn mạnh TÍNH LIÊN TỤC và KHOẢNG THỜI GIAN của hành động, hoặc để lại dấu vết rõ rệt trong quá khứ.",
+      wrong: "When she arrived, I was waiting for two hours. (Không nhấn mạnh khoảng thời gian kéo dài trước quá khứ)",
+      correct: "When she arrived, I had been waiting for two hours.",
+      explanationVi: "Chờ đợi kéo dài suốt 2 tiếng trước khi cô ấy đến -> chia 'had been waiting'."
+    },
+    quiz: []
+  },
+  {
     id: "future-simple",
     name: "Future Simple (Will)",
     nameVi: "Tương lai đơn",
@@ -544,5 +573,37 @@ export const englishTenses: TenseDetail[] = [
         explanation: "Trước mốc thời gian bước sang tuổi 30, bằng tiến sĩ sẽ đã được hoàn tất xong xuôi -> 'will have completed'."
       }
     ]
+  },
+  {
+    id: "future-perfect-continuous",
+    name: "Future Perfect Continuous",
+    nameVi: "Tương lai hoàn thành tiếp diễn",
+    category: "future",
+    icon: "⏭️",
+    badge: "Kéo dài đến tương lai",
+    formula: {
+      positive: "S + will + have + been + V-ing",
+      negative: "S + will + not + have + been + V-ing",
+      question: "Will + S + have + been + V-ing?"
+    },
+    timelineLabel: "Hành động đã và đang diễn ra liên tục, nhấn mạnh khoảng thời gian kéo dài tính đến một mốc thời điểm hoặc hành động khác trong tương lai",
+    timelinePoint: "span-future",
+    usages: [
+      { context: "Nhấn mạnh khoảng thời gian tính đến mốc tương lai", exampleEn: "By next November, I will have been working at this company for ten years.", exampleVi: "Tính đến tháng 11 năm tới, tôi sẽ đã làm việc liên tục tại công ty này tròn 10 năm." },
+      { context: "Nhấn mạnh tính liên tục của hành động kéo dài đến tương lai", exampleEn: "When you arrive at 6 PM, the crew will have been rehearsing for five hours.", exampleVi: "Khi bạn đến lúc 6 giờ tối, đoàn kịch sẽ đã tập luyện liên tục suốt 5 tiếng đồng hồ." }
+    ],
+    signals: ["by (+ mốc tương lai)... for (+ khoảng thời gian)", "by the time... for", "by then"],
+    tipsAndPitfalls: {
+      tip: "Thường đi kèm cả 2 thông tin: mốc thời gian trong tương lai (By...) VÀ khoảng thời gian kéo dài (for 5 years, for hours...).",
+      wrong: "By next month, she will work here for 5 years. (Chưa nhấn mạnh hoàn thành tiếp diễn)",
+      correct: "By next month, she will have been working here for 5 years.",
+      explanationVi: "Nhấn mạnh tính liên tục và kéo dài suốt 5 năm tính tới mốc tương lai -> 'will have been working'."
+    },
+    quiz: []
   }
 ];
+
+export const englishTenses: TenseDetail[] = rawEnglishTenses.map(t => ({
+  ...t,
+  quiz: tensesPool[t.id] && tensesPool[t.id].length > 0 ? tensesPool[t.id] : t.quiz
+}));
