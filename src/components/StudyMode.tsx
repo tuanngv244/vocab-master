@@ -1,10 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { Topic } from "../types";
 import { motion, AnimatePresence } from "motion/react";
-import { Volume2, AlertTriangle } from "lucide-react";
+import { Volume2, AlertTriangle, RotateCcw } from "lucide-react";
 import { UserData } from "../App";
+import { 
+  getSavedTopicCardIndex, 
+  saveTopicCardIndex, 
+  getCurrentWeekLabel 
+} from "../services/weeklyStudyTracker";
 
 interface StudyModeProps {
+  key?: string;
   topic: Topic;
   onBack: () => void;
   onLearnWord: (wordId: string) => void;
@@ -243,7 +249,9 @@ function playVietnameseRoastAudio() {
 }
 
 export default function StudyMode({ topic, onBack, onLearnWord, userData }: StudyModeProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(() => 
+    getSavedTopicCardIndex(topic.id, topic.words.length)
+  );
   const [isFlipped, setIsFlipped] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -251,10 +259,26 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
   const [showWarning, setShowWarning] = useState(false);
   const [showFireworks, setShowFireworks] = useState(false);
 
+  // Ghi nhớ vị trí thẻ đang học cho từng topic, tự reset vào cuối tuần Thứ 7
+  useEffect(() => {
+    const saved = getSavedTopicCardIndex(topic.id, topic.words.length);
+    setCurrentIndex(saved);
+    setSelectedOption(null);
+    setIsCorrect(null);
+    setShowWarning(false);
+    setIsFlipped(false);
+    setShowFireworks(false);
+  }, [topic.id, topic.words.length]);
+
+  // Tự động lưu vị trí thẻ hiện tại khi người dùng chuyển thẻ
+  useEffect(() => {
+    saveTopicCardIndex(topic.id, currentIndex);
+  }, [topic.id, currentIndex]);
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animFrameRef = useRef<number | null>(null);
 
-  const word = topic.words[currentIndex];
+  const word = topic.words[currentIndex] || topic.words[0];
 
   // Pre-load voices on component mount
   useEffect(() => {
@@ -464,9 +488,27 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
       <div className="flex-1 w-full max-w-[620px] p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center min-h-[460px]">
         {/* Progress Bar */}
         <div className="w-full max-w-[560px] mb-4 md:mb-6">
-          <div className="flex justify-between mb-2 text-[10px] sm:text-xs font-bold text-slate-400 uppercase">
-            <span>Từ {currentIndex + 1} / {topic.words.length}</span>
-            <span>{progressPercent}% Hoàn thành</span>
+          <div className="flex items-center justify-between mb-2 text-[10px] sm:text-xs font-bold text-slate-500">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-800 font-extrabold">Thẻ {currentIndex + 1} / {topic.words.length}</span>
+              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200" title={getCurrentWeekLabel()}>
+                💾 Nhớ vị trí tuần (Tự reset Thứ 7)
+              </span>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <span>{progressPercent}% Hoàn thành</span>
+              {currentIndex > 0 && (
+                <button
+                  onClick={() => setCurrentIndex(0)}
+                  className="text-[10px] text-slate-400 hover:text-slate-700 flex items-center gap-0.5 p-1 rounded hover:bg-slate-100 transition-colors"
+                  title="Học lại từ đầu (Thẻ 1)"
+                >
+                  <RotateCcw size={12} />
+                  <span>Về đầu</span>
+                </button>
+              )}
+            </div>
           </div>
           <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
             <div 

@@ -215,6 +215,19 @@ export default function QuestionMasteryMode({ onBack }: QuestionMasteryModeProps
                     {selectedPattern.formula}
                   </div>
                 </div>
+
+                {/* Memory Hack Box (Mẹo Nhớ Siêu Tốc) */}
+                {selectedPattern.memoryHack && (
+                  <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200">
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900 mb-1.5">
+                      <span className="text-base">💡</span>
+                      <span>{selectedPattern.memoryHack.hook}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-800 leading-relaxed whitespace-pre-line font-medium bg-white/80 p-3 rounded-xl border border-amber-100">
+                      {selectedPattern.memoryHack.descriptionVi}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {activeTab === "theory" && (

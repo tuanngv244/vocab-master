@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="50%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="bookGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Rounded App Icon Background -->
+  <rect x="6" y="6" width="108" height="108" rx="28" fill="url(#bgGrad)" filter="url(#shadow)"/>
+
+  <!-- Subtle glow inner ring -->
+  <rect x="9" y="9" width="102" height="102" rx="25" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+
+  <!-- Open Book Base -->
+  <!-- Left Page -->
+  <path d="M 60 74 C 47 70, 31 71, 22 75 C 21 61, 21 44, 22 37 C 32 33, 47 34, 60 39 Z" 
+        fill="url(#bookGrad)" opacity="0.96"/>
+  <!-- Right Page -->
+  <path d="M 60 74 C 73 70, 89 71, 98 75 C 99 61, 99 44, 98 37 C 88 33, 73 34, 60 39 Z" 
+        fill="url(#bookGrad)" opacity="0.96"/>
+  <!-- Book Spine Center Fold -->
+  <path d="M 60 39 L 60 75" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Academic Graduation Cap / Spark -->
+  <polygon points="60,22 84,31 60,40 36,31" fill="#1e1b4b"/>
+  <polygon points="60,24 80,31 60,38 40,31" fill="#312e81"/>
+  <!-- Cap Tassel with Gold Tip -->
+  <path d="M 80 32 Q 86 38, 86 46" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="86" cy="47" r="2.5" fill="#f59e0b"/>
+
+  <!-- Stylized Letter 'V' in Golden Amber -->
+  <path d="M 44 48 L 51 64 Q 52 66, 54 66 Q 56 66, 57 64 L 64 48" 
+        fill="none" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Floating Sparkles -->
+  <circle cx="28" cy="28" r="3" fill="#fef08a"/>
+  <polygon points="94,22 96,27 101,29 96,31 94,36 92,31 87,29 92,27" fill="#fef08a"/>
+</svg>

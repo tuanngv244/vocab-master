@@ -213,6 +213,19 @@ export default function SyntaxMode({ onBack }: SyntaxModeProps) {
                     {selectedTopic.formula}
                   </div>
                 </div>
+
+                {/* Memory Hack Box (Mẹo Nhớ Siêu Tốc) */}
+                {selectedTopic.memoryHack && (
+                  <div className="mt-3.5 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200">
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900 mb-1.5">
+                      <span className="text-base">💡</span>
+                      <span>{selectedTopic.memoryHack.hook}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-800 leading-relaxed whitespace-pre-line font-medium bg-white/80 p-3 rounded-xl border border-amber-100">
+                      {selectedTopic.memoryHack.descriptionVi}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {activeTab === "theory" && (

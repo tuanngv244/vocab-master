@@ -12,6 +12,7 @@ interface HomeProps {
   onNavigateToQuestions?: () => void;
   onNavigateToSyntax?: () => void;
   onNavigateToTenses?: () => void;
+  onNavigateToFilms?: () => void;
 }
 
 export default function Home({ 
@@ -21,7 +22,8 @@ export default function Home({
   userData,
   onNavigateToQuestions,
   onNavigateToSyntax,
-  onNavigateToTenses
+  onNavigateToTenses,
+  onNavigateToFilms
 }: HomeProps) {
   const [topicFilter, setTopicFilter] = useState<"all" | "specialized" | "daily" | "work">("all");
 
@@ -128,73 +130,96 @@ export default function Home({
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {/* Card 1: Question Mastery */}
           <div 
             onClick={onNavigateToQuestions}
-            className="group bg-gradient-to-br from-indigo-500 to-indigo-700 text-white rounded-[28px] p-6 sm:p-7 shadow-lg shadow-indigo-200/50 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between"
+            className="group bg-gradient-to-br from-indigo-500 to-indigo-700 text-white rounded-[24px] p-5 sm:p-6 shadow-md shadow-indigo-200/50 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-3xl p-2.5 bg-white/15 backdrop-blur-md rounded-2xl inline-block">❓</span>
-                <span className="text-[11px] font-black uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-full text-white">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-2xl p-2 bg-white/15 backdrop-blur-md rounded-xl inline-block">❓</span>
+                <span className="text-[10px] font-black uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full text-white">
                   6 Thể loại
                 </span>
               </div>
-              <h3 className="text-xl font-black tracking-tight mb-2">Cách Viết Câu Hỏi</h3>
-              <p className="text-indigo-100 text-xs sm:text-sm leading-relaxed mb-6 font-medium">
-                Wh-questions, Yes/No, câu hỏi đuôi (Tag), câu hỏi gián tiếp, câu hỏi phủ định & xếp từ tương tác.
+              <h3 className="text-lg font-black tracking-tight mb-1.5">Cách Viết Câu Hỏi</h3>
+              <p className="text-indigo-100 text-xs leading-relaxed mb-4 font-medium line-clamp-3">
+                Wh-questions, Yes/No, câu hỏi đuôi (Tag), gián tiếp, phủ định & mẹo nhớ thần thánh QUASI.
               </p>
             </div>
-            <div className="pt-4 border-t border-white/20 flex items-center justify-between text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
-              <span>Bắt đầu học câu hỏi</span>
-              <ArrowRight size={16} />
+            <div className="pt-3 border-t border-white/20 flex items-center justify-between text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
+              <span>Học câu hỏi</span>
+              <ArrowRight size={15} />
             </div>
           </div>
 
           {/* Card 2: Syntax Mastery */}
           <div 
             onClick={onNavigateToSyntax}
-            className="group bg-gradient-to-br from-purple-600 to-indigo-900 text-white rounded-[28px] p-6 sm:p-7 shadow-lg shadow-purple-200/50 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between"
+            className="group bg-gradient-to-br from-purple-600 to-indigo-900 text-white rounded-[24px] p-5 sm:p-6 shadow-md shadow-purple-200/50 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-3xl p-2.5 bg-white/15 backdrop-blur-md rounded-2xl inline-block">📐</span>
-                <span className="text-[11px] font-black uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-full text-white">
-                  Ngữ pháp nâng cao
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-2xl p-2 bg-white/15 backdrop-blur-md rounded-xl inline-block">📐</span>
+                <span className="text-[10px] font-black uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full text-white">
+                  Cấu trúc câu
                 </span>
               </div>
-              <h3 className="text-xl font-black tracking-tight mb-2">Cú Pháp & Mô Hình Câu</h3>
-              <p className="text-purple-100 text-xs sm:text-sm leading-relaxed mb-6 font-medium">
-                5 mô hình cốt lõi, đảo ngữ (Inversion), câu chẻ (Cleft), bị động đặc biệt, câu điều kiện & so sánh kép.
+              <h3 className="text-lg font-black tracking-tight mb-1.5">Cú Pháp Câu</h3>
+              <p className="text-purple-100 text-xs leading-relaxed mb-4 font-medium line-clamp-3">
+                5 mô hình cốt lõi, Linking Verbs, đảo ngữ, câu chẻ, bị động & câu điều kiện dễ hiểu.
               </p>
             </div>
-            <div className="pt-4 border-t border-white/20 flex items-center justify-between text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
-              <span>Khám phá cú pháp câu</span>
-              <ArrowRight size={16} />
+            <div className="pt-3 border-t border-white/20 flex items-center justify-between text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
+              <span>Khám phá cú pháp</span>
+              <ArrowRight size={15} />
             </div>
           </div>
 
           {/* Card 3: Tenses Mastery */}
           <div 
             onClick={onNavigateToTenses}
-            className="group bg-gradient-to-br from-blue-600 to-cyan-700 text-white rounded-[28px] p-6 sm:p-7 shadow-lg shadow-blue-200/50 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between"
+            className="group bg-gradient-to-br from-blue-600 to-cyan-700 text-white rounded-[24px] p-5 sm:p-6 shadow-md shadow-blue-200/50 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-3xl p-2.5 bg-white/15 backdrop-blur-md rounded-2xl inline-block">⏳</span>
-                <span className="text-[11px] font-black uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-full text-white">
-                  12 Thì + Tương lai gần
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-2xl p-2 bg-white/15 backdrop-blur-md rounded-xl inline-block">⏳</span>
+                <span className="text-[10px] font-black uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full text-white">
+                  12 Thì
                 </span>
               </div>
-              <h3 className="text-xl font-black tracking-tight mb-2">12 Thì Tiếng Anh</h3>
-              <p className="text-blue-100 text-xs sm:text-sm leading-relaxed mb-6 font-medium">
-                Trục thời gian tương tác trực quan, công thức (+/-/?), dấu hiệu nhận biết đặc trưng & trắc nghiệm chia thì.
+              <h3 className="text-lg font-black tracking-tight mb-1.5">12 Thì Tiếng Anh</h3>
+              <p className="text-blue-100 text-xs leading-relaxed mb-4 font-medium line-clamp-3">
+                Ma trận 3x4 bất biến, công thức (+/-/?), dấu hiệu nhận biết & mẹo phân biệt các thì dễ nhầm.
               </p>
             </div>
-            <div className="pt-4 border-t border-white/20 flex items-center justify-between text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
+            <div className="pt-3 border-t border-white/20 flex items-center justify-between text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
               <span>Làm chủ 12 thì</span>
-              <ArrowRight size={16} />
+              <ArrowRight size={15} />
+            </div>
+          </div>
+
+          {/* Card 4: Film Section (NEW) */}
+          <div 
+            onClick={onNavigateToFilms}
+            className="group bg-gradient-to-br from-rose-500 via-pink-600 to-rose-700 text-white rounded-[24px] p-5 sm:p-6 shadow-md shadow-rose-200/50 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-2xl p-2 bg-white/15 backdrop-blur-md rounded-xl inline-block">🎬</span>
+                <span className="text-[10px] font-black uppercase tracking-wider bg-amber-400 text-amber-950 px-2 py-0.5 rounded-full shadow-xs">
+                  Mới ra mắt
+                </span>
+              </div>
+              <h3 className="text-lg font-black tracking-tight mb-1.5">Học Qua Phim (Films)</h3>
+              <p className="text-rose-100 text-xs leading-relaxed mb-4 font-medium line-clamp-3">
+                Tổng hợp phim hoạt hình & phim thật đủ mọi level A1-C2 (Nemo, Friends, Suits...). Từ vựng & câu thoại đắt giá!
+              </p>
+            </div>
+            <div className="pt-3 border-t border-white/20 flex items-center justify-between text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
+              <span>Xem phim & Học</span>
+              <ArrowRight size={15} />
             </div>
           </div>
         </div>

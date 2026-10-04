@@ -15,12 +15,13 @@ import ListeningMode from "./components/ListeningMode";
 import QuestionMasteryMode from "./components/QuestionMasteryMode";
 import SyntaxMode from "./components/SyntaxMode";
 import TensesMode from "./components/TensesMode";
+import FilmMode from "./components/FilmMode";
 import LoginModal from "./components/LoginModal";
 import { readingArticles, listeningExercises } from "./data_advanced";
 import { UserProfile } from "./types/auth";
 import { getStoredUserProfile, startCronWatcher, TARGET_EMAIL } from "./services/telemetryCron";
 
-type View = "home" | "study" | "quiz" | "reading" | "listening" | "questions" | "syntax" | "tenses";
+type View = "home" | "study" | "quiz" | "reading" | "listening" | "questions" | "syntax" | "tenses" | "film";
 
 export interface UserData {
   learned: Record<string, number>;
@@ -222,7 +223,8 @@ export default function App() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2 cursor-pointer group" onClick={handleBackToHome}>
               <img 
-                src="/logo.png" 
+                src="/logo.svg" 
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/logo.png"; }}
                 alt="VocabMaster Logo" 
                 className="w-9 h-9 object-contain drop-shadow-xs shrink-0 group-hover:scale-105 transition-transform" 
                 referrerPolicy="no-referrer"
@@ -272,6 +274,12 @@ export default function App() {
               <span className="text-base">⏳</span> 12 Thì tiếng Anh
             </button>
             <button 
+              onClick={() => { setView('film'); setIsSidebarOpen(false); }} 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'film' ? 'bg-rose-50 text-rose-700 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
+            >
+              <span className="text-base">🎬</span> Học qua Phim (Films)
+            </button>
+            <button 
               onClick={() => { setView('reading'); setIsSidebarOpen(false); }} 
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${view === 'reading' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-50'}`}
             >
@@ -297,11 +305,11 @@ export default function App() {
           <div className="space-y-0.5 overflow-y-auto max-h-[180px] lg:max-h-[220px] pr-1 scrollbar-thin">
             {topics.map(t => {
               const completedCount = t.words.filter(w => userData.learned[w.id]).length;
-              const isActive = activeTopic?.id === t.id;
+              const isActive = activeTopic?.id === t.id && view === 'study';
               return (
                 <button 
                   key={t.id} 
-                  onClick={() => { setActiveTopic(t); if(view === 'home') setView('study'); setIsSidebarOpen(false); }} 
+                  onClick={() => { setActiveTopic(t); setView('study'); setIsSidebarOpen(false); }} 
                   className={`w-full flex items-center justify-between p-2 rounded-lg transition-colors text-xs ${isActive ? 'bg-emerald-50 font-bold text-emerald-900 border border-emerald-100' : 'text-slate-600 hover:bg-slate-50'}`}
                 >
                   <div className="flex items-center gap-2 truncate pr-1">
@@ -354,7 +362,8 @@ export default function App() {
               <Menu size={20} />
             </button>
             <img 
-              src="/logo.png" 
+              src="/logo.svg" 
+              onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/logo.png"; }}
               alt="Logo" 
               className="w-7 h-7 object-contain mr-2 md:hidden shrink-0 cursor-pointer" 
               referrerPolicy="no-referrer"
@@ -362,10 +371,10 @@ export default function App() {
             />
             <div className="flex flex-col min-w-0">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">
-                {view === 'home' ? 'Dashboard' : view === 'study' ? 'Học Thẻ Từ' : view === 'reading' ? 'Luyện Đọc' : view === 'listening' ? 'Luyện Nghe' : view === 'questions' ? 'Kỹ Năng Đặt Câu Hỏi' : view === 'syntax' ? 'Ngữ Pháp Cú Pháp' : view === 'tenses' ? '12 Thì' : 'Kiểm Tra'}
+                {view === 'home' ? 'Dashboard' : view === 'study' ? 'Học Thẻ Từ' : view === 'reading' ? 'Luyện Đọc' : view === 'listening' ? 'Luyện Nghe' : view === 'questions' ? 'Kỹ Năng Đặt Câu Hỏi' : view === 'syntax' ? 'Ngữ Pháp Cú Pháp' : view === 'tenses' ? '12 Thì' : view === 'film' ? 'Học Qua Phim' : 'Kiểm Tra'}
               </span>
               <h2 className="text-sm md:text-base font-black text-slate-800 truncate mt-0.5">
-                {view === 'quiz' ? quizTitle : view === 'reading' ? 'Reading Song Ngữ' : view === 'listening' ? 'Listening Comprehension' : view === 'questions' ? 'Học Cách Viết Câu Hỏi' : view === 'syntax' ? 'Cú Pháp & Mô Hình Câu' : view === 'tenses' ? '12 Thì Tiếng Anh' : activeTopic ? activeTopic.name : 'Trang Chủ'}
+                {view === 'quiz' ? quizTitle : view === 'reading' ? 'Reading Song Ngữ' : view === 'listening' ? 'Listening Comprehension' : view === 'questions' ? 'Học Cách Viết Câu Hỏi' : view === 'syntax' ? 'Cú Pháp & Mô Hình Câu' : view === 'tenses' ? '12 Thì Tiếng Anh' : view === 'film' ? 'Học Tiếng Anh Qua Phim (Films & Series)' : activeTopic ? activeTopic.name : 'Trang Chủ'}
               </h2>
             </div>
           </div>
@@ -410,10 +419,12 @@ export default function App() {
               onNavigateToQuestions={() => { setView('questions'); setIsSidebarOpen(false); }}
               onNavigateToSyntax={() => { setView('syntax'); setIsSidebarOpen(false); }}
               onNavigateToTenses={() => { setView('tenses'); setIsSidebarOpen(false); }}
+              onNavigateToFilms={() => { setView('film'); setIsSidebarOpen(false); }}
             />
           )}
           {view === "study" && activeTopic && (
             <StudyMode 
+              key={activeTopic.id}
               topic={activeTopic} 
               onBack={handleBackToHome} 
               onLearnWord={handleLearnWord}
@@ -453,6 +464,11 @@ export default function App() {
           )}
           {view === "tenses" && (
             <TensesMode 
+              onBack={handleBackToHome} 
+            />
+          )}
+          {view === "film" && (
+            <FilmMode 
               onBack={handleBackToHome} 
             />
           )}

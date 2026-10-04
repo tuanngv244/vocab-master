@@ -25,6 +25,10 @@ export interface TenseDetail {
   };
   timelineLabel: string;
   timelinePoint: "past" | "now" | "future" | "span-past-now" | "span-past" | "span-future";
+  memoryHack?: {
+    hook: string;
+    descriptionVi: string;
+  };
   usages: {
     context: string;
     exampleEn: string;
@@ -55,6 +59,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động lặp đi lặp lại hoặc chân lý vĩnh cửu bao trùm cả quá khứ, hiện tại và tương lai",
     timelinePoint: "now",
+    memoryHack: {
+      hook: "🌱 Bản chất 'Hôm qua làm - Hôm nay làm - Ngày mai vẫn làm'",
+      descriptionVi: "Hiện tại đơn KHÔNG PHẢI là việc đang làm lúc này! Bản chất của nó là THÓI QUEN, SỰ THẬT HIỂN NHIÊN hoặc LỊCH TRÌNH VĨNH CỬU. Hãy nhớ: 'Hôm qua mặt trời mọc hướng Đông, hôm nay vẫn mọc hướng Đông, ngày mai vẫn mọc hướng Đông' -> Dùng Hiện tại đơn!"
+    },
     usages: [
       { context: "Sự thật hiển nhiên, quy luật tự nhiên", exampleEn: "Water boils at 100 degrees Celsius at sea level.", exampleVi: "Nước sôi ở 100 độ C tại mực nước biển." },
       { context: "Thói quen, lịch trình thường ngày", exampleEn: "I catch the 7:15 AM bus to the tech campus every morning.", exampleVi: "Tôi bắt chuyến xe buýt lúc 7:15 sáng đến khu công nghệ mỗi sáng." },
@@ -116,6 +124,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động đang xảy ra ngay tại thời điểm nói hoặc xung quanh thời điểm nói",
     timelinePoint: "now",
+    memoryHack: {
+      hook: "⚡ Công thức bất biến: 'Không có BE hoặc thiếu ING là SAI'",
+      descriptionVi: "Đã là tiếp diễn thì LUÔN LUÔN phải có 2 thành phần: Động từ TO BE (am/is/are) + V-ING (She IS workING, cấm nói 'She working'). Bản chất là hành động ĐANG DỞ DANG hoặc TẠM THỜI (tháng này tôi ở nhờ, tuần này tôi học online)."
+    },
     usages: [
       { context: "Đang xảy ra ngay lúc nói", exampleEn: "Look! The technicians are testing the new backup generator.", exampleVi: "Nhìn kìa! Các kỹ thuật viên đang chạy thử máy phát điện dự phòng mới." },
       { context: "Kế hoạch chắc chắn trong tương lai gần", exampleEn: "We are meeting the foreign delegation tomorrow at 2 PM.", exampleVi: "Chúng tôi sẽ tiếp đón phái đoàn nước ngoài vào lúc 2 giờ chiều mai (đã lên lịch)." },
@@ -163,6 +175,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Bắt đầu trong quá khứ kéo dài đến hiện tại, hoặc vừa mới xảy ra mà kết quả còn lưu lại ở hiện tại",
     timelinePoint: "span-past-now",
+    memoryHack: {
+      hook: "💎 Chiếc Cầu Nối 'Quá Khứ -> Hiện Tại' (Kết quả còn sờ sờ)",
+      descriptionVi: "Đừng dịch là 'đã'! Hiện tại hoàn thành KHÔNG QUAN TÂM thời gian chính xác xảy ra lúc nào (tuyệt đối không đi với yesterday/ago). Nó chỉ quan tâm: KẾT QUẢ CÒN LƯU LẠI Ở HIỆN TẠI!\n• 'I lost my keys yesterday' (QKĐ) -> Hôm qua mất, có thể hôm nay đã tìm thấy.\n• 'I have lost my keys' (HTHT) -> Vẫn đang mất chìa khóa, hiện giờ chưa vào được nhà!"
+    },
     usages: [
       { context: "Trải nghiệm từ trước tới nay (không nêu rõ thời gian)", exampleEn: "I have traveled to five Asian countries so far.", exampleVi: "Tính đến nay tôi đã đi du lịch qua 5 quốc gia châu Á." },
       { context: "Bắt đầu trong quá khứ và vẫn tiếp diễn ở hiện tại", exampleEn: "Dr. Elena has worked at the national research institute since 2012.", exampleVi: "Tiến sĩ Elena đã làm việc tại viện nghiên cứu quốc gia từ năm 2012 (hiện vẫn đang làm)." },
@@ -220,6 +236,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động diễn ra liên tục không ngừng từ quá khứ đến hiện tại, nhấn mạnh tính liên tục và thời lượng",
     timelinePoint: "span-past-now",
+    memoryHack: {
+      hook: "⏳ Nhấn mạnh 'Mồ hôi nước mắt' & Tính liên tục không ngừng",
+      descriptionVi: "Dùng để nhấn mạnh sự nỗ lực làm liên tục suốt một khoảng thời gian: 'have/has + BEEN + V-ING'.\n• HTHT: Nhấn mạnh số lượng/kết quả ('I have written 3 reports' - Tôi đã viết xong 3 báo cáo).\n• HTHT tiếp diễn: Nhấn mạnh thời gian mệt mỏi ('I have been writing reports all morning' - Cả sáng nay tôi cắm mặt viết báo cáo!)."
+    },
     usages: [
       { context: "Nhấn mạnh hành động diễn ra liên tục suốt một khoảng thời gian dài", exampleEn: "The programmers have been debugging this security glitch for six hours straight.", exampleVi: "Các lập trình viên đã miệt mài gỡ lỗi bảo mật này suốt 6 tiếng đồng hồ liên tục." },
       { context: "Hành động vừa dừng nhưng để lại dấu hiệu rõ rệt ở hiện tại", exampleEn: "The ground is completely soaked because it has been pouring rain.", exampleVi: "Mặt đất ướt sũng vì trời vừa mưa tầm tã suốt." }
@@ -262,6 +282,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động đã bắt đầu và kết thúc hoàn toàn tại một thời điểm xác định trong quá khứ",
     timelinePoint: "past",
+    memoryHack: {
+      hook: "📜 Bản chất 'Đã chết hẳn trong quá khứ' & Có mốc thời gian",
+      descriptionVi: "Quá khứ đơn diễn tả sự việc đã KẾT THÚC HOÀN TOÀN, không còn liên quan gì đến hiện tại. Bắt buộc có hoặc ngầm hiểu mốc thời gian (yesterday, in 2015, ago, last week). Ghi nhớ: Đã mượn 'did/didn't' thì động từ chính trả về nguyên thể!"
+    },
     usages: [
       { context: "Sự việc hoàn tất tại một mốc thời gian cụ thể trong quá khứ", exampleEn: "Our company opened its European headquarters in Berlin in 2018.", exampleVi: "Công ty chúng tôi đã mở trụ sở châu Âu tại Berlin vào năm 2018." },
       { context: "Chuỗi hành động liên tiếp trong quá khứ", exampleEn: "He inspected the machine, spotted the crack, and turned off the power.", exampleVi: "Anh ấy kiểm tra chiếc máy, phát hiện vết nứt và tắt nguồn điện." }
@@ -313,6 +337,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động đang diễn ra tại một thời điểm chính xác trong quá khứ hoặc đang diễn ra thì bị hành động khác xen vào",
     timelinePoint: "span-past",
+    memoryHack: {
+      hook: "📸 Bức Ảnh Chụp 'Khoảnh Khắc Quá Khứ' & Chen Ngang When/While",
+      descriptionVi: "• Đúng vào giờ đó trong quá khứ bạn đang làm gì? ('At 8 PM last night, I was watching TV').\n• Chen ngang: Hành động đang làm dở dang chia QK Tiếp diễn (While I was showering), hành động bất thình lình ập đến chia QK Đơn (the phone rang)."
+    },
     usages: [
       { context: "Đang diễn ra tại một thời điểm chính xác trong quá khứ", exampleEn: "At exactly 8:30 PM last night, we were flying over the Alps.", exampleVi: "Vào đúng 8:30 tối qua, chúng tôi đang bay qua dãy Alps." },
       { context: "Hành động đang xảy ra (tiếp diễn) thì hành động khác xen vào (quá khứ đơn)", exampleEn: "While the technician was upgrading the system, a sudden power outage occurred.", exampleVi: "Trong khi kỹ thuật viên đang nâng cấp hệ thống thì xảy ra sự cố mất điện đột ngột." }
@@ -355,6 +383,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động xảy ra và hoàn thành TRƯỚC một hành động khác hoặc một mốc thời gian trong quá khứ",
     timelinePoint: "past",
+    memoryHack: {
+      hook: "⏮️ Khái niệm 'Quá Khứ Của Quá Khứ' (Xảy ra trước mốc quá khứ khác)",
+      descriptionVi: "Trong quá khứ có 2 việc: Việc nào xảy ra TRƯỚC -> dùng Quá khứ hoàn thành (had + V3/ed). Việc nào xảy ra SAU -> dùng Quá khứ đơn (V2/ed).\nVí dụ: Đến rạp phim lúc 8h (quá khứ), nhưng phim chiếu từ 7h30 -> 'The movie HAD STARTED before we arrived'."
+    },
     usages: [
       { context: "Xảy ra trước một hành động quá khứ khác", exampleEn: "By the time the rescue helicopter landed, the medical team had already stabilized the patient.", exampleVi: "Trước lúc trực thăng cứu hộ đáp xuống, đội ngũ y tế đã ổn định xong tình trạng bệnh nhân." },
       { context: "Hoàn tất trước một mốc thời gian quá khứ", exampleEn: "By the end of 2019, the author had published four best-selling novels.", exampleVi: "Tính đến trước cuối năm 2019, tác giả đã xuất bản 4 cuốn tiểu thuyết bán chạy." }
@@ -397,6 +429,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động diễn ra liên tục, kéo dài suốt một khoảng thời gian cho tới trước một thời điểm hoặc hành động khác trong quá khứ",
     timelinePoint: "span-past",
+    memoryHack: {
+      hook: "⏪ Quá Trình Làm Việc Liên Tục Trước Mốc Quá Khứ",
+      descriptionVi: "Dùng để giải thích lý do vì sao lúc đó trong quá khứ bạn lại mệt, ướt hoặc đói: 'Had + BEEN + V-ING'.\nVí dụ: 'He was out of breath because he had been running' (Lúc đó anh ấy thở hổn hển vì đã chạy bộ liên tục suốt 1 tiếng)."
+    },
     usages: [
       { context: "Nhấn mạnh tính liên tục của hành động trước quá khứ", exampleEn: "He was out of breath because he had been running for an hour.", exampleVi: "Anh ấy thở hổn hển vì đã chạy bộ liên tục suốt một tiếng đồng hồ." },
       { context: "Chỉ nguyên nhân để lại kết quả trong quá khứ", exampleEn: "The pavement was wet because it had been raining heavily all morning.", exampleVi: "Vỉa hè bị ướt vì trời đã mưa tầm tã suốt cả buổi sáng trước đó." }
@@ -424,6 +460,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động sẽ xảy ra trong tương lai, thường là quyết định bộc phát ngay lúc nói hoặc dự đoán chủ quan",
     timelinePoint: "future",
+    memoryHack: {
+      hook: "🚀 Quyết Định 'Tức Thì Bột Phát' Tại Thời Điểm Nói",
+      descriptionVi: "'Will' dùng khi bạn vừa mới nghĩ ra ý định ngay trong tích tắc lúc nói: Chuông cửa reo -> 'I will open it'; Thấy bạn xách nặng -> 'I will carry it for you'; hoặc lời hứa/dự đoán chủ quan: 'I think it will rain'."
+    },
     usages: [
       { context: "Quyết định đưa ra ngay tại thời điểm nói", exampleEn: "It is freezing in this conference room; I will turn down the AC.", exampleVi: "Trong phòng họp này lạnh quá; tôi sẽ chỉnh giảm điều hòa ngay." },
       { context: "Lời hứa, lời cam kết hỗ trợ", exampleEn: "I will email you the updated contract first thing tomorrow morning.", exampleVi: "Tôi cam đoan sẽ gửi email hợp đồng cập nhật cho bạn ngay đầu giờ sáng mai." },
@@ -462,6 +502,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Dự định đã được lên kế hoạch từ trước hoặc dự đoán có bằng chứng cụ thể rõ ràng trước mắt",
     timelinePoint: "future",
+    memoryHack: {
+      hook: "🎯 Kế Hoạch 'Đã Tính Trước' HOẶC 'Bằng Chứng Rành Rành Trước Mắt'",
+      descriptionVi: "'Be going to' chỉ dùng trong 2 trường hợp cụ thể:\n1. Dự định đã lên kế hoạch sẵn: 'I am going to visit Da Lat next week' (đã mua vé, đặt phòng).\n2. Có bằng chứng rành rành trước mắt: Mây đen kịt -> 'It is going to rain!'; Bình hoa lung lay sắp rơi -> 'It is going to fall!'."
+    },
     usages: [
       { context: "Kế hoạch đã chuẩn bị, có ý định từ trước", exampleEn: "We are going to move to our new office in District 1 next month.", exampleVi: "Chúng tôi dự định chuyển sang văn phòng mới ở Quận 1 vào tháng sau (đã thuê và ký hợp đồng)." },
       { context: "Dự đoán chắc chắn có chứng cứ trước mắt", exampleEn: "Look at those dark storm clouds gathering; it is going to rain heavily.", exampleVi: "Nhìn những đám mây giông đen kịt đang kéo tới kìa; trời chắc chắn sắp mưa to rồi." }
@@ -504,6 +548,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động sẽ ĐANG diễn ra tại một thời điểm hoặc một khoảng thời gian xác định trong tương lai",
     timelinePoint: "span-future",
+    memoryHack: {
+      hook: "⏱️ Đang Diễn Ra Đúng Vào Giờ Đó Ở Tương Lai",
+      descriptionVi: "Tương lai tiếp diễn: 'Will + BE + V-ING'.\nGiống như bạn nhìn vào tương lai và thấy mình ĐANG trong quá trình làm việc đó: 'At 9 AM tomorrow, I will be taking the exam' (9h sáng mai bạn đang cặm cụi ngồi làm bài thi)."
+    },
     usages: [
       { context: "Đang diễn ra tại một thời điểm xác định ở tương lai", exampleEn: "This time next Monday, I will be attending an international conference in Singapore.", exampleVi: "Giờ này thứ Hai tuần sau, tôi sẽ đang tham dự một hội nghị quốc tế tại Singapore." },
       { context: "Hỏi lịch trình một cách nhã nhặn, lịch sự", exampleEn: "Will you be passing by the post office this afternoon?", exampleVi: "Chiều nay bạn có tiện đường đi ngang qua bưu điện không? (Ý nhờ gửi giúp bưu phẩm)" }
@@ -546,6 +594,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động sẽ được hoàn tất TRƯỚC một thời điểm hoặc một hành động khác trong tương lai",
     timelinePoint: "future",
+    memoryHack: {
+      hook: "🏁 'Deadline Hoàn Tất Xong Xuôi Trước Giờ G'",
+      descriptionVi: "Tương lai hoàn thành: 'Will + HAVE + V3/ed'.\nHãy tưởng tượng một Deadline: Trước thời điểm đó, mọi việc đã XONG XUÔI 100% rồi. Dấu hiệu siêu kinh điển là 'BY + mốc tương lai' hoặc 'BY THE TIME + hiện tại': 'By 10 PM tonight, I will have finished this report' (Trước 10h tối nay, tôi sẽ xong xuôi báo cáo này rồi)."
+    },
     usages: [
       { context: "Hoàn tất trước một mốc thời gian tương lai (đi với By / By the time)", exampleEn: "By 2030, our factory will have transitioned completely to renewable solar energy.", exampleVi: "Trước năm 2030, nhà máy của chúng tôi sẽ đã chuyển đổi hoàn toàn sang năng lượng mặt trời tái tạo." },
       { context: "Hoàn thành trước một hành động khác ở tương lai", exampleEn: "By the time the inspectors arrive next week, we will have fixed all safety issues.", exampleVi: "Trước lúc các thanh tra đến vào tuần tới, chúng tôi sẽ đã khắc phục xong toàn bộ vấn đề an toàn." }
@@ -588,6 +640,10 @@ const rawEnglishTenses: TenseDetail[] = [
     },
     timelineLabel: "Hành động đã và đang diễn ra liên tục, nhấn mạnh khoảng thời gian kéo dài tính đến một mốc thời điểm hoặc hành động khác trong tương lai",
     timelinePoint: "span-future",
+    memoryHack: {
+      hook: "⏭️ 'Cột Mốc Kỷ Niệm & Thâm Niên Ở Tương Lai'",
+      descriptionVi: "Tương lai hoàn thành tiếp diễn: 'Will + HAVE + BEEN + V-ING'.\nDùng khi bạn muốn khoe một thâm niên/chuỗi kỷ lục đạt được tính đến một mốc tương lai: 'Tính đến tháng sau, tôi sẽ đã bơi liên tục 500 ngày rồi!'. Luôn có 'By + mốc tương lai' kèm 'FOR + khoảng thời gian'."
+    },
     usages: [
       { context: "Nhấn mạnh khoảng thời gian tính đến mốc tương lai", exampleEn: "By next November, I will have been working at this company for ten years.", exampleVi: "Tính đến tháng 11 năm tới, tôi sẽ đã làm việc liên tục tại công ty này tròn 10 năm." },
       { context: "Nhấn mạnh tính liên tục của hành động kéo dài đến tương lai", exampleEn: "When you arrive at 6 PM, the crew will have been rehearsing for five hours.", exampleVi: "Khi bạn đến lúc 6 giờ tối, đoàn kịch sẽ đã tập luyện liên tục suốt 5 tiếng đồng hồ." }

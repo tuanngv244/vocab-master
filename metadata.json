@@ -1,6 +1,6 @@
 {
   "name": "VocabMaster",
-  "description": "Ứng dụng học 1000+ từ vựng tiếng Anh theo chủ đề với Flashcards và bài tập trắc nghiệm sinh động, dễ thương.",
+  "description": "Ứng dụng học từ vựng tiếng Anh theo chủ đề, học qua phim ảnh, phương pháp đặt câu hỏi, cú pháp câu và 12 thì tiếng Anh chuẩn bản xứ.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

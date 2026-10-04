@@ -6,6 +6,10 @@ export interface QuestionPattern {
   icon: string;
   formula: string;
   explanationVi: string;
+  memoryHack?: {
+    hook: string;
+    descriptionVi: string;
+  };
   rules: string[];
   examples: {
     en: string;
@@ -36,11 +40,16 @@ export const questionPatterns: QuestionPattern[] = [
     badge: "Phổ biến nhất",
     icon: "🔍",
     formula: "Wh-word + Auxiliary / Modal + Subject + Main Verb + (Object/Complement)?",
-    explanationVi: "Dùng để hỏi thông tin cụ thể (ai, cái gì, ở đâu, khi nào, tại sao, bằng cách nào...). Khác với Yes/No, câu hỏi Wh- xuống giọng ở cuối câu.",
+    explanationVi: "Dùng để hỏi thông tin chi tiết (ai, cái gì, ở đâu, khi nào, tại sao, bằng cách nào...). Khác với Yes/No, câu hỏi Wh- luôn hạ giọng ở cuối câu. Điểm mấu chốt: Luôn phân biệt rạch ròi giữa 'Hỏi cho Tân ngữ' và 'Hỏi cho Chủ ngữ'.",
+    memoryHack: {
+      hook: "🎯 Thần chú 'QUASI' & Tuyệt chiêu 'Thay He/She bằng Who'",
+      descriptionVi: "1. Thần chú QUASI: QU (Question word: Where/What/Why) + A (Auxiliary: do/does/did/can) + S (Subject: you/he/they) + I (Infinitive verb: go/live/eat).\n2. Tuyệt chiêu hỏi Chủ ngữ: Khi muốn hỏi ai thực hiện hành động, hãy viết câu khẳng định bình thường (ví dụ: 'Tom broke the vase') rồi thay chữ 'Tom' bằng 'Who' là xong ('Who broke the vase?') -> Tuyệt đối KHÔNG mượn did/does!"
+    },
     rules: [
-      "Hỏi tân ngữ (Object Question): Cần trợ động từ (do/does/did/be/have) -> Wh-word + Trợ ĐT + S + V-nguyên thể? (VD: What did you buy?)",
-      "Hỏi chủ ngữ (Subject Question): Không dùng trợ động từ do/does/did! Từ để hỏi đóng vai trò chủ ngữ -> Wh-word + V (chia thì)? (VD: Who called you? KHÔNG dùng 'Who did call you?')",
-      "Các từ để hỏi mở rộng: How often (tần suất), How long (khoảng thời gian), How far (khoảng cách), How much (giá tiền / không đếm được), How many (đếm được số nhiều)."
+      "Quy tắc QUASI: Wh-word + Trợ ĐT (do/does/did) + Chủ ngữ + Động từ NGUYÊN THỂ. VD: Where does he work? (KHÔNG chia works).",
+      "Hỏi chủ ngữ (Subject Question): 'Who / What' đóng vai trò là chủ thể của hành động -> Chia động từ trực tiếp theo thì, CẤM dùng trợ động từ did/does. VD: Who invited you? (Ai mời bạn?), What happened? (Chuyện gì xảy ra?).",
+      "Hỏi tân ngữ (Object Question): Người/vật bị tác động -> BẮT BUỘC mượn trợ động từ. VD: Who(m) did you invite? (Bạn đã mời ai?).",
+      "Hỏi số lượng & khoảng cách: How much (tiền / không đếm được: water, time, luggage), How many (đếm được số nhiều: books, days), How far (khoảng cách), How long (thời gian bao lâu)."
     ],
     examples: [
       { en: "Where do you work?", vi: "Bạn làm việc ở đâu?", note: "Hỏi nơi chốn, thì Hiện tại đơn" },
@@ -101,7 +110,11 @@ export const questionPatterns: QuestionPattern[] = [
     badge: "Căn bản",
     icon: "👍",
     formula: "Auxiliary Verb (Do/Does/Did/Be/Have) OR Modal + Subject + Main Verb...?",
-    explanationVi: "Câu hỏi có câu trả lời là 'Yes' hoặc 'No'. Quy tắc vàng: Luôn ĐẢO trợ động từ hoặc động từ To Be / Động từ khiếm khuyết lên đầu câu trước chủ ngữ. Ngữ điệu thường LÊN GIỌNG ở cuối câu.",
+    explanationVi: "Câu hỏi có câu trả lời là 'Yes' hoặc 'No'. Luôn ĐẢO trợ động từ hoặc động từ To Be / Động từ khiếm khuyết lên đầu câu trước chủ ngữ. Ngữ điệu luôn LÊN GIỌNG ở cuối câu.",
+    memoryHack: {
+      hook: "🎯 Thần chú 'ASI' & Nguyên tắc 'Đã vay là phải trả'",
+      descriptionVi: "1. Thần chú ASI: A (Auxiliary: Do/Does/Did/Can/Will) + S (Subject: you/he) + I (Infinitive verb nguyên thể: understand/go).\n2. Nguyên tắc 'Đã vay là phải trả': Một khi đã mượn trợ động từ quá khứ 'Did' hoặc số ít 'Does', động từ chính BẮT BUỘC TRẢ VỀ NGUYÊN THỂ (Did you see? KHÔNG dùng Did you saw?)."
+    },
     rules: [
       "Với động từ To Be (am/is/are/was/were): Đảo trực tiếp Be lên đầu câu (VD: Are you ready?).",
       "Với động từ thường: Mượn trợ động từ Do/Does (hiện tại) hoặc Did (quá khứ). Động từ chính về NGUYÊN THỂ (VD: Do you like coffee?).",
@@ -159,6 +172,10 @@ export const questionPatterns: QuestionPattern[] = [
     icon: "🏷️",
     formula: "Mệnh đề khẳng định (+), phần đuôi phủ định (-)?  |  Mệnh đề phủ định (-), phần đuôi khẳng định (+)?",
     explanationVi: "Câu hỏi đuôi đặt ở cuối câu để xác nhận lại thông tin hoặc tìm kiếm sự đồng tình. Nếu hạ giọng ở đuôi: mong đợi người nghe đồng ý. Nếu lên giọng ở đuôi: thực sự muốn hỏi xem có đúng không.",
+    memoryHack: {
+      hook: "⚖️ Nguyên tắc 'Chiếc Bập Bênh' (Trái ngược dấu) & 4 Ngoại lệ bỏ túi",
+      descriptionVi: "1. Nguyên tắc Chiếc bập bênh: Vế trước (+) thì đuôi (-) (You are tired, AREN'T you?). Vế trước (-) thì đuôi (+) (You don't smoke, DO you?).\n2. 4 Ngoại lệ bỏ túi:\n   • 'I am...' -> đuôi là 'aren't I?' (Cấm dùng 'am not I')\n   • 'Let's...' (Rủ rê) -> đuôi là 'shall we?'\n   • 'Câu mệnh lệnh' (Open the door) -> đuôi là 'will you?'\n   • 'Nobody / Nothing / Never' mang sẵn nghĩa phủ định -> đuôi chia khẳng định (+)."
+    },
     rules: [
       "Nguyên tắc nghịch dấu: Mệnh đề (+) thì đuôi (-), mệnh đề (-) thì đuôi (+).",
       "Chủ ngữ phần đuôi: Luôn là ĐẠI TỪ NHÂN XƯNG (he, she, it, they, we, you, I).",
@@ -222,6 +239,10 @@ export const questionPatterns: QuestionPattern[] = [
     icon: "🤝",
     formula: "Polite phrase (Could you tell me / Do you know...) + Wh-word / if / whether + Subject + Verb (KHÔNG ĐẢO NGỮ)!",
     explanationVi: "Dùng để hỏi một cách lịch sự, nhã nhặn trong công việc, nơi công cộng hoặc với người lạ. QUY TẮC SỐNG CÒN: Sau từ để hỏi hoặc if/whether, trật tự từ trở về dạng CÂU TRẦN THUẬT (S + V), KHÔNG ĐƯỢC đảo trợ động từ!",
+    memoryHack: {
+      hook: "🎩 Thần chú 'Đã lịch sự thì viết thẳng'",
+      descriptionVi: "Bởi vì câu đã có câu rào đón lịch sự ở đầu ('Could you tell me...', 'Do you know...'), nên phần sau KHÔNG CÒN LÀ CÂU HỎI ĐỘC LẬP nữa! Hãy viết thẳng như câu kể: S + V. Tuyệt đối KHÔNG mượn trợ động từ do/does/did!"
+    },
     rules: [
       "Các cụm mở đầu thông dụng: Could you tell me..., Do you know..., I wonder if..., Would you mind telling me..., Can you let me know...?",
       "Với câu hỏi Wh-: Giữ nguyên từ để hỏi, theo sau là Chủ ngữ + Động từ (VD: Where is the bank? -> Could you tell me where the bank is?)",
@@ -279,6 +300,10 @@ export const questionPatterns: QuestionPattern[] = [
     icon: "⚖️",
     formula: "Auxiliary + Subject + Verb + Option A + OR + Option B?",
     explanationVi: "Đưa ra hai hay nhiều lựa chọn cho người nghe để chọn một trong số đó. Ngữ điệu đặc biệt: Lên giọng ở lựa chọn đầu và Hạ giọng ở lựa chọn cuối cùng.",
+    memoryHack: {
+      hook: "⛰️ Ngữ điệu 'Núi Đồi' & Tuyệt đối CẤM trả lời Yes/No",
+      descriptionVi: "1. Ngữ điệu: Lên giọng ở lựa chọn 1 (Are you free on Saturday ↗) và Xuống giọng ở lựa chọn cuối (or Sunday ↘?).\n2. Cách trả lời: Phải chọn thẳng 1 phương án ('I prefer tea'), hoặc chọn cả 2 ('Both, please'), hoặc từ chối cả 2 ('Neither, thanks'). Tuyệt đối không trả lời 'Yes' hay 'No'!"
+    },
     rules: [
       "Không trả lời bằng 'Yes' hoặc 'No', mà phải chọn một trong các phương án hoặc từ chối cả hai (Either, Neither, Both).",
       "Có thể bắt đầu bằng trợ động từ (Would you like tea or coffee?) hoặc từ để hỏi (Which do you prefer, apples or oranges?)."
@@ -319,6 +344,10 @@ export const questionPatterns: QuestionPattern[] = [
     icon: "❗",
     formula: "Auxiliary + not (Aren't / Isn't / Don't / Didn't / Can't / Haven't) + Subject + Verb...?",
     explanationVi: "Dùng để diễn tả sự ngạc nhiên, ngờ vực hoặc đề nghị một cách lịch sự, mời gọi sự tán thành ('Aren't you cold?' - Bạn không thấy lạnh à?).",
+    memoryHack: {
+      hook: "⭐ Quy tắc 'Sự Thật Là Chân Lý' (Bỏ qua chữ Not khi trả lời)",
+      descriptionVi: "Người Việt hay nhầm lẫn tai hại: Khi được hỏi 'Don't you like fish?' (Bạn không thích cá à?), nếu không thích người Việt hay nói 'Yes, I don't' (Ừ, tôi không thích). Trong tiếng Anh thế là SAI BÉT!\n-> Quy tắc chuẩn: Đừng quan tâm câu hỏi có 'Not' hay không. Nhìn vào sự thật: Nếu THÍCH -> Trả lời 'YES, I do'. Nếu KHÔNG THÍCH -> Luôn trả lời 'NO, I don't'!"
+    },
     rules: [
       "Dạng viết tắt phổ biến: Don't you..., Didn't you..., Aren't you..., Won't you...",
       "Cách trả lời theo chuẩn tiếng Anh: Trả lời 'Yes' nếu sự thật là CÓ, trả lời 'No' nếu sự thật là KHÔNG (Không trả lời theo tư duy tiếng Việt)."

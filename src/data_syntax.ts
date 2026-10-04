@@ -18,6 +18,10 @@ export interface SyntaxTopic {
   icon: string;
   formula: string;
   explanationVi: string;
+  memoryHack?: {
+    hook: string;
+    descriptionVi: string;
+  };
   breakdown: {
     label: string;
     descriptionVi: string;
@@ -45,7 +49,11 @@ export const syntaxTopics: SyntaxTopic[] = [
     badge: "Nền tảng căn bản",
     icon: "🏗️",
     formula: "1. S + V  |  2. S + V + O  |  3. S + V + C  |  4. S + V + IO + DO  |  5. S + V + O + C",
-    explanationVi: "Mọi câu tiếng Anh dù dài hay ngắn đều được xây dựng từ 5 mô hình cơ bản này. Hiểu rõ từng thành phần giúp bạn không bao giờ viết sai thứ tự từ hoặc thiếu tân ngữ/bổ ngữ.",
+    explanationVi: "Mọi câu tiếng Anh dù dài hay phức tạp đến đâu đều bắt nguồn từ 5 mô hình này. Hiểu rõ từng thành phần giúp bạn tự tin viết câu đúng ngữ pháp, không bao giờ nhầm thứ tự từ.",
+    memoryHack: {
+      hook: "🧮 Phép Thử 'Dấu Bằng (=)' Ma Thuật",
+      descriptionVi: "• Mẫu 3 (S + V + C): Linking Verb đóng vai trò như một DẤU BẰNG (=). Ví dụ: 'She looks tired' -> She = tired (mệt). Vì thế C phải là TÍNH TỪ, cấm dùng trạng từ 'tiredly'!\n• Mẹo phân biệt Mẫu 4 (S+V+IO+DO) vs Mẫu 5 (S+V+O+C):\n  - Trong Mẫu 4: IO KHÁC DO (He gave me a book -> 'me' khác 'book').\n  - Trong Mẫu 5: O BẰNG C (They painted the wall green -> 'the wall' = 'green'; The team elected him leader -> 'him' = 'leader')."
+    },
     breakdown: [
       { label: "Mẫu 1: S + V", descriptionVi: "Chủ ngữ + Nội động từ (không cần tân ngữ). VD: The baby cried loudly. The plane landed safely." },
       { label: "Mẫu 2: S + V + O", descriptionVi: "Chủ ngữ + Ngoại động từ + Tân ngữ trực tiếp. VD: We signed the contract. She teaches mathematics." },
@@ -146,6 +154,10 @@ export const syntaxTopics: SyntaxTopic[] = [
     icon: "🔄",
     formula: "Negative/Limiting Adverbial + Auxiliary Verb + Subject + Main Verb...",
     explanationVi: "Đảo ngữ là biện pháp đưa trợ động từ lên trước chủ ngữ nhằm tạo ấn tượng mạnh mẽ, trang trọng và kịch tính cho câu nói hoặc văn bản.",
+    memoryHack: {
+      hook: "⚡ Mẹo 'Biến Thành Câu Hỏi Yes/No' Cực Đơn Giản",
+      descriptionVi: "Đừng cố học thuộc lòng hàng chục công thức đảo ngữ! Chỉ cần 1 quy tắc duy nhất:\n1. Đưa từ phủ định/giới hạn lên đầu (Never / Rarely / Seldom / Under no circumstances / No sooner).\n2. Biến phần còn lại y hệt như CÂU HỎI YES/NO (mượn do/does/did/have/can)! Ví dụ: 'I have never seen...' -> Đưa Never lên đầu -> Viết như câu hỏi: 'Never have I seen...' Xong ngay lập tức!"
+    },
     breakdown: [
       { label: "1. Đảo ngữ từ phủ định", descriptionVi: "Never, Rarely, Seldom, Little, Barely, Hardly + Trợ ĐT + S + V. (VD: Rarely have we received such glowing feedback.)" },
       { label: "2. Hardly / Scarcely... when", descriptionVi: "Vừa mới... thì đã: Hardly had S + V3 when S + V2. (VD: Hardly had the CEO begun his speech when the fire alarm rang.)" },
@@ -246,6 +258,10 @@ export const syntaxTopics: SyntaxTopic[] = [
     icon: "🎯",
     formula: "It is / was + [Thành phần cần nhấn mạnh] + that / who + S + V...",
     explanationVi: "Câu chẻ (Cleft sentence) tách câu thành hai phần để nhấn mạnh chính xác đối tượng, thời gian, địa điểm hoặc lý do gây ra sự việc ('Chính anh ấy chứ không phải ai khác', 'Chính vào thời điểm đó...').",
+    memoryHack: {
+      hook: "✂️ Tuyệt chiêu 'Cây Kéo Cắt - Dán' Ma Thuật",
+      descriptionVi: "Hãy tưởng tượng bạn cầm một cây kéo:\n1. Muốn nhấn mạnh chữ nào trong câu, hãy cắt chữ đó ra và nhét vào giữa: 'It is / was [CHỮ CẦN NHẤN MẠNH] that...'\n2. Toàn bộ phần còn lại của câu dán nguyên vẹn ra sau chữ 'that'!\nVí dụ: 'Tom bought this laptop yesterday' -> Muốn nhấn mạnh hôm qua: 'It was yesterday that Tom bought this laptop'."
+    },
     breakdown: [
       { label: "Nhấn mạnh Chủ ngữ", descriptionVi: "It is / was + S (người/vật) + who / that + V... (VD: It was our senior developer who fixed the critical bug.)" },
       { label: "Nhấn mạnh Tân ngữ", descriptionVi: "It is / was + O + that + S + V... (VD: It was this eco-friendly material that the architect chose.)" },
@@ -324,6 +340,10 @@ export const syntaxTopics: SyntaxTopic[] = [
     icon: "🛡️",
     formula: "S + be + Past Participle (V3/ed)  |  Have/Get sth done  |  It is reported that...",
     explanationVi: "Bị động nâng cao được sử dụng rộng rãi trong báo chí khoa học, phóng sự điều tra và đời sống khi cần thể hiện tính khách quan hoặc nói về việc nhờ người khác làm dịch vụ cho mình.",
+    memoryHack: {
+      hook: "🛠️ Thần chú Nhờ Vả: 'Have người Làm - Get người To - Đồ Vật luôn là V3'",
+      descriptionVi: "• Nhờ người: Have + NGƯỜI + V-nguyên thể (I had him fix the car). Get + NGƯỜI + TO V (I got him to fix the car).\n• Nhờ làm đồ vật (Bị động): Have / Get + ĐỒ VẬT + V3/ed (I had my car fixed yesterday - Tôi đã mang xe đi sửa)."
+    },
     breakdown: [
       { label: "1. Bị động khách quan báo chí", descriptionVi: "It is reported / believed / thought / alleged that S + V... HOẶC S + is/are reported + to V (hoặc to have V3 nếu xảy ra trước). (VD: The company is rumored to acquire a major competitor.)" },
       { label: "2. Bị động nhờ vả (Causative)", descriptionVi: "Have / Get + something + V3/ed (nhờ ai làm gì đó cho mình). (VD: We need to have the office painted this weekend.)" },
@@ -396,6 +416,10 @@ export const syntaxTopics: SyntaxTopic[] = [
     icon: "🔀",
     formula: "Type 1: Should S V  |  Type 2: Were S (to V)  |  Type 3: Had S V3",
     explanationVi: "Câu điều kiện dùng để đặt ra giả định và hệ quả. Đảo ngữ câu điều kiện giúp bỏ chữ 'If', giúp câu văn ngắn gọn, sắc bén và đậm chất văn bản chính thức.",
+    memoryHack: {
+      hook: "🔀 Thần chú Đảo Ngữ 1-2-3: 'Should - Were - Had'",
+      descriptionVi: "Chỉ cần nhớ 3 chữ mở đầu thay thế hoàn toàn chữ 'If':\n• Loại 1 (Có thể xảy ra): Thay If bằng 'SHOULD' + V nguyên thể (Should you need help...)\n• Loại 2 (Trái hiện tại): Thay If bằng 'WERE' (Were I you... / Were they to come...)\n• Loại 3 (Trái quá khứ): Thay If bằng 'HAD' + V3 (Had we known earlier...)"
+    },
     breakdown: [
       { label: "Đảo ngữ Loại 1 (Should)", descriptionVi: "Should + S + V-inf, S + will/can/please + V... (VD: Should you require further clarification, please let me know = If you require...)" },
       { label: "Đảo ngữ Loại 2 (Were)", descriptionVi: "Were + S + to V... (hoặc Were + S + Adj/Noun), S + would + V... (VD: Were I in your position, I would renegotiate the terms.)" },
@@ -474,6 +498,10 @@ export const syntaxTopics: SyntaxTopic[] = [
     icon: "📈",
     formula: "The + comparative (+ S + V), the + comparative (+ S + V)",
     explanationVi: "Diễn tả mối quan hệ nhân quả và tương quan cùng chiều hoặc ngược chiều giữa hai hiện tượng: Khi một vế biến chuyển thì vế kia cũng thay đổi theo tương ứng.",
+    memoryHack: {
+      hook: "⚖️ Nguyên tắc 'Song Hành Bắt Buộc Có THE'",
+      descriptionVi: "Hãy nhớ như in câu thành ngữ: 'THE more, THE merrier' (Càng đông càng vui)!\n• Cả 2 vế BẮT BUỘC đều phải có chữ 'THE' đứng đầu.\n• Sau 'THE' lập tức là từ so sánh hơn (The faster, The harder, The more money...)."
+    },
     breakdown: [
       { label: "1. The more... the more...", descriptionVi: "The more time you invest in preparation, the more confident you will feel." },
       { label: "2. Tính từ ngắn dạng -er", descriptionVi: "The higher you climb, the colder the air becomes." },
