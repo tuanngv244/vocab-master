@@ -15,6 +15,7 @@ export interface FilmEpisode {
   descriptionVi: string;
   videoUrl: string;
   youtubeId: string;
+  embedUrl?: string;
   timestamps: FilmTimestamp[];
 }
 

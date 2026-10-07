@@ -1,4 +1,6 @@
 import { FilmEpisode, FilmTimestamp, filmEpisodesMap } from "./data_film_episodes";
+import { filmExtraContentMap } from "./data_film_extra_content";
+import { filmQuizMap } from "./data_film_quizzes";
 
 export type { FilmEpisode, FilmTimestamp };
 
@@ -1580,9 +1582,23 @@ const rawFilmsData: Omit<FilmItem, "episodes">[] = [
   }
 ];
 
-export const filmsData: FilmItem[] = rawFilmsData.map(f => ({
-  ...f,
-  episodes: filmEpisodesMap[f.id] || []
-}));
+export const filmsData: FilmItem[] = rawFilmsData.map(f => {
+  const extra = filmExtraContentMap[f.id];
+  const customQuizzes = filmQuizMap[f.id];
+
+  return {
+    ...f,
+    keyVocabularies: [
+      ...f.keyVocabularies,
+      ...(extra?.vocabularies || [])
+    ],
+    iconicQuotes: [
+      ...f.iconicQuotes,
+      ...(extra?.quotes || [])
+    ],
+    quiz: customQuizzes && customQuizzes.length >= 20 ? customQuizzes : (f.quiz && f.quiz.length >= 20 ? f.quiz : (customQuizzes || f.quiz)),
+    episodes: filmEpisodesMap[f.id] || []
+  };
+});
 
 

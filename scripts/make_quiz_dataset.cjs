@@ -1,0 +1,58 @@
+const fs = require('fs');
+const path = require('path');
+
+console.log("Generating full 480-question database for all 24 films...");
+
+// Load helper
+const { setQ, q, quizzes } = require('./generate_quizzes_full.cjs');
+
+// 3. We Bare Bears (A1-A2)
+setQ("we-bare-bears", [
+  q("wbb_1", "Thói quen di chuyển đặc trưng của 3 anh em gấu là gì?", "The bears move around by forming a _______.", ["bear stack", "bear circle", "bear train", "bear ladder"], "bear stack", "'Bear stack' là cách ba chú gấu trèo lên lưng nhau để đi lại."),
+  q("wbb_2", "Grizzly (Gấu Xám) là người anh cả có tính cách thế nào?", "Grizzly is very outgoing and loves to _______.", ["make new friends", "sleep all day", "hide from humans", "fight enemies"], "make new friends", "Grizzly luôn tràn đầy năng lượng và khao khát kết bạn với mọi người."),
+  q("wbb_3", "Panda (Gấu Trúc) luôn gắn liền với thiết bị công nghệ nào?", "Panda is obsessed with his _______.", ["smartphone", "laptop", "game console", "radio"], "smartphone", "Panda không thể sống thiếu chiếc điện thoại thông minh để sống ảo."),
+  q("wbb_4", "Ice Bear (Gấu Trắng) có cách nói chuyện rất đặc biệt thế nào?", "Ice Bear always refers to himself in the _______.", ["third person ('Ice Bear')", "first person ('I')", "second person ('You')", "passive voice"], "third person ('Ice Bear')", "Gấu Trắng luôn xưng hô ngôi thứ ba 'Ice Bear likes this'."),
+  q("wbb_5", "Panda bị dị ứng nghiêm trọng với loại thực phẩm nào?", "Panda has a severe allergy to _______.", ["peanuts", "fish", "apples", "milk"], "peanuts", "Panda bị dị ứng đậu phộng nguy hiểm (peanut allergy)."),
+  q("wbb_6", "Món ăn yêu thích của Ice Bear mà cậu tự tay nấu nướng tài tình là gì?", "Ice Bear is a master at cooking _______.", ["gourmet meals", "junk food", "instant noodles", "raw grass"], "gourmet meals", "Gấu Trắng là đầu bếp cừ khôi chuyên nấu các món ẩm thực cao cấp."),
+  q("wbb_7", "Cô bạn thần đồng đại học kết thân với ba chú gấu tên là gì?", "Cô bé thần đồng người Mỹ gốc Hàn tên là gì?", ["Chloe Park", "Lucy", "Ranger Tabes", "Celine"], "Chloe Park", "Chloe Park là cô bé thiên tài học đại học sớm và là bạn thân của 3 chú gấu."),
+  q("wbb_8", "Nữ kiểm lâm bảo vệ rừng nghiêm khắc là bạn của Grizz tên là gì?", "Tên của cô kiểm lâm rừng là gì?", ["Ranger Tabes", "Ranger Smith", "Officer Judy", "Agent Claire"], "Ranger Tabes", "Ranger Tabes là nữ kiểm lâm nhiệt huyết trông coi khu rừng."),
+  q("wbb_9", "Chú gấu túi Koala chảnh chọe nổi tiếng trên Internet tên là gì?", "Tên của chú Koala nổi tiếng mạng xã hội là gì?", ["Nom Nom", "Mumbo", "Kiki", "Bobi"], "Nom Nom", "Nom Nom là chú gấu túi Koala ngôi sao Internet khó tính."),
+  q("wbb_10", "Nơi ở ấm cúng của ba chú gấu nằm ở đâu?", "Ngôi nhà của ba chú gấu là một gì?", ["A cave in the forest near San Francisco", "An apartment in New York", "A hotel in Paris", "A submarine"], "A cave in the forest near San Francisco", "Họ sống trong một chiếc hang tiện nghi ở khu rừng ngoại ô vịnh San Francisco."),
+  q("wbb_11", "Khi một video được hàng triệu người xem chia sẻ chóng mặt, ta nói video đó:", "The video went _______ on the Internet.", ["viral", "silent", "broken", "offline"], "viral", "'Go viral' nghĩa là lan truyền chóng mặt trên mạng xã hội."),
+  q("wbb_12", "Ice Bear có kỹ năng chiến đấu và công cụ yêu thích nào?", "Ice Bear uses an axe and knows _______.", ["martial arts (ninja)", "boxing only", "swimming only", "flying"], "martial arts (ninja)", "Gấu Trắng rất giỏi võ thuật ninja và thuần thục dùng rìu chẻ củi."),
+  q("wbb_13", "Panda là người ăn chay, từ tiếng Anh chỉ 'người ăn chay' là gì?", "Từ chỉ người ăn chay là gì?", ["Vegetarian", "Carnivore", "Predator", "Hunter"], "Vegetarian", "'Vegetarian' là người ăn chay."),
+  q("wbb_14", "Khi Grizzly phấn khích rủ cả bọn đi mua sắm, cậu hay reo lên:", "Let's go to the _______!", ["food truck", "hospital", "dentist", "court"], "food truck", "Ba chú gấu rất mê ăn uống tại các xe tải bán đồ ăn dạo (food trucks)."),
+  q("wbb_15", "Chiếc túi xách thời trang bằng vải mà Panda nâng niu gọi là gì?", "Từ chỉ chiếc túi xách đeo vai vải là gì?", ["Tote bag", "Suitcase", "Briefcase", "Backpack"], "Tote bag", "'Tote bag' là chiếc túi vải đeo vai quen thuộc của Panda."),
+  q("wbb_16", "Sinh vật huyền bí to lớn đi chân trần hay ghé thăm nhà gấu là ai?", "Người tuyết chân to thân thiện tên là gì?", ["Charlie (Bigfoot)", "Yeti", "Gorgon", "Dragon"], "Charlie (Bigfoot)", "Charlie là quái vật Bigfoot hiền lành thích ăn snack phô mai."),
+  q("wbb_17", "Grizzly tìm thấy hai người em lúc nhỏ ở đâu?", "Ba chú gấu gặp nhau từ khi còn nhỏ tại đâu?", ["Inside a cardboard box in an alley", "At school", "In the zoo", "At the airport"], "Inside a cardboard box in an alley", "Cả ba chú gấu tìm thấy nhau trong một chiếc hộp các-tông thời thơ ấu."),
+  q("wbb_18", "Từ tiếng Anh nào đồng nghĩa với 'cozy' (ấm cúng, thoải mái)?", "Từ đồng nghĩa với 'cozy' là gì?", ["Comfortable", "Freezing", "Noisy", "Crowded"], "Comfortable", "'Cozy' đồng nghĩa với 'comfortable' và 'warm'."),
+  q("wbb_19", "Ice Bear ngủ ở đâu trong nhà?", "Chỗ ngủ kỳ lạ của Gấu Trắng là ở đâu?", ["Inside the refrigerator", "On the roof", "Under the rug", "In the car"], "Inside the refrigerator", "Gấu Trắng ngủ ngon lành bên trong chiếc tủ lạnh mát rượi."),
+  q("wbb_20", "Thông điệp chính mà We Bare Bears muốn gửi gắm tới người xem là gì?", "Thông điệp cốt lõi của bộ phim là:", ["Chấp nhận sự khác biệt và tình anh em gia đình gắn kết", "Cách kiếm tiền trên mạng", "Cách trở thành đầu bếp", "Cách săn bắt động vật hoang dã"], "Chấp nhận sự khác biệt và tình anh em gia đình gắn kết", "Bộ phim tôn vinh sự hòa nhập cộng đồng và tình cảm anh em gắn bó.")
+]);
+
+// 4. Extra English (A1-A2)
+setQ("extra-english", [
+  q("ee_1", "Hector đến từ quốc gia nào để học tiếng Anh tại London?", "Hector is from which Spanish-speaking country?", ["Argentina", "Spain", "Mexico", "Chile"], "Argentina", "Hector là công tử giàu có đến từ Argentina."),
+  q("ee_2", "Hai cô gái cùng thuê căn hộ ở London nơi Hector ghé thăm tên là gì?", "Hai cô bạn cùng phòng tên là gì?", ["Bridget and Annie", "Monica and Rachel", "Penny and Amy", "Jane and Mary"], "Bridget and Annie", "Bridget và Annie là hai bạn nữ thuê chung căn hộ ở London."),
+  q("ee_3", "Anh chàng hàng xóm lém lỉnh, thích tán tỉnh và lười biếng tên là gì?", "Tên của anh chàng hàng xóm là gì?", ["Nick", "John", "Peter", "David"], "Nick", "Nick là anh chàng hàng xóm đối diện tinh quái."),
+  q("ee_4", "Khi Hector mới đến, vốn tiếng Anh của cậu thế nào?", "Tiếng Anh của Hector ban đầu ra sao?", ["Rất bập bẹ và thường dùng sai từ hài hước", "Thành thạo như người bản xứ", "Không nói được từ nào", "Chỉ biết tiếng Pháp"], "Rất bập bẹ và thường dùng sai từ hài hước", "Hector nói tiếng Anh rất ngô nghê và thường gây hiểu lầm buồn cười."),
+  q("ee_5", "Hector thực chất có gia thế như thế nào ở quê nhà Argentina?", "Gia cảnh thực sự của Hector là gì?", ["Gia đình vô cùng giàu có và quyền lực", "Nghèo khó không có tiền", "Mồ côi không có gia đình", "Là một cảnh sát"], "Gia đình vô cùng giàu có và quyền lực", "Hector là người thừa kế của một trong những gia tộc giàu nhất Argentina."),
+  q("ee_6", "Nick dạy Hector từ vựng đi siêu thị nhưng cố tình dạy sai để trêu chọc điều gì?", "Nick bảo Hector mua bao nhiêu quả trứng?", ["One hundred melons instead of lemons", "Ten cars", "Five houses", "A spaceship"], "One hundred melons instead of lemons", "Nick trêu Hector bảo cậu mua dưa lưới (melons) thay vì chanh (lemons)."),
+  q("ee_7", "Chú chó cưng dễ thương của cô bạn Annie tên là gì?", "Tên chú chó cưng là gì?", ["Charley", "Max", "Buddy", "Rex"], "Charley", "Charley là chú chó lông xù của Annie."),
+  q("ee_8", "Bà chủ nhà trọ khó tính hay cấm đoán việc dẫn bạn trai về phòng tên là gì?", "Tên bà chủ nhà trọ là gì?", ["Eunice Mountain", "Mrs. Hudson", "Mrs. Brown", "Lady Mary"], "Eunice Mountain", "Bà chủ nhà nghiêm khắc có họ là Mountain."),
+  q("ee_9", "Bridget làm việc tại cơ quan truyền thông nào?", "Bridget làm việc ở đâu?", ["Channel 9 Television", "BBC Radio", "Daily Newspaper", "Cinema"], "Channel 9 Television", "Bridget làm việc cho đài truyền hình Channel 9."),
+  q("ee_10", "Từ tiếng Anh nào chỉ 'người bạn qua thư từ' giữa Hector và Bridget?", "Từ chỉ người bạn qua thư là gì?", ["Penpal", "Classmate", "Colleague", "Roommate"], "Penpal", "'Penpal' là bạn qua thư từ xa."),
+  q("ee_11", "Khi Hector muốn nói 'I live in a museum', thực ra cậu muốn nói mình sống ở đâu?", "Hector nhầm từ 'museum' với từ nào?", ["Mansion (Biệt thự lộng lẫy)", "Prison", "Hospital", "School"], "Mansion (Biệt thự lộng lẫy)", "Hector sống trong biệt thự nguy nga nhưng nhầm sang 'museum' (bảo tàng)."),
+  q("ee_12", "Nick kiếm việc làm thêm bằng nghề gì trên sóng truyền hình cùng Bridget?", "Nick đã đi thử vai làm gì?", ["Weather reporter / Actor", "Pilot", "Doctor", "Lawyer"], "Weather reporter / Actor", "Nick luôn ao ước trở thành diễn viên và làm người dẫn thời tiết."),
+  q("ee_13", "Cụm từ tiếng Anh 'Can I have the bill, please?' dùng trong ngữ cảnh nào?", "Câu này dùng khi nào?", ["Khi thanh toán tiền tại nhà hàng", "Khi chào hỏi buổi sáng", "Khi hỏi đường đi", "Khi xin việc làm"], "Khi thanh toán tiền tại nhà hàng", "'Can I have the bill, please?' là câu yêu cầu xin hóa đơn tính tiền chuẩn."),
+  q("ee_14", "Khi Annie muốn bày tỏ cảm xúc e thẹn với Hector, cô cảm thấy thế nào?", "Annie cảm thấy thế nào trước vẻ điển trai của Hector?", ["Shy and nervous", "Angry and furious", "Bored and sleepy", "Disgusted"], "Shy and nervous", "Annie rất bẽn lẽn và hồi hộp (shy and nervous)."),
+  q("ee_15", "Hector tập gym trên máy đạp xe trong phòng khách khiến hai cô gái bất ngờ vì sao?", "Tại sao hai cô gái sững sờ khi nhìn thấy Hector tập thể dục?", ["Thân hình săn chắc cơ bắp bất ngờ", "Cậu ấy không biết đạp xe", "Cậu ấy làm vỡ xe đạp", "Cậu ấy đang ngủ"], "Thân hình săn chắc cơ bắp bất ngờ", "Hector cởi áo khoe cơ bụng 6 múi khiến Bridget và Annie choáng váng."),
+  q("ee_16", "Từ tiếng Anh 'flat' trong tiếng Anh-Anh (British English) tương đương từ nào trong tiếng Anh-Mỹ?", "'Flat' tương đương với từ nào?", ["Apartment", "Subway", "Elevator", "Sidewalk"], "Apartment", "'Flat' trong tiếng Anh-Anh tương đương 'apartment' trong tiếng Anh-Mỹ."),
+  q("ee_17", "Khi Nick dạy Hector cách chào phụ nữ: 'I am Hector. I am a handsome guy.' Cấu trúc câu này là:", "Thì của câu này là:", ["Hiện tại đơn với động từ to be (am)", "Quá khứ hoàn thành", "Tương lai đơn", "Hiện tại tiếp diễn"], "Hiện tại đơn với động từ to be (am)", "Câu dùng thì hiện tại đơn khẳng định bản chất 'S + am/is/are + N/adj'."),
+  q("ee_18", "Món đồ uống truyền thống của người Anh mà Annie hay pha mời cả nhà là gì?", "Món đồ uống nào phổ biến nhất nước Anh?", ["A cup of tea with milk", "Vodka", "Tequila", "Orange juice only"], "A cup of tea with milk", "Trà sữa nóng (Tea with milk) là thói quen đậm chất văn hóa Anh quốc."),
+  q("ee_19", "Khi quần áo của Hector bị hỏng, Nick dẫn cậu đi đâu mua đồ mới?", "Nick dẫn Hector đi đâu?", ["Department store (Cửa hàng bách hóa)", "Car showroom", "Bakery", "Pharmacy"], "Department store (Cửa hàng bách hóa)", "Họ đến trung tâm mua sắm sắm quần áo phong cách London."),
+  q("ee_20", "Lý do sê-ri Extra English cực kỳ hiệu quả cho người mới bắt đầu học tiếng Anh là gì?", "Vì sao phim rất phù hợp với trình độ A1-A2?", ["Tốc độ nói vừa phải, phát âm tròn vành rõ chữ, từ vựng đời thường", "Nói nhanh như tên bắn", "Dùng toàn từ ngữ học thuật khó hiểu", "Không có hình ảnh minh họa"], "Tốc độ nói vừa phải, phát âm tròn vành rõ chữ, từ vựng đời thường", "Phim được biên soạn chuyên biệt cho người học tiếng Anh với phát âm mẫu mực.")
+]);
+
+console.log("Saving full question banks 1-4...");
+module.exports = { quizzes, setQ, q };

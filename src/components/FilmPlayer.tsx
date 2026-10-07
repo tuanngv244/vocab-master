@@ -20,7 +20,11 @@ export default function FilmPlayer({ film, initialEpisodeId }: FilmPlayerProps) 
   const defaultEp = episodes.find(e => e.id === initialEpisodeId) || episodes[0];
 
   const [currentEpisode, setCurrentEpisode] = useState<FilmEpisode | undefined>(defaultEp);
-  const [playerMode, setPlayerMode] = useState<"youtube" | "html5">("youtube");
+  const [playerMode, setPlayerMode] = useState<"nguonc" | "youtube" | "html5">(() => {
+    if (defaultEp?.embedUrl) return "nguonc";
+    if (defaultEp?.youtubeId) return "youtube";
+    return "html5";
+  });
   const [youtubeStartTime, setYoutubeStartTime] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -32,6 +36,30 @@ export default function FilmPlayer({ film, initialEpisodeId }: FilmPlayerProps) 
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [activeTimestampIndex, setActiveTimestampIndex] = useState<number | null>(null);
+
+  // Filter episodes by query
+  const [episodeSearch, setEpisodeSearch] = useState("");
+
+  const filteredEpisodes = episodes.filter(ep => {
+    if (!episodeSearch.trim()) return true;
+    const q = episodeSearch.toLowerCase().trim();
+    return (
+      String(ep.episodeNumber).includes(q) ||
+      ep.title.toLowerCase().includes(q) ||
+      ep.titleVi.toLowerCase().includes(q)
+    );
+  });
+
+  // Sync currentEpisode when episodes change
+  useEffect(() => {
+    if (episodes.length > 0) {
+      const match = episodes.find(e => e.id === currentEpisode?.id) || episodes[0];
+      setCurrentEpisode(match);
+      if (match?.embedUrl && playerMode !== "html5" && playerMode !== "youtube") {
+        setPlayerMode("nguonc");
+      }
+    }
+  }, [film.id, episodes.length]);
 
   // Saved watch progress for all episodes in this film
   const [watchProgress, setWatchProgress] = useState<Record<string, EpisodeProgress>>(() => 
@@ -303,9 +331,9 @@ export default function FilmPlayer({ film, initialEpisodeId }: FilmPlayerProps) 
         } ${isFullscreen ? "rounded-none border-none" : ""}`}
       >
         {/* Top Mini Control Bar */}
-        <div className="px-3 sm:px-4 py-2 sm:py-2.5 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 flex items-center justify-between text-xs text-white gap-2">
+        <div className="px-2.5 sm:px-4 py-2 sm:py-2.5 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 flex items-center justify-between text-xs text-white gap-1.5 sm:gap-2">
           <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
-            <span className="px-2 py-0.5 rounded-md bg-indigo-600 text-white text-[10px] font-black uppercase shrink-0">
+            <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-indigo-600 text-white text-[10px] font-black uppercase shrink-0">
               Tập {currentEpisode.episodeNumber}
             </span>
             <span className="font-bold truncate text-slate-200 text-xs sm:text-sm">
@@ -317,36 +345,50 @@ export default function FilmPlayer({ film, initialEpisodeId }: FilmPlayerProps) 
           </div>
 
           <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 ml-auto">
-            {/* Mode Switch: HTML5 vs YouTube */}
-            {currentEpisode.youtubeId && (
-              <div className="flex bg-slate-800 rounded-lg p-0.5 border border-slate-700 text-[10px] font-bold">
+            {/* Mode Switch: Nguồn C vs HTML5 vs YouTube */}
+            <div className="flex bg-slate-800 rounded-lg p-0.5 border border-slate-700 text-[10px] font-bold">
+              {currentEpisode.embedUrl && (
+                <button
+                  onClick={() => setPlayerMode("nguonc")}
+                  className={`px-1.5 sm:px-2 py-1 rounded flex items-center gap-1 transition-all ${
+                    playerMode === "nguonc" ? "bg-emerald-600 text-white font-black shadow-xs" : "text-slate-400 hover:text-white"
+                  }`}
+                  title="Bản phim chiếu trọn vẹn từ Phim Nguồn C (phim.nguonc.com)"
+                >
+                  <Film size={12} />
+                  <span>Nguồn C<span className="hidden sm:inline"> (Full HD)</span></span>
+                </button>
+              )}
+              {currentEpisode.videoUrl && (
                 <button
                   onClick={() => setPlayerMode("html5")}
                   className={`px-1.5 sm:px-2 py-1 rounded flex items-center gap-1 transition-all ${
-                    playerMode === "html5" ? "bg-indigo-600 text-white" : "text-slate-400 hover:text-white"
+                    playerMode === "html5" ? "bg-indigo-600 text-white font-black shadow-xs" : "text-slate-400 hover:text-white"
                   }`}
                   title="Video học tập tương tác với điều khiển tốc độ & zoom"
                 >
                   <Tv size={12} />
-                  <span className="hidden xs:inline sm:inline">Học Tập</span>
+                  <span className="hidden sm:inline">Học Tập</span>
                 </button>
+              )}
+              {currentEpisode.youtubeId && (
                 <button
                   onClick={() => setPlayerMode("youtube")}
                   className={`px-1.5 sm:px-2 py-1 rounded flex items-center gap-1 transition-all ${
-                    playerMode === "youtube" ? "bg-red-600 text-white" : "text-slate-400 hover:text-white"
+                    playerMode === "youtube" ? "bg-red-600 text-white font-black shadow-xs" : "text-slate-400 hover:text-white"
                   }`}
                   title="Bản phát trực tiếp YouTube"
                 >
                   <Monitor size={12} />
-                  <span className="hidden xs:inline sm:inline">YouTube</span>
+                  <span className="hidden sm:inline">YouTube</span>
                 </button>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Zoom Controls */}
             <button
               onClick={handleZoomToggle}
-              className="px-2 sm:px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-all flex items-center gap-1 border border-slate-700"
+              className="px-1.5 sm:px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-all flex items-center gap-1 border border-slate-700"
               title={`Thu phóng video: Hiện tại ${Math.round(zoomLevel * 100)}%`}
             >
               {zoomLevel > 1.0 ? <ZoomOut size={13} /> : <ZoomIn size={13} />}
@@ -381,7 +423,21 @@ export default function FilmPlayer({ film, initialEpisodeId }: FilmPlayerProps) 
 
         {/* Video Canvas Stage */}
         <div className="relative w-full aspect-video bg-black overflow-hidden flex items-center justify-center">
-          {playerMode === "html5" ? (
+          {playerMode === "nguonc" && currentEpisode.embedUrl ? (
+            <div 
+              className="w-full h-full flex items-center justify-center transition-transform duration-300"
+              style={{ transform: `scale(${zoomLevel})` }}
+            >
+              <iframe
+                key={`${currentEpisode.id}-nguonc`}
+                src={currentEpisode.embedUrl}
+                title={currentEpisode.title}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                allowFullScreen
+              />
+            </div>
+          ) : playerMode === "html5" ? (
             <div 
               className="w-full h-full flex items-center justify-center transition-transform duration-300"
               style={{ transform: `scale(${zoomLevel})` }}
@@ -393,8 +449,9 @@ export default function FilmPlayer({ film, initialEpisodeId }: FilmPlayerProps) 
                 onLoadedMetadata={handleLoadedMetadata}
                 onEnded={handleEnded}
                 onError={() => {
-                  console.warn("HTML5 source error, switching to YouTube Stream");
-                  setPlayerMode("youtube");
+                  console.warn("HTML5 source error, switching source");
+                  if (currentEpisode.embedUrl) setPlayerMode("nguonc");
+                  else setPlayerMode("youtube");
                 }}
                 onClick={handlePlayPause}
                 className="w-full h-full object-contain cursor-pointer"
@@ -640,7 +697,7 @@ export default function FilmPlayer({ film, initialEpisodeId }: FilmPlayerProps) 
 
       {/* Episode Selection List (Danh sách tập phim / Phân đoạn) */}
       <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/90 shadow-xs space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">
           <div>
             <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight flex items-center gap-2">
               <Film size={18} className="text-indigo-600" />
@@ -650,13 +707,24 @@ export default function FilmPlayer({ film, initialEpisodeId }: FilmPlayerProps) 
               Chọn tập để bắt đầu học. Tiến độ xem từng tập được lưu tự động.
             </p>
           </div>
-          <span className="text-xs font-black px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">
-            {episodes.length} Tập / Phân đoạn
-          </span>
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+            {episodes.length > 4 && (
+              <input
+                type="text"
+                placeholder="Tìm tập (vd: 1, 12, full)..."
+                value={episodeSearch}
+                onChange={e => setEpisodeSearch(e.target.value)}
+                className="text-xs px-2.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-indigo-400 flex-1 sm:w-44"
+              />
+            )}
+            <span className="text-xs font-black px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 shrink-0">
+              {filteredEpisodes.length}/{episodes.length} Tập
+            </span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-          {episodes.map(ep => {
+          {filteredEpisodes.map(ep => {
             const isCurrent = currentEpisode.id === ep.id;
             const prog = watchProgress[ep.id];
             const isDone = prog?.isCompleted;
