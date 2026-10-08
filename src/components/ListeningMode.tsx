@@ -81,8 +81,8 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
             onClick={() => setFilterLevel("all")}
             className={`px-4 py-2 rounded-xl text-sm font-bold transition-all shrink-0 ${
               filterLevel === "all"
-                ? "bg-slate-900 text-white shadow-md shadow-slate-900/20"
-                : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                ? "bg-slate-900 dark:bg-slate-700 text-white shadow-md shadow-slate-900/20"
+                : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700"
             }`}
           >
             Tất cả ({exercises.length})
@@ -92,7 +92,7 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
             className={`px-4 py-2 rounded-xl text-sm font-bold transition-all shrink-0 flex items-center gap-1.5 ${
               filterLevel === "beginner"
                 ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/25"
-                : "bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200"
+                : "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-200 dark:border-emerald-800/60"
             }`}
           >
             <span>🌱</span> Người mới (A1-A2) ({beginnerCount})
@@ -102,7 +102,7 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
             className={`px-4 py-2 rounded-xl text-sm font-bold transition-all shrink-0 flex items-center gap-1.5 ${
               filterLevel === "advanced"
                 ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/25"
-                : "bg-indigo-50 text-indigo-800 hover:bg-indigo-100 border border-indigo-200"
+                : "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 border border-indigo-200 dark:border-indigo-800/60"
             }`}
           >
             <span>⚡</span> Nâng cao (IELTS) ({advancedCount})
@@ -127,26 +127,26 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
                   synth.cancel();
                   setIsPlaying(false);
                 }}
-                className="bg-white rounded-[24px] border border-slate-100 overflow-hidden cursor-pointer hover:shadow-xl hover:shadow-slate-200/50 transition-all p-6 sm:p-8 flex items-start gap-5 sm:gap-6 group"
+                className="bg-white dark:bg-slate-900 rounded-[24px] border border-slate-100 dark:border-slate-800 overflow-hidden cursor-pointer hover:shadow-xl dark:shadow-none transition-all p-6 sm:p-8 flex items-start gap-5 sm:gap-6 group"
               >
                 <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform ${
-                  isBeginner ? "bg-emerald-100 text-emerald-600" : "bg-indigo-100 text-indigo-600"
+                  isBeginner ? "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-300" : "bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-300"
                 }`}>
                   <Headphones size={28} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2 flex-wrap">
                     <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
-                      isBeginner ? "bg-emerald-100 text-emerald-800" : "bg-indigo-100 text-indigo-800"
+                      isBeginner ? "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300" : "bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300"
                     }`}>
                       {exercise.level}
                     </span>
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{exercise.durationLabel}</span>
+                    <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">{exercise.durationLabel}</span>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-3 line-clamp-2">{exercise.title}</h3>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2">{exercise.title}</h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">{exercise.questions.length} câu hỏi</span>
-                    <span className="text-sm font-bold text-emerald-600 group-hover:translate-x-1 transition-transform">Luyện nghe →</span>
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg">{exercise.questions.length} câu hỏi</span>
+                    <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform">Luyện nghe →</span>
                   </div>
                 </div>
               </motion.div>
@@ -160,18 +160,18 @@ export default function ListeningMode({ exercises, onBack }: ListeningModeProps)
   const score = calculateScore();
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-50">
-      <div className="max-w-4xl mx-auto w-full bg-white min-h-full border-x border-slate-200 shadow-sm">
-        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-slate-200 px-4 sm:px-8 py-4 flex items-center gap-4">
+    <div className="flex flex-col min-h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
+      <div className="max-w-4xl mx-auto w-full bg-white dark:bg-slate-900 min-h-full border-x border-slate-200 dark:border-slate-800 shadow-sm">
+        <header className="sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-4 sm:px-8 py-4 flex items-center gap-4">
           <button 
             onClick={() => { synth.cancel(); setSelectedExercise(null); }}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors shrink-0"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shrink-0"
           >
             <ChevronLeft size={20} />
           </button>
           <div className="truncate">
-            <h2 className="text-lg sm:text-xl font-bold text-slate-900 truncate">{selectedExercise.title}</h2>
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">{selectedExercise.level} • {selectedExercise.durationLabel}</p>
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white truncate">{selectedExercise.title}</h2>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{selectedExercise.level} • {selectedExercise.durationLabel}</p>
           </div>
         </header>
 

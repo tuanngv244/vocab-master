@@ -23,8 +23,8 @@ function renderHighlightedText(text: string, isVietnamese = false) {
               key={index}
               className={`font-black tracking-wide px-1.5 py-0.5 mx-0.5 rounded-md inline-block transition-all ${
                 isVietnamese
-                  ? "bg-emerald-100 text-emerald-950 border border-emerald-300 shadow-2xs"
-                  : "bg-amber-100 text-amber-950 border border-amber-300 shadow-2xs"
+                  ? "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-950 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700 shadow-2xs"
+                  : "bg-amber-100 dark:bg-amber-950/80 text-amber-950 dark:text-amber-200 border border-amber-300 dark:border-amber-700 shadow-2xs"
               }`}
             >
               {content}
@@ -95,31 +95,31 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
           <div className="flex items-center gap-3">
             <button 
               onClick={onBack}
-              className="w-10 h-10 flex items-center justify-center rounded-2xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors shadow-2xs"
+              className="w-10 h-10 flex items-center justify-center rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors shadow-2xs"
             >
               <ChevronLeft size={20} />
             </button>
             <div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
                 <span>Luyện Đọc Song Ngữ</span>
-                <span className="text-sm font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                <span className="text-sm font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/60">
                   Anh - Việt
                 </span>
               </h2>
-              <p className="text-slate-500 text-xs sm:text-sm font-medium mt-0.5">
+              <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-medium mt-0.5">
                 Các đoạn văn có bản dịch tiếng Việt bên dưới và in đậm từ khó để ghi nhớ dễ dàng
               </p>
             </div>
           </div>
 
           {/* Level Filter Tabs */}
-          <div className="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200/80 self-start sm:self-auto shrink-0">
+          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800/90 p-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-700 self-start sm:self-auto shrink-0">
             <button
               onClick={() => setFilterLevel("all")}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 filterLevel === "all"
-                  ? "bg-white text-slate-900 shadow-sm"
-                  : "text-slate-500 hover:text-slate-900"
+                  ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm font-extrabold"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
               Tất cả ({articles.length})
@@ -128,26 +128,26 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
               onClick={() => setFilterLevel("beginner")}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
                 filterLevel === "beginner"
-                  ? "bg-emerald-600 text-white shadow-sm"
-                  : "text-slate-600 hover:text-emerald-700"
+                  ? "bg-emerald-600 text-white shadow-sm font-extrabold"
+                  : "text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-400"
               }`}
             >
               <span>🌱 Người mới</span>
               <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-black ${
-                filterLevel === "beginner" ? "bg-white/20 text-white" : "bg-emerald-100 text-emerald-800"
+                filterLevel === "beginner" ? "bg-white/20 text-white" : "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300"
               }`}>{beginnerCount}</span>
             </button>
             <button
               onClick={() => setFilterLevel("advanced")}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
                 filterLevel === "advanced"
-                  ? "bg-indigo-600 text-white shadow-sm"
-                  : "text-slate-600 hover:text-indigo-700"
+                  ? "bg-indigo-600 text-white shadow-sm font-extrabold"
+                  : "text-slate-600 dark:text-slate-400 hover:text-indigo-700 dark:hover:text-indigo-400"
               }`}
             >
               <span>⚡ Nâng cao</span>
               <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-black ${
-                filterLevel === "advanced" ? "bg-white/20 text-white" : "bg-indigo-100 text-indigo-800"
+                filterLevel === "advanced" ? "bg-white/20 text-white" : "bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300"
               }`}>{advancedCount}</span>
             </button>
           </div>
@@ -167,13 +167,13 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
                   setSelectedArticle(article); 
                   setAnswers({}); 
                   setSubmitted(false); 
-                  setShowTranslation(true);
+                  setShowTranslation(true); 
                   setCurrentlySpeakingIdx(null);
                   if (typeof window !== "undefined" && window.speechSynthesis) {
                     window.speechSynthesis.cancel();
                   }
                 }}
-                className="bg-white rounded-[24px] border border-slate-200/90 overflow-hidden cursor-pointer hover:shadow-xl hover:shadow-slate-200/60 hover:-translate-y-1 transition-all group flex flex-col"
+                className="bg-white dark:bg-slate-900 rounded-[24px] border border-slate-200/90 dark:border-slate-800 overflow-hidden cursor-pointer hover:shadow-xl dark:shadow-none hover:-translate-y-1 transition-all group flex flex-col"
               >
                 <div className="h-44 w-full bg-slate-200 overflow-hidden relative">
                   <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />

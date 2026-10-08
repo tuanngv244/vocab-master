@@ -88,26 +88,26 @@ export default function Home({
       </header>
 
       {/* Week Streak Panel */}
-      <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-100 shadow-lg shadow-slate-200/30">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-100 dark:border-slate-800 shadow-lg shadow-slate-200/30 dark:shadow-none">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-slate-800">Chuỗi ngày học tập</h2>
-            <p className="text-[11px] text-slate-400">Duy trì thói quen học mỗi ngày để đạt hiệu quả cao nhất</p>
+            <h2 className="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100">Chuỗi ngày học tập</h2>
+            <p className="text-[11px] text-slate-400 dark:text-slate-500">Duy trì thói quen học mỗi ngày để đạt hiệu quả cao nhất</p>
           </div>
-          <span className="text-[11px] sm:text-xs font-bold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full border border-orange-200">
+          <span className="text-[11px] sm:text-xs font-bold text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/60 px-2.5 py-1 rounded-full border border-orange-200 dark:border-orange-800/60">
             🔥 Tiến độ tuần
           </span>
         </div>
         <div className="flex justify-between items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
           {weekDays.map((d, i) => (
             <div key={i} className="flex flex-col items-center min-w-[32px] sm:min-w-[44px]">
-              <span className={`text-[9px] sm:text-xs font-bold uppercase tracking-wider mb-2 ${d.isToday ? 'text-emerald-600 font-black' : 'text-slate-400'}`}>
+              <span className={`text-[9px] sm:text-xs font-bold uppercase tracking-wider mb-2 ${d.isToday ? 'text-emerald-600 dark:text-emerald-400 font-black' : 'text-slate-400 dark:text-slate-500'}`}>
                 {d.dayName}
               </span>
               <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all ${
                 d.isCompleted 
-                  ? 'bg-emerald-500 text-white shadow-md shadow-emerald-200' 
-                  : d.isToday ? 'bg-slate-100 border-2 border-slate-300' : 'bg-slate-50 border border-slate-200'
+                  ? 'bg-emerald-500 text-white shadow-md shadow-emerald-200 dark:shadow-none' 
+                  : d.isToday ? 'bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600' : 'bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800'
               }`}>
                 {d.isCompleted ? <Check size={16} strokeWidth={3} /> : null}
               </div>
@@ -120,12 +120,12 @@ export default function Home({
       <div>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Sparkles size={20} className="text-indigo-600" />
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+            <Sparkles size={20} className="text-indigo-600 dark:text-indigo-400" />
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
               Phần Học Lớn Mới
             </h2>
           </div>
-          <span className="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full">
+          <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/60 px-3 py-1 rounded-full">
             Toàn diện & Tương tác cao
           </span>
         </div>
@@ -229,40 +229,40 @@ export default function Home({
       <div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
               <span>Chủ Đề Từ Vựng</span>
-              <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-200">
+              <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/70 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/60">
                 {topics.length} Chủ đề
               </span>
             </h2>
-            <p className="text-xs text-slate-500 font-medium mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
               Bao gồm các chuyên mục thực phẩm đặc biệt: Các loại cá, rau củ, ốc sò, hải sản, nấm quý
             </p>
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 text-xs font-bold overflow-x-auto max-w-full scrollbar-none w-full sm:w-auto">
+          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800/90 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-700/80 text-xs font-bold overflow-x-auto max-w-full scrollbar-none w-full sm:w-auto">
             <button
               onClick={() => setTopicFilter("all")}
-              className={`px-3 py-1.5 rounded-xl transition-all shrink-0 ${topicFilter === "all" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500"}`}
+              className={`px-3 py-1.5 rounded-xl transition-all shrink-0 ${topicFilter === "all" ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-extrabold" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
             >
               Tất cả ({topics.length})
             </button>
             <button
               onClick={() => setTopicFilter("specialized")}
-              className={`px-3 py-1.5 rounded-xl transition-all shrink-0 flex items-center gap-1 ${topicFilter === "specialized" ? "bg-emerald-600 text-white shadow-xs" : "text-slate-600 hover:text-emerald-700"}`}
+              className={`px-3 py-1.5 rounded-xl transition-all shrink-0 flex items-center gap-1 ${topicFilter === "specialized" ? "bg-emerald-600 text-white shadow-xs font-extrabold" : "text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400"}`}
             >
               <span>🌟 Chuyên đề đặc sắc (Cá, Rau, Ốc, Hải sản)</span>
             </button>
             <button
               onClick={() => setTopicFilter("daily")}
-              className={`px-3 py-1.5 rounded-xl transition-all shrink-0 ${topicFilter === "daily" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500"}`}
+              className={`px-3 py-1.5 rounded-xl transition-all shrink-0 ${topicFilter === "daily" ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-extrabold" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
             >
               Đời sống & Ẩm thực
             </button>
             <button
               onClick={() => setTopicFilter("work")}
-              className={`px-3 py-1.5 rounded-xl transition-all shrink-0 ${topicFilter === "work" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500"}`}
+              className={`px-3 py-1.5 rounded-xl transition-all shrink-0 ${topicFilter === "work" ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-extrabold" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
             >
               Công việc & Xã hội
             </button>
@@ -282,50 +282,50 @@ export default function Home({
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(index * 0.03, 0.3) }}
-                className={`rounded-[30px] p-7 border bg-white hover:shadow-2xl transition-all flex flex-col group relative overflow-hidden ${
+                className={`rounded-[30px] p-7 border bg-white dark:bg-slate-900 hover:shadow-2xl transition-all flex flex-col group relative overflow-hidden ${
                   isSpecialized 
-                    ? "border-emerald-300 shadow-md shadow-emerald-50 hover:shadow-emerald-100/50 ring-1 ring-emerald-200" 
-                    : "border-slate-100 shadow-lg shadow-slate-200/40 hover:shadow-slate-200/50"
+                    ? "border-emerald-300 dark:border-emerald-600/80 shadow-md shadow-emerald-50 dark:shadow-none hover:shadow-emerald-100/50 ring-1 ring-emerald-200 dark:ring-emerald-700/60" 
+                    : "border-slate-100 dark:border-slate-800 shadow-lg shadow-slate-200/40 dark:shadow-none hover:shadow-slate-200/50"
                 }`}
               >
                 {/* Decorative accent */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-slate-50 to-emerald-50/20 opacity-0 group-hover:opacity-100 transition-opacity -z-10 rounded-[40px]"></div>
+                <div className="absolute -inset-4 bg-gradient-to-r from-slate-50 to-emerald-50/20 dark:from-slate-800/40 dark:to-emerald-950/20 opacity-0 group-hover:opacity-100 transition-opacity -z-10 rounded-[40px]"></div>
                 
                 <div className="flex items-center justify-between mb-5">
-                  <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-3xl shadow-inner border border-slate-100 group-hover:scale-105 transition-transform">
+                  <div className="w-14 h-14 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-3xl shadow-inner border border-slate-100 dark:border-slate-700 group-hover:scale-105 transition-transform">
                     {topic.icon}
                   </div>
                   <div className="text-right">
                     {isSpecialized ? (
-                      <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full border border-emerald-200 block mb-1">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/70 block mb-1">
                         Chuyên mục mới 🌟
                       </span>
                     ) : (
-                      <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block">
+                      <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block">
                         Mastery
                       </span>
                     )}
-                    <span className="text-sm font-bold text-emerald-600 block">{percent}%</span>
+                    <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 block">{percent}%</span>
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-bold text-slate-900 mb-1">{topic.name}</h3>
-                <p className="text-slate-500 text-xs sm:text-sm font-medium mb-6">{topic.words.length} từ vựng chuẩn kèm phát âm & ví dụ</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{topic.name}</h3>
+                <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-medium mb-6">{topic.words.length} từ vựng chuẩn kèm phát âm & ví dụ</p>
                 
-                <div className="w-full bg-slate-100 rounded-full h-2 mb-6 overflow-hidden">
+                <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 mb-6 overflow-hidden">
                   <div className="bg-emerald-500 h-full rounded-full transition-all duration-500" style={{ width: `${percent}%` }}></div>
                 </div>
 
                 <div className="flex gap-3 mt-auto">
                   <button
                     onClick={() => onSelectStudy(topic)}
-                    className="flex-1 flex items-center justify-center gap-2 bg-slate-900 text-white py-3 rounded-2xl font-bold hover:bg-slate-800 transition active:scale-95 shadow-md text-sm"
+                    className="flex-1 flex items-center justify-center gap-2 bg-slate-900 dark:bg-emerald-600 text-white py-3 rounded-2xl font-bold hover:bg-slate-800 dark:hover:bg-emerald-500 transition active:scale-95 shadow-md text-sm"
                   >
                     <BookOpen size={16} /> Học từ
                   </button>
                   <button
                     onClick={() => onSelectQuiz(topic)}
-                    className="flex-1 flex items-center justify-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200 py-3 rounded-2xl font-bold hover:bg-emerald-100 transition active:scale-95 text-sm"
+                    className="flex-1 flex items-center justify-center gap-2 bg-emerald-50 dark:bg-slate-800 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-slate-700 py-3 rounded-2xl font-bold hover:bg-emerald-100 dark:hover:bg-slate-700 transition active:scale-95 text-sm"
                   >
                     <Gamepad2 size={16} /> Kiểm tra
                   </button>

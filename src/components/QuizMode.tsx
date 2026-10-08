@@ -79,14 +79,14 @@ export default function QuizMode({ topicName, words, allWords, onBack, onComplet
             You scored <span className="text-emerald-600 font-bold">{score}/{questions.length}</span> correct answers.
           </p>
           
-          <div className="grid grid-cols-2 gap-2 sm:gap-4 p-4 sm:p-6 bg-white border border-slate-100 rounded-3xl mb-8 sm:mb-10 shadow-sm">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4 p-4 sm:p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl mb-8 sm:mb-10 shadow-sm">
             <div className="text-center">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Accuracy</p>
+              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Accuracy</p>
               <p className="text-3xl font-black text-emerald-500">{Math.round((score / questions.length) * 100)}%</p>
             </div>
             <div className="text-center">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Topic</p>
-              <p className="text-lg font-bold text-slate-800 flex items-center justify-center gap-2 h-full pb-1 truncate">{topicName}</p>
+              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Topic</p>
+              <p className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center justify-center gap-2 h-full pb-1 truncate">{topicName}</p>
             </div>
           </div>
           
@@ -95,7 +95,7 @@ export default function QuizMode({ topicName, words, allWords, onBack, onComplet
               onComplete(score);
               onBack();
             }}
-            className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-lg shadow-xl shadow-slate-200 hover:bg-slate-800 transition active:scale-95"
+            className="w-full py-4 bg-slate-900 dark:bg-emerald-600 text-white rounded-2xl font-bold text-lg shadow-xl shadow-slate-200 dark:shadow-none hover:bg-slate-800 dark:hover:bg-emerald-500 transition active:scale-95"
           >
             Return to Dashboard
           </button>
@@ -110,11 +110,11 @@ export default function QuizMode({ topicName, words, allWords, onBack, onComplet
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-6 md:p-12 flex flex-col min-h-full w-full">
       <header className="mb-8 w-full">
-        <div className="flex justify-between text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
+        <div className="flex justify-between text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">
           <span>Question {currentIndex + 1} of {questions.length}</span>
           <span>Score: {score}</span>
         </div>
-        <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+        <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-3 overflow-hidden">
           <div 
             className="bg-emerald-500 h-full rounded-full transition-all duration-500"
             style={{ width: `${progressPercent}%` }}
@@ -124,7 +124,7 @@ export default function QuizMode({ topicName, words, allWords, onBack, onComplet
 
       <div className="text-center mb-8 flex-1 flex flex-col justify-center min-h-[200px]">
         {/* Emoji cut by 50% in Quiz Mode as requested, revealed when an answer is selected */}
-        <div className="inline-flex w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-full items-center justify-center text-5xl sm:text-7xl shadow-xl shadow-slate-200 border border-slate-100 mb-6 sm:mb-8 mx-auto shrink-0 relative">
+        <div className="inline-flex w-24 h-24 sm:w-32 sm:h-32 bg-white dark:bg-slate-800 rounded-full items-center justify-center text-5xl sm:text-7xl shadow-xl shadow-slate-200 dark:shadow-none border border-slate-100 dark:border-slate-700 mb-6 sm:mb-8 mx-auto shrink-0 relative">
           <motion.div
              key={currentWord.id}
              initial={{ scale: 0.5, opacity: 0 }}
@@ -135,25 +135,25 @@ export default function QuizMode({ topicName, words, allWords, onBack, onComplet
             {currentWord.emoji}
           </motion.div>
         </div>
-        <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">{currentWord.word}</h2>
-        <p className="text-slate-400 font-medium mt-3 sm:mt-4 text-sm sm:text-base">Select the correct definition</p>
+        <h2 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">{currentWord.word}</h2>
+        <p className="text-slate-400 dark:text-slate-400 font-medium mt-3 sm:mt-4 text-sm sm:text-base">Select the correct definition</p>
       </div>
 
       <div className="grid gap-3 sm:gap-4 mt-auto">
         <AnimatePresence mode="popLayout">
           {options.map((option, idx) => {
-            let btnClass = "bg-white border-slate-200 hover:border-slate-300 hover:shadow-md text-slate-800";
+            let btnClass = "bg-white dark:bg-slate-850 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-md text-slate-800 dark:text-slate-100";
             let icon = null;
 
             if (selectedAnswer) {
               if (option === currentWord.meaning) {
-                btnClass = "bg-emerald-50 border-emerald-500 text-emerald-800 z-10 shadow-lg shadow-emerald-100";
+                btnClass = "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-500 text-emerald-800 dark:text-emerald-300 z-10 shadow-lg shadow-emerald-100 dark:shadow-none";
                 icon = <CheckCircle2 className="text-emerald-500" strokeWidth={3} />;
               } else if (option === selectedAnswer) {
-                btnClass = "bg-red-50 border-red-500 text-red-800 z-10 shadow-lg shadow-red-100";
+                btnClass = "bg-red-50 dark:bg-red-950/80 border-red-500 text-red-800 dark:text-red-300 z-10 shadow-lg shadow-red-100 dark:shadow-none";
                 icon = <XCircle className="text-red-500" strokeWidth={3} />;
               } else {
-                btnClass = "bg-slate-50 border-slate-200 opacity-50 scale-[0.98]";
+                btnClass = "bg-slate-50 dark:bg-slate-850 border-slate-200 dark:border-slate-750 opacity-50 scale-[0.98]";
               }
             }
 

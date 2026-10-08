@@ -67,41 +67,41 @@ export default function SyntaxMode({ onBack }: SyntaxModeProps) {
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-50">
+    <div className="flex flex-col min-h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
       {/* Top Header - Compact & Responsive */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-xl border-b border-slate-200 px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-3">
+      <header className="sticky top-0 z-20 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
           <button 
             onClick={onBack}
-            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors shrink-0"
+            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shrink-0"
             title="Quay lại"
           >
             <ChevronLeft size={18} />
           </button>
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <h1 className="text-base sm:text-lg font-black text-slate-900 tracking-tight truncate">Cú Pháp Câu</h1>
-              <span className="text-[10px] font-bold px-2 py-0.2 rounded-full bg-purple-100 text-purple-800 border border-purple-200 shrink-0">
+              <h1 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight truncate">Cú Pháp Câu</h1>
+              <span className="text-[10px] font-bold px-2 py-0.2 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800/60 shrink-0">
                 Grammar & Syntax
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 font-medium hidden sm:block truncate">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block truncate">
               5 mô hình cơ bản, đảo ngữ, câu chẻ, bị động nâng cao, câu điều kiện & so sánh kép
             </p>
           </div>
         </div>
 
         {/* Tab switch */}
-        <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold shrink-0">
+        <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold shrink-0">
           <button
             onClick={() => setActiveTab("theory")}
-            className={`px-2.5 sm:px-3 py-1.5 rounded-lg transition-all ${activeTab === "theory" ? "bg-white text-purple-700 shadow-xs font-bold" : "text-slate-500 hover:text-slate-800"}`}
+            className={`px-2.5 sm:px-3 py-1.5 rounded-lg transition-all ${activeTab === "theory" ? "bg-white dark:bg-slate-700 text-purple-700 dark:text-purple-300 shadow-xs font-bold" : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"}`}
           >
             📖 <span className="hidden sm:inline">Cú pháp & Mô hình</span><span className="sm:hidden">Lý thuyết</span>
           </button>
           <button
             onClick={() => setActiveTab("practice")}
-            className={`px-2.5 sm:px-3 py-1.5 rounded-lg transition-all ${activeTab === "practice" ? "bg-purple-600 text-white shadow-xs font-bold" : "text-slate-500 hover:text-slate-800"}`}
+            className={`px-2.5 sm:px-3 py-1.5 rounded-lg transition-all ${activeTab === "practice" ? "bg-purple-600 text-white shadow-xs font-bold" : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"}`}
           >
             ✍️ <span className="hidden sm:inline">Luyện tập thực hành</span><span className="sm:hidden">Thực hành ({selectedTopic.quiz.length})</span>
           </button>
@@ -127,7 +127,7 @@ export default function SyntaxMode({ onBack }: SyntaxModeProps) {
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition-all border ${
                   isActive
                     ? "bg-purple-600 text-white border-purple-600 shadow-sm"
-                    : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
+                    : "bg-white dark:bg-slate-850 border-slate-200 dark:border-slate-750 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
                 }`}
               >
                 <span>{topic.icon}</span>

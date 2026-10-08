@@ -268,9 +268,9 @@ export default function FilmMode({ onBack }: FilmModeProps) {
   }, [selectedFilm, vocabSearch]);
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-50 text-slate-800">
+    <div className="flex flex-col min-h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
       {/* Top Header */}
-      <div className="bg-white border-b border-slate-200 px-4 md:px-8 py-3.5 sticky top-0 z-30 shadow-2xs">
+      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 md:px-8 py-3.5 sticky top-0 z-30 shadow-2xs">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <button
@@ -281,7 +281,7 @@ export default function FilmMode({ onBack }: FilmModeProps) {
                   onBack();
                 }
               }}
-              className="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors shrink-0"
+              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0"
               title="Quay lại"
             >
               <ArrowLeft size={20} />
@@ -289,14 +289,14 @@ export default function FilmMode({ onBack }: FilmModeProps) {
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-xl">🎬</span>
-                <h1 className="text-base sm:text-lg md:text-xl font-black text-slate-900 truncate">
+                <h1 className="text-base sm:text-lg md:text-xl font-black text-slate-900 dark:text-white truncate">
                   {selectedFilm ? selectedFilm.title : "Học Tiếng Anh Qua Phim (Films & Series)"}
                 </h1>
-                <span className="bg-indigo-100 text-indigo-800 text-[10px] font-black uppercase px-2 py-0.5 rounded-full border border-indigo-200">
+                <span className="bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300 text-[10px] font-black uppercase px-2 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800/60">
                   Nguồn C Stream Full HD
                 </span>
               </div>
-              <p className="text-xs text-slate-500 font-medium truncate mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium truncate mt-0.5">
                 {selectedFilm 
                   ? `${selectedFilm.titleVi} • ${selectedFilm.levelLabel} • ${selectedFilm.accent}`
                   : "Phim hoạt hình & phim thật với tập chiếu đầy đủ, phụ đề, từ vựng và 20 câu hỏi thử thách"}
@@ -307,7 +307,7 @@ export default function FilmMode({ onBack }: FilmModeProps) {
           <div className="flex items-center gap-2 w-full md:w-auto justify-start sm:justify-end flex-wrap">
             <button
               onClick={() => setShowGuide(!showGuide)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition-all border border-indigo-200"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold transition-all border border-indigo-200 dark:border-indigo-800/60"
             >
               <Compass size={14} />
               <span>{showGuide ? "Đóng hướng dẫn" : "Phương pháp 4 bước"}</span>
@@ -318,7 +318,7 @@ export default function FilmMode({ onBack }: FilmModeProps) {
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all border ${
                   completedFilmIds.includes(selectedFilm.id)
                     ? "bg-emerald-600 text-white border-emerald-600"
-                    : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                    : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750"
                 }`}
               >
                 <CheckCircle2 size={14} />
@@ -402,19 +402,19 @@ export default function FilmMode({ onBack }: FilmModeProps) {
         {!selectedFilm && (
           <div className="space-y-6">
             {/* Catalog Switcher: 24 Curated Films vs NguonC Online Discovery */}
-            <div className="bg-white rounded-3xl p-2 border border-slate-200 shadow-xs flex flex-col sm:flex-row gap-2">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-2 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row gap-2">
               <button
                 onClick={() => setCatalogSource("curated")}
                 className={`flex-1 py-3 px-4 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2 ${
                   catalogSource === "curated"
                     ? "bg-indigo-600 text-white shadow-md"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                    : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
                 }`}
               >
                 <Award size={17} />
                 <span>24 Phim Tiếng Anh Tuyển Chọn (3 Cấp Độ)</span>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-                  catalogSource === "curated" ? "bg-white/20 text-white" : "bg-indigo-50 text-indigo-700"
+                  catalogSource === "curated" ? "bg-white/20 text-white" : "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300"
                 }`}>
                   20 Thử Thách/Phim
                 </span>
@@ -425,13 +425,13 @@ export default function FilmMode({ onBack }: FilmModeProps) {
                 className={`flex-1 py-3 px-4 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2 ${
                   catalogSource === "nguonc_online"
                     ? "bg-emerald-600 text-white shadow-md"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                    : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
                 }`}
               >
                 <Globe size={17} />
                 <span>Kho Phim Nguồn C Trực Tuyến (phim.nguonc.com)</span>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-                  catalogSource === "nguonc_online" ? "bg-white/20 text-white" : "bg-emerald-50 text-emerald-800"
+                  catalogSource === "nguonc_online" ? "bg-white/20 text-white" : "bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300"
                 }`}>
                   Live API
                 </span>
@@ -442,7 +442,7 @@ export default function FilmMode({ onBack }: FilmModeProps) {
             {catalogSource === "curated" && (
               <div className="space-y-5">
                 {/* Search and Filters Bar */}
-                <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200 shadow-2xs space-y-3">
+                <div className="bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-2xs space-y-3">
                   <div className="flex flex-col sm:flex-row gap-3">
                     {/* Search box */}
                     <div className="relative flex-1">
@@ -452,12 +452,12 @@ export default function FilmMode({ onBack }: FilmModeProps) {
                         value={searchQuery}
                         onChange={e => setSearchQuery(e.target.value)}
                         placeholder="Tìm kiếm phim (Nemo, Suits, HIMYM, Friends, Oppenheimer, Sherlock...)..."
-                        className="w-full pl-9 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all"
+                        className="w-full pl-9 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-white focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900/50 transition-all"
                       />
                       {searchQuery && (
                         <button
                           onClick={() => setSearchQuery("")}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
                         >
                           Xóa
                         </button>
@@ -465,11 +465,11 @@ export default function FilmMode({ onBack }: FilmModeProps) {
                     </div>
 
                     {/* Type Filter */}
-                    <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold shrink-0">
+                    <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold shrink-0">
                       <button
                         onClick={() => setSelectedType("all")}
                         className={`px-3 py-1.5 rounded-lg transition-all ${
-                          selectedType === "all" ? "bg-white text-slate-900 shadow-2xs font-extrabold" : "text-slate-600 hover:text-slate-900"
+                          selectedType === "all" ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-2xs font-extrabold" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                         }`}
                       >
                         Tất cả ({filmsData.length})
@@ -477,7 +477,7 @@ export default function FilmMode({ onBack }: FilmModeProps) {
                       <button
                         onClick={() => setSelectedType("animation")}
                         className={`px-3 py-1.5 rounded-lg transition-all ${
-                          selectedType === "animation" ? "bg-white text-indigo-700 shadow-2xs font-extrabold" : "text-slate-600 hover:text-slate-900"
+                          selectedType === "animation" ? "bg-white dark:bg-slate-700 text-indigo-700 dark:text-indigo-300 shadow-2xs font-extrabold" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                         }`}
                       >
                         🎨 Hoạt hình
@@ -485,7 +485,7 @@ export default function FilmMode({ onBack }: FilmModeProps) {
                       <button
                         onClick={() => setSelectedType("live_action")}
                         className={`px-3 py-1.5 rounded-lg transition-all ${
-                          selectedType === "live_action" ? "bg-white text-indigo-700 shadow-2xs font-extrabold" : "text-slate-600 hover:text-slate-900"
+                          selectedType === "live_action" ? "bg-white dark:bg-slate-700 text-indigo-700 dark:text-indigo-300 shadow-2xs font-extrabold" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                         }`}
                       >
                         🎬 Phim thật

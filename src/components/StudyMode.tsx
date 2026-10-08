@@ -535,7 +535,7 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
 
         {/* Flashcard with 3D Flip */}
         <div className="relative group w-full max-w-[540px] flex-1 min-h-[430px] sm:min-h-[460px]" style={{ perspective: 1000 }}>
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-[40px] blur opacity-25"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-950/40 dark:to-teal-950/40 rounded-[40px] blur opacity-25"></div>
           
           <AnimatePresence mode="wait">
             <motion.div
@@ -544,19 +544,19 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
               animate={{ rotateY: 0, opacity: 1, scale: 1 }}
               exit={{ rotateY: isFlipped ? 0 : -180, opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full bg-white rounded-[32px] shadow-2xl shadow-slate-200 border border-slate-100 p-5 sm:p-7 flex flex-col justify-between"
+              className="absolute inset-0 w-full h-full bg-white dark:bg-slate-900 rounded-[32px] shadow-2xl shadow-slate-200 dark:shadow-none border border-slate-100 dark:border-slate-800 p-5 sm:p-7 flex flex-col justify-between"
             >
               {!isFlipped ? (
                 // === FRONT OF CARD: WORD + 4 CHOICES ===
                 <div className="flex flex-col h-full justify-between">
                   <div className="text-center pt-2">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-slate-50 rounded-2xl flex items-center justify-center text-4xl sm:text-5xl mb-3 shadow-inner mx-auto">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-4xl sm:text-5xl mb-3 shadow-inner mx-auto">
                       {word.emoji}
                     </div>
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                       {word.word}
                     </h3>
-                    <p className="text-xs font-semibold text-slate-400 mt-1">
+                    <p className="text-xs font-semibold text-slate-400 dark:text-slate-400 mt-1">
                       Chọn 1 trong 4 nghĩa bên dưới để lật thẻ
                     </p>
                   </div>
@@ -568,16 +568,16 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
                       const isSelected = selectedOption === opt;
                       const isOptionCorrect = opt === word.meaning;
                       
-                      let btnStyle = "bg-slate-50 hover:bg-emerald-50 hover:border-emerald-300 text-slate-700 border-slate-200";
+                      let btnStyle = "bg-slate-50 dark:bg-slate-800/90 hover:bg-emerald-50 dark:hover:bg-slate-750 hover:border-emerald-300 dark:hover:border-emerald-600 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700";
                       if (selectedOption !== null) {
                         if (isSelected && isCorrect) {
                           btnStyle = "bg-emerald-500 text-white border-emerald-600 shadow-md shadow-emerald-500/20";
                         } else if (isSelected && !isCorrect) {
                           btnStyle = "bg-red-500 text-white border-red-600 shadow-md shadow-red-500/20";
                         } else if (isOptionCorrect) {
-                          btnStyle = "bg-emerald-100 text-emerald-800 border-emerald-400 font-bold";
+                          btnStyle = "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border-emerald-400 font-bold";
                         } else {
-                          btnStyle = "bg-slate-50 text-slate-400 border-slate-200 opacity-60";
+                          btnStyle = "bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700 opacity-60";
                         }
                       }
 
@@ -591,7 +591,7 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
                           <span className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-black shrink-0 ${
                             isSelected 
                               ? "bg-white/25 text-white" 
-                              : "bg-white text-slate-600 border border-slate-200"
+                              : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-200 border border-slate-200 dark:border-slate-600"
                           }`}>
                             {letter}
                           </span>
@@ -601,8 +601,8 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
                     })}
                   </div>
 
-                  <div className="text-center pt-1 border-t border-slate-100">
-                    <p className="text-slate-400 font-bold text-[10px] sm:text-xs uppercase tracking-wider">
+                  <div className="text-center pt-1 border-t border-slate-100 dark:border-slate-800">
+                    <p className="text-slate-400 dark:text-slate-500 font-bold text-[10px] sm:text-xs uppercase tracking-wider">
                       {selectedOption === null ? "👉 Bấm chọn đáp án để tự động lật thẻ" : "Đang lật thẻ..."}
                     </p>
                   </div>
@@ -612,15 +612,15 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
                 <div className="flex flex-col justify-between h-full w-full overflow-y-auto pr-1">
                   {/* Word Details */}
                   <div className="text-center w-full mt-4">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 rounded-2xl flex items-center justify-center text-4xl sm:text-5xl mb-3 shadow-inner mx-auto shrink-0">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-4xl sm:text-5xl mb-3 shadow-inner mx-auto shrink-0">
                       {word.emoji}
                     </div>
-                    <h3 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">{word.word}</h3>
+                    <h3 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{word.word}</h3>
                     <div className="flex items-center justify-center gap-2 mt-1.5">
-                      <span className="text-slate-500 font-mono text-base sm:text-lg">{word.pronunciation}</span>
+                      <span className="text-slate-500 dark:text-slate-400 font-mono text-base sm:text-lg">{word.pronunciation}</span>
                       <button 
                         onClick={(e) => { e.stopPropagation(); speakEnglish(word.word); }}
-                        className="w-9 h-9 shrink-0 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-100 transition-colors"
+                        className="w-9 h-9 shrink-0 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-colors"
                         title="Phát âm tiếng Anh"
                       >
                         <Volume2 size={18} />
@@ -629,15 +629,15 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
                   </div>
 
                   {/* Definition and Example */}
-                  <div className="w-full pt-4 border-t border-slate-100 mt-4 shrink-0">
+                  <div className="w-full pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 shrink-0">
                     <div className="flex flex-col gap-2.5">
-                      <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
-                        <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Nghĩa tiếng Việt</p>
-                        <p className="text-lg sm:text-xl font-black text-emerald-700">{word.meaning}</p>
+                      <div className="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700">
+                        <p className="text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest mb-1">Nghĩa tiếng Việt</p>
+                        <p className="text-lg sm:text-xl font-black text-emerald-700 dark:text-emerald-400">{word.meaning}</p>
                       </div>
-                      <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
-                        <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Ví dụ thực tế</p>
-                        <p className="text-xs sm:text-sm font-medium text-slate-700 italic">"{word.example}"</p>
+                      <div className="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700">
+                        <p className="text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest mb-1">Ví dụ thực tế</p>
+                        <p className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 italic">"{word.example}"</p>
                       </div>
                     </div>
                   </div>
