@@ -139,7 +139,7 @@ export default function SyntaxMode({ onBack }: SyntaxModeProps) {
 
         {/* Desktop Left Sidebar: Topics list (>= lg) */}
         <div className="hidden lg:block lg:w-72 shrink-0">
-          <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5 px-1">Chủ đề cú pháp</h2>
+          <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2.5 px-1">Chủ đề cú pháp</h2>
           <div className="space-y-1.5">
             {syntaxTopics.map(topic => {
               const isActive = selectedTopic.id === topic.id;
@@ -156,20 +156,20 @@ export default function SyntaxMode({ onBack }: SyntaxModeProps) {
                   className={`w-full text-left p-3 rounded-2xl border transition-all flex items-start gap-3 ${
                     isActive 
                       ? "bg-purple-600 text-white border-purple-600 shadow-sm" 
-                      : "bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50/70"
+                      : "bg-white dark:bg-slate-900 border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/70 dark:hover:bg-slate-800"
                   }`}
                 >
-                  <span className="text-xl shrink-0 p-1 bg-white/10 rounded-lg">{topic.icon}</span>
+                  <span className="text-xl shrink-0 p-1 bg-white/10 dark:bg-white/5 rounded-lg">{topic.icon}</span>
                   <div className="min-w-0 flex-1">
                     <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded-full inline-block mb-0.5 ${
-                      isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600"
+                      isActive ? "bg-white/20 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                     }`}>
                       {topic.badge}
                     </span>
-                    <div className={`font-bold text-xs truncate ${isActive ? "text-white" : "text-slate-900"}`}>
+                    <div className={`font-bold text-xs truncate ${isActive ? "text-white" : "text-slate-900 dark:text-white"}`}>
                       {topic.title}
                     </div>
-                    <div className={`text-[11px] truncate mt-0.5 ${isActive ? "text-purple-100" : "text-slate-500"}`}>
+                    <div className={`text-[11px] truncate mt-0.5 ${isActive ? "text-purple-100" : "text-slate-500 dark:text-slate-400"}`}>
                       {topic.titleVi}
                     </div>
                   </div>
@@ -191,37 +191,37 @@ export default function SyntaxMode({ onBack }: SyntaxModeProps) {
               className="space-y-5"
             >
               {/* Header Box */}
-              <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/90 shadow-xs relative overflow-hidden">
+              <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/90 dark:border-slate-800 shadow-xs relative overflow-hidden">
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <span className="text-2xl sm:text-3xl">{selectedTopic.icon}</span>
                   <div className="min-w-0">
-                    <h2 className="text-lg sm:text-xl font-black text-slate-900 truncate">{selectedTopic.title}</h2>
-                    <p className="text-xs sm:text-sm font-semibold text-purple-600 truncate">{selectedTopic.titleVi}</p>
+                    <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white truncate">{selectedTopic.title}</h2>
+                    <p className="text-xs sm:text-sm font-semibold text-purple-600 dark:text-purple-400 truncate">{selectedTopic.titleVi}</p>
                   </div>
                 </div>
-                <p className="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed">
                   {selectedTopic.explanationVi}
                 </p>
 
                 {/* Master Formula Box - Break words to avoid horizontal overflow */}
-                <div className="mt-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200">
-                  <div className="flex items-center gap-1 text-[10px] sm:text-xs font-black uppercase tracking-wider text-purple-800 mb-1">
-                    <Sparkles size={13} className="text-purple-600" />
+                <div className="mt-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/40 dark:to-pink-950/30 border border-purple-200 dark:border-purple-800/60">
+                  <div className="flex items-center gap-1 text-[10px] sm:text-xs font-black uppercase tracking-wider text-purple-800 dark:text-purple-300 mb-1">
+                    <Sparkles size={13} className="text-purple-600 dark:text-purple-400" />
                     <span>CÚ PHÁP TỔNG QUÁT</span>
                   </div>
-                  <div className="font-mono font-bold text-slate-900 text-xs sm:text-sm tracking-wide bg-white/90 p-2.5 rounded-lg border border-purple-100 shadow-2xs break-words overflow-x-auto">
+                  <div className="font-mono font-bold text-slate-900 dark:text-white text-xs sm:text-sm tracking-wide bg-white/90 dark:bg-slate-800/90 p-2.5 rounded-lg border border-purple-100 dark:border-purple-900/50 shadow-2xs break-words overflow-x-auto">
                     {selectedTopic.formula}
                   </div>
                 </div>
 
                 {/* Memory Hack Box (Mẹo Nhớ Siêu Tốc) */}
                 {selectedTopic.memoryHack && (
-                  <div className="mt-3.5 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200">
-                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900 mb-1.5">
+                  <div className="mt-3.5 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 border border-amber-200 dark:border-amber-800/60">
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900 dark:text-amber-300 mb-1.5">
                       <span className="text-base">💡</span>
                       <span>{selectedTopic.memoryHack.hook}</span>
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-800 leading-relaxed whitespace-pre-line font-medium bg-white/80 p-3 rounded-xl border border-amber-100">
+                    <p className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line font-medium bg-white/80 dark:bg-slate-800/80 p-3 rounded-xl border border-amber-100 dark:border-amber-900/50">
                       {selectedTopic.memoryHack.descriptionVi}
                     </p>
                   </div>

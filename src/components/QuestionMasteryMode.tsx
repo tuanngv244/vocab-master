@@ -139,7 +139,7 @@ export default function QuestionMasteryMode({ onBack }: QuestionMasteryModeProps
 
         {/* Desktop Left Sidebar: Pattern list (>= lg) */}
         <div className="hidden lg:block lg:w-72 shrink-0">
-          <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5 px-1">Các thể loại câu hỏi</h2>
+          <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2.5 px-1">Các thể loại câu hỏi</h2>
           <div className="space-y-1.5">
             {questionPatterns.map(pattern => {
               const isActive = selectedPattern.id === pattern.id;
@@ -156,22 +156,22 @@ export default function QuestionMasteryMode({ onBack }: QuestionMasteryModeProps
                   className={`w-full text-left p-3 rounded-2xl border transition-all flex items-start gap-3 ${
                     isActive 
                       ? "bg-indigo-600 text-white border-indigo-600 shadow-sm" 
-                      : "bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50/70"
+                      : "bg-white dark:bg-slate-900 border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-750 hover:bg-slate-50/70 dark:hover:bg-slate-800"
                   }`}
                 >
-                  <span className="text-xl shrink-0 p-1 bg-white/10 rounded-lg">{pattern.icon}</span>
+                  <span className="text-xl shrink-0 p-1 bg-white/10 dark:bg-white/5 rounded-lg">{pattern.icon}</span>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-1 mb-0.5">
                       <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded-full ${
-                        isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600"
+                        isActive ? "bg-white/20 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                       }`}>
                         {pattern.badge}
                       </span>
                     </div>
-                    <div className={`font-bold text-xs truncate ${isActive ? "text-white" : "text-slate-900"}`}>
+                    <div className={`font-bold text-xs truncate ${isActive ? "text-white" : "text-slate-900 dark:text-white"}`}>
                       {pattern.title}
                     </div>
-                    <div className={`text-[11px] truncate mt-0.5 ${isActive ? "text-indigo-100" : "text-slate-500"}`}>
+                    <div className={`text-[11px] truncate mt-0.5 ${isActive ? "text-indigo-100" : "text-slate-500 dark:text-slate-400"}`}>
                       {pattern.titleVi}
                     </div>
                   </div>
@@ -193,37 +193,37 @@ export default function QuestionMasteryMode({ onBack }: QuestionMasteryModeProps
               className="space-y-6"
             >
               {/* Header Box */}
-              <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm relative overflow-hidden">
+              <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm relative overflow-hidden">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-3xl">{selectedPattern.icon}</span>
                   <div>
-                    <h2 className="text-xl sm:text-2xl font-black text-slate-900">{selectedPattern.title}</h2>
-                    <p className="text-sm font-semibold text-indigo-600">{selectedPattern.titleVi}</p>
+                    <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{selectedPattern.title}</h2>
+                    <p className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">{selectedPattern.titleVi}</p>
                   </div>
                 </div>
-                <p className="text-slate-600 text-sm mt-3 leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-300 text-sm mt-3 leading-relaxed">
                   {selectedPattern.explanationVi}
                 </p>
 
                 {/* Formula Highlight Box */}
-                <div className="mt-5 p-4 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200">
-                  <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-indigo-800 mb-1.5">
-                    <Sparkles size={14} className="text-indigo-600" />
+                <div className="mt-5 p-4 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/40 dark:to-purple-950/30 border border-indigo-200 dark:border-indigo-800/60">
+                  <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-indigo-800 dark:text-indigo-300 mb-1.5">
+                    <Sparkles size={14} className="text-indigo-600 dark:text-indigo-400" />
                     <span>CÔNG THỨC CHUẨN</span>
                   </div>
-                  <div className="font-mono font-bold text-slate-900 text-xs sm:text-sm tracking-wide bg-white/90 p-3 rounded-xl border border-indigo-100 shadow-2xs break-words overflow-x-auto">
+                  <div className="font-mono font-bold text-slate-900 dark:text-white text-xs sm:text-sm tracking-wide bg-white/90 dark:bg-slate-800/90 p-3 rounded-xl border border-indigo-100 dark:border-indigo-900/50 shadow-2xs break-words overflow-x-auto">
                     {selectedPattern.formula}
                   </div>
                 </div>
 
                 {/* Memory Hack Box (Mẹo Nhớ Siêu Tốc) */}
                 {selectedPattern.memoryHack && (
-                  <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200">
-                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900 mb-1.5">
+                  <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 border border-amber-200 dark:border-amber-800/60">
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900 dark:text-amber-300 mb-1.5">
                       <span className="text-base">💡</span>
                       <span>{selectedPattern.memoryHack.hook}</span>
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-800 leading-relaxed whitespace-pre-line font-medium bg-white/80 p-3 rounded-xl border border-amber-100">
+                    <p className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line font-medium bg-white/80 dark:bg-slate-800/80 p-3 rounded-xl border border-amber-100 dark:border-amber-900/50">
                       {selectedPattern.memoryHack.descriptionVi}
                     </p>
                   </div>

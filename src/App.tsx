@@ -16,10 +16,7 @@ import QuestionMasteryMode from "./components/QuestionMasteryMode";
 import SyntaxMode from "./components/SyntaxMode";
 import TensesMode from "./components/TensesMode";
 import FilmMode from "./components/FilmMode";
-import LoginModal from "./components/LoginModal";
 import { readingArticles, listeningExercises } from "./data_advanced";
-import { UserProfile } from "./types/auth";
-import { getStoredUserProfile, startCronWatcher, TARGET_EMAIL } from "./services/telemetryCron";
 import { getInitialTheme, applyTheme, Theme } from "./services/theme";
 
 type View = "home" | "study" | "quiz" | "reading" | "listening" | "questions" | "syntax" | "tenses" | "film";
@@ -38,10 +35,6 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userData, setUserData] = useState<UserData>({ learned: {}, activity: [] });
   
-  // User Authentication & LocalStorage profile
-  const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => getStoredUserProfile());
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-
   // Theme state: dark / light
   const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
 
@@ -52,15 +45,6 @@ export default function App() {
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
-
-  // Background JS Cron Job: Runs every 4 hours, sends telemetry to tuanngv24.4@gmail.com
-  useEffect(() => {
-    const cleanup = startCronWatcher(() => ({
-      view,
-      activeTopic: activeTopic?.name || view,
-    }));
-    return cleanup;
-  }, [view, activeTopic]);
 
   useEffect(() => {
     const saved = localStorage.getItem("vocab_user_data");
@@ -218,6 +202,9 @@ export default function App() {
 
   const currentStreak = calculateStreak(userData.activity);
   const currentTopicForNav = activeTopic || topics[0];
+  const totalLearnedWords = Object.keys(userData.learned).length;
+  const totalWords = topics.reduce((acc, t) => acc + t.words.length, 0);
+  const progressPct = totalWords > 0 ? Math.round((totalLearnedWords / totalWords) * 100) : 0;
 
   return (
     <div className="flex h-screen w-full bg-slate-50 dark:bg-slate-950 font-sans text-slate-800 dark:text-slate-100 overflow-hidden">
@@ -335,29 +322,28 @@ export default function App() {
           </div>
         </div>
 
-        {/* User Card & 4H Cron Monitor */}
+        {/* Learning Progress Summary */}
         <div className="p-3 bg-slate-50 dark:bg-slate-900/90 border-t border-slate-200 dark:border-slate-800 shrink-0">
-          <button
-            onClick={() => { setIsLoginModalOpen(true); setIsSidebarOpen(false); }}
-            className="w-full flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 transition-all text-left shadow-2xs group"
-          >
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 flex items-center justify-center text-sm font-bold shrink-0">
-                {currentUser?.avatar || "👤"}
+          <div className="p-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">Tiến độ từ vựng</span>
+              <span className="text-[11px] font-black text-emerald-600 dark:text-emerald-400">
+                {totalLearnedWords}/{totalWords} ({progressPct}%)
               </span>
-              <div className="min-w-0">
-                <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
-                  {currentUser ? currentUser.name : "Đăng nhập học viên"}
-                </p>
-                <p className="text-[10px] text-slate-400 dark:text-slate-400 truncate">
-                  {currentUser ? currentUser.email : "Lưu vào localStorage"}
-                </p>
-              </div>
             </div>
-            <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 shrink-0">
-              {currentUser ? "Online" : "Login"}
-            </span>
-          </button>
+            <div className="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500"
+                style={{ width: `${Math.min(100, Math.max(progressPct, 4))}%` }}
+              />
+            </div>
+            <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-700/60 text-[10px] text-slate-500 dark:text-slate-400">
+              <span className="flex items-center gap-1 font-medium">
+                <span>🔥</span> {currentStreak} ngày chuỗi học
+              </span>
+              <span className="text-emerald-600 dark:text-emerald-400 font-bold">Lưu tự động</span>
+            </div>
+          </div>
         </div>
       </aside>
 
@@ -402,34 +388,15 @@ export default function App() {
             {/* Dark / Light Mode Switcher Icon (Requested Feature) */}
             <button
               onClick={toggleTheme}
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-amber-400 active:scale-95 shadow-2xs"
+              className="w-9 h-9 rounded-xl flex items-center justify-center transition-all bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 border border-slate-200/90 dark:border-slate-700 text-slate-700 dark:text-amber-400 active:scale-95 shadow-2xs cursor-pointer"
               title={theme === "dark" ? "Chuyển sang Chế độ sáng (Light Mode)" : "Chuyển sang Chế độ tối (Dark Mode)"}
               aria-label={theme === "dark" ? "Chuyển sang Chế độ sáng" : "Chuyển sang Chế độ tối"}
             >
               {theme === "dark" ? (
-                <Sun size={17} className="text-amber-400 transition-transform hover:rotate-45" />
+                <Sun size={18} className="text-amber-400 transition-transform hover:rotate-45" />
               ) : (
-                <Moon size={17} className="text-slate-600 transition-transform hover:-rotate-12" />
+                <Moon size={18} className="text-slate-600 transition-transform hover:-rotate-12" />
               )}
-            </button>
-
-            {/* User Profile / Login button */}
-            <button
-              onClick={() => setIsLoginModalOpen(true)}
-              className="flex items-center gap-2 p-1 sm:px-2.5 sm:py-1 rounded-full bg-white dark:bg-slate-850 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all text-xs font-bold text-slate-700 dark:text-slate-200 shadow-2xs"
-              title={currentUser ? "Tài khoản học viên (Bấm để xem)" : "Đăng nhập người dùng (Lưu vào localStorage)"}
-            >
-              <span className="w-7 h-7 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 flex items-center justify-center text-sm shadow-2xs font-bold shrink-0">
-                {currentUser?.avatar || "👤"}
-              </span>
-              <div className="hidden sm:flex flex-col text-left leading-none">
-                <span className="font-bold text-slate-800 dark:text-slate-100 text-[11px] truncate max-w-[110px]">
-                  {currentUser ? currentUser.name : "Đăng nhập"}
-                </span>
-                <span className="text-[9px] text-slate-400 dark:text-slate-400 font-medium">
-                  {currentUser ? "Học viên" : "Lưu dữ liệu"}
-                </span>
-              </div>
             </button>
           </div>
         </header>
@@ -501,17 +468,6 @@ export default function App() {
         </div>
       </main>
 
-      {/* User Login & Telemetry Cron Modal */}
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        currentUser={currentUser}
-        onUserChange={setCurrentUser}
-        currentContext={{
-          view,
-          activeTopic: activeTopic?.name || view,
-        }}
-      />
     </div>
   );
 }

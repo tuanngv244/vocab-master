@@ -70,13 +70,13 @@ export default function QuizMode({ topicName, words, allWords, onBack, onComplet
         <motion.div 
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          className="bg-white rounded-[32px] p-6 sm:p-10 text-center shadow-2xl shadow-slate-200 border border-slate-100 w-full relative overflow-hidden"
+          className="bg-white dark:bg-slate-900 rounded-[32px] p-6 sm:p-10 text-center shadow-2xl shadow-slate-200 dark:shadow-none border border-slate-100 dark:border-slate-800 w-full relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-white -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-white dark:from-slate-900 dark:to-slate-950 -z-10"></div>
           <div className="text-7xl sm:text-8xl mb-4 sm:mb-6">🏆</div>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-2 tracking-tight">Quiz Complete!</h2>
-          <p className="text-base sm:text-lg text-slate-500 font-medium mb-8 sm:mb-10">
-            You scored <span className="text-emerald-600 font-bold">{score}/{questions.length}</span> correct answers.
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Quiz Hoàn Thành!</h2>
+          <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 font-medium mb-8 sm:mb-10">
+            Bạn trả lời đúng <span className="text-emerald-600 dark:text-emerald-400 font-bold">{score}/{questions.length}</span> câu hỏi.
           </p>
           
           <div className="grid grid-cols-2 gap-2 sm:gap-4 p-4 sm:p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl mb-8 sm:mb-10 shadow-sm">

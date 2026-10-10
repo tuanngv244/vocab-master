@@ -143,28 +143,28 @@ export default function TensesMode({ onBack }: TensesModeProps) {
         {/* Desktop Left Sidebar: Tenses list with category filters (>= lg) */}
         <div className="hidden lg:block lg:w-72 shrink-0">
           {/* Category Filter Chips */}
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 mb-2.5">
+          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 mb-2.5">
             <button
               onClick={() => setCategoryFilter("all")}
-              className={`flex-1 py-1 text-[10px] font-bold rounded-lg transition-all ${categoryFilter === "all" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500"}`}
+              className={`flex-1 py-1 text-[10px] font-bold rounded-lg transition-all ${categoryFilter === "all" ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs" : "text-slate-500 dark:text-slate-400"}`}
             >
               Tất cả
             </button>
             <button
               onClick={() => setCategoryFilter("present")}
-              className={`flex-1 py-1 text-[10px] font-bold rounded-lg transition-all ${categoryFilter === "present" ? "bg-emerald-600 text-white shadow-xs" : "text-slate-500"}`}
+              className={`flex-1 py-1 text-[10px] font-bold rounded-lg transition-all ${categoryFilter === "present" ? "bg-emerald-600 text-white shadow-xs" : "text-slate-500 dark:text-slate-400"}`}
             >
               Hiện tại
             </button>
             <button
               onClick={() => setCategoryFilter("past")}
-              className={`flex-1 py-1 text-[10px] font-bold rounded-lg transition-all ${categoryFilter === "past" ? "bg-amber-600 text-white shadow-xs" : "text-slate-500"}`}
+              className={`flex-1 py-1 text-[10px] font-bold rounded-lg transition-all ${categoryFilter === "past" ? "bg-amber-600 text-white shadow-xs" : "text-slate-500 dark:text-slate-400"}`}
             >
               Quá khứ
             </button>
             <button
               onClick={() => setCategoryFilter("future")}
-              className={`flex-1 py-1 text-[10px] font-bold rounded-lg transition-all ${categoryFilter === "future" ? "bg-blue-600 text-white shadow-xs" : "text-slate-500"}`}
+              className={`flex-1 py-1 text-[10px] font-bold rounded-lg transition-all ${categoryFilter === "future" ? "bg-blue-600 text-white shadow-xs" : "text-slate-500 dark:text-slate-400"}`}
             >
               Tương lai
             </button>
@@ -184,20 +184,20 @@ export default function TensesMode({ onBack }: TensesModeProps) {
                   className={`w-full text-left p-3 rounded-2xl border transition-all flex items-start gap-3 ${
                     isActive 
                       ? "bg-blue-600 text-white border-blue-600 shadow-sm" 
-                      : "bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50/70"
+                      : "bg-white dark:bg-slate-900 border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-750 hover:bg-slate-50/70 dark:hover:bg-slate-800"
                   }`}
                 >
-                  <span className="text-xl shrink-0 p-1 bg-white/10 rounded-lg">{tense.icon}</span>
+                  <span className="text-xl shrink-0 p-1 bg-white/10 dark:bg-white/5 rounded-lg">{tense.icon}</span>
                   <div className="min-w-0 flex-1">
                     <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded-full inline-block mb-0.5 ${
-                      isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600"
+                      isActive ? "bg-white/20 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                     }`}>
                       {tense.badge}
                     </span>
-                    <div className={`font-bold text-xs truncate ${isActive ? "text-white" : "text-slate-900"}`}>
+                    <div className={`font-bold text-xs truncate ${isActive ? "text-white" : "text-slate-900 dark:text-white"}`}>
                       {tense.name}
                     </div>
-                    <div className={`text-[11px] truncate mt-0.5 ${isActive ? "text-blue-100" : "text-slate-500"}`}>
+                    <div className={`text-[11px] truncate mt-0.5 ${isActive ? "text-blue-100" : "text-slate-500 dark:text-slate-400"}`}>
                       {tense.nameVi}
                     </div>
                   </div>
@@ -219,12 +219,12 @@ export default function TensesMode({ onBack }: TensesModeProps) {
               className="space-y-5"
             >
               {/* Header Box with Timeline and Formula */}
-              <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/90 shadow-xs relative overflow-hidden">
+              <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/90 dark:border-slate-800 shadow-xs relative overflow-hidden">
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <span className="text-2xl sm:text-3xl">{selectedTense.icon}</span>
                   <div className="min-w-0">
-                    <h2 className="text-lg sm:text-xl font-black text-slate-900 truncate">{selectedTense.name}</h2>
-                    <p className="text-xs sm:text-sm font-semibold text-blue-600 truncate">{selectedTense.nameVi}</p>
+                    <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white truncate">{selectedTense.name}</h2>
+                    <p className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 truncate">{selectedTense.nameVi}</p>
                   </div>
                 </div>
 

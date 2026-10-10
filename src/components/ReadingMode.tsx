@@ -217,10 +217,10 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
   const score = calculateScore();
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-50">
-      <div className="max-w-4xl mx-auto w-full bg-white min-h-full border-x border-slate-200 shadow-sm">
+    <div className="flex flex-col min-h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
+      <div className="max-w-4xl mx-auto w-full bg-white dark:bg-slate-900 min-h-full border-x border-slate-200 dark:border-slate-800 shadow-sm">
         {/* Detail Header */}
-        <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-xl border-b border-slate-200 px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4">
+        <header className="sticky top-0 z-20 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <button 
               onClick={() => {
@@ -229,14 +229,14 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
                   window.speechSynthesis.cancel();
                 }
               }}
-              className="w-10 h-10 flex shrink-0 items-center justify-center rounded-2xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors"
+              className="w-10 h-10 flex shrink-0 items-center justify-center rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
               title="Quay lại danh sách"
             >
               <ChevronLeft size={20} />
             </button>
             <div className="min-w-0">
-              <h2 className="text-base sm:text-lg font-black text-slate-900 truncate">{selectedArticle.title}</h2>
-              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{selectedArticle.level} • {selectedArticle.category}</p>
+              <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate">{selectedArticle.title}</h2>
+              <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{selectedArticle.level} • {selectedArticle.category}</p>
             </div>
           </div>
 
@@ -245,8 +245,8 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
             onClick={() => setShowTranslation(prev => !prev)}
             className={`px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all shrink-0 border ${
               showTranslation
-                ? "bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100"
-                : "bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200"
+                ? "bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-700 hover:bg-emerald-100 dark:hover:bg-emerald-900"
+                : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
             }`}
             title="Bật/Tắt hiển thị bản dịch tiếng Việt ở dưới mỗi đoạn"
           >
@@ -270,19 +270,19 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
           </div>
 
           {/* Bilingual Guide Banner */}
-          <div className="mb-8 p-3.5 sm:p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2 text-slate-700 font-medium">
-              <BookOpen size={16} className="text-emerald-600 shrink-0" />
+          <div className="mb-8 p-3.5 sm:p-4 bg-slate-50 dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium">
+              <BookOpen size={16} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>Cấu trúc: <strong>Tiếng Anh ở trên</strong>, <strong>Bản dịch tiếng Việt ở dưới</strong></span>
             </div>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5">
-                <span className="w-3.5 h-3.5 rounded bg-amber-100 border border-amber-300 inline-block shrink-0"></span>
-                <span className="text-slate-600 font-semibold">Từ khó Tiếng Anh</span>
+                <span className="w-3.5 h-3.5 rounded bg-amber-100 dark:bg-amber-950/80 border border-amber-300 dark:border-amber-700 inline-block shrink-0"></span>
+                <span className="text-slate-600 dark:text-slate-400 font-semibold">Từ khó Tiếng Anh</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-3.5 h-3.5 rounded bg-emerald-100 border border-emerald-300 inline-block shrink-0"></span>
-                <span className="text-slate-600 font-semibold">Nghĩa Tiếng Việt</span>
+                <span className="w-3.5 h-3.5 rounded bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-700 inline-block shrink-0"></span>
+                <span className="text-slate-600 dark:text-slate-400 font-semibold">Nghĩa Tiếng Việt</span>
               </div>
             </div>
           </div>
@@ -296,12 +296,12 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
               return (
                 <div 
                   key={i} 
-                  className="rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:border-slate-300 transition-colors bg-white"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-colors bg-white dark:bg-slate-900"
                 >
                   {/* English Section (Top) */}
-                  <div className="p-5 sm:p-6 bg-slate-50/70">
+                  <div className="p-5 sm:p-6 bg-slate-50/70 dark:bg-slate-850/70">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-indigo-800 bg-indigo-100/70 border border-indigo-200/80 px-2.5 py-1 rounded-full">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-indigo-800 dark:text-indigo-300 bg-indigo-100/70 dark:bg-indigo-950/70 border border-indigo-200/80 dark:border-indigo-800/80 px-2.5 py-1 rounded-full">
                         <span>🇬🇧 Tiếng Anh</span>
                         <span className="text-indigo-400 font-normal">•</span>
                         <span>Đoạn {i + 1}</span>
@@ -312,7 +312,7 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
                         className={`text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5 transition-all shadow-2xs border ${
                           isSpeaking
                             ? "bg-indigo-600 text-white border-indigo-600 animate-pulse"
-                            : "bg-white text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 border-slate-200"
+                            : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-750 border-slate-200 dark:border-slate-700"
                         }`}
                         title="Nghe phát âm đoạn văn tiếng Anh này"
                       >
@@ -321,21 +321,21 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
                       </button>
                     </div>
 
-                    <p className="text-slate-800 text-base sm:text-lg leading-relaxed font-normal">
+                    <p className="text-slate-800 dark:text-slate-100 text-base sm:text-lg leading-relaxed font-normal">
                       {renderHighlightedText(paragraph, false)}
                     </p>
                   </div>
 
                   {/* Vietnamese Translation (Underneath) */}
                   {showTranslation && viParagraph && (
-                    <div className="p-5 sm:p-6 bg-emerald-50/40 border-t border-emerald-100/80 transition-all">
+                    <div className="p-5 sm:p-6 bg-emerald-50/40 dark:bg-emerald-950/30 border-t border-emerald-100/80 dark:border-emerald-900/60 transition-all">
                       <div className="flex items-center justify-between mb-2.5">
-                        <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-emerald-900 bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-full">
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-emerald-900 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800/80 px-2.5 py-1 rounded-full">
                           <span>🇻🇳 Bản dịch Tiếng Việt</span>
                         </span>
                       </div>
 
-                      <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
+                      <p className="text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed font-normal">
                         {renderHighlightedText(viParagraph, true)}
                       </p>
                     </div>
@@ -351,13 +351,13 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
           <div>
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
                   <span>Kiểm tra độ hiểu bài</span>
-                  <span className="text-xs font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg border border-slate-200">
+                  <span className="text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
                     Comprehension Check
                   </span>
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">
                   Chọn câu trả lời đúng dựa trên nội dung bài đọc ở trên
                 </p>
               </div>
@@ -365,9 +365,9 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
 
             <div className="space-y-8">
               {selectedArticle.questions.map((q, qIndex) => (
-                <div key={qIndex} className="bg-slate-50 rounded-[24px] p-5 sm:p-7 border border-slate-200/80">
-                  <h4 className="text-base sm:text-lg font-bold text-slate-800 mb-5 flex items-start gap-2.5">
-                    <span className="w-6 h-6 rounded-full bg-slate-800 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                <div key={qIndex} className="bg-slate-50 dark:bg-slate-850 rounded-[24px] p-5 sm:p-7 border border-slate-200/80 dark:border-slate-750">
+                  <h4 className="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100 mb-5 flex items-start gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-slate-800 dark:bg-slate-700 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                       {qIndex + 1}
                     </span>
                     <span>{q.question}</span>
@@ -376,22 +376,22 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
                     {q.options.map((option, optIdx) => {
                       const isSelected = answers[qIndex] === option;
                       const isCorrect = option === q.answer;
-                      let btnClass = "bg-white border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50";
-                      let icon = <div className="w-4 h-4 rounded-full border-2 border-slate-300"></div>;
+                      let btnClass = "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-750";
+                      let icon = <div className="w-4 h-4 rounded-full border-2 border-slate-300 dark:border-slate-600"></div>;
 
                       if (submitted) {
                         if (isCorrect) {
-                          btnClass = "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold";
-                          icon = <CheckCircle2 className="text-emerald-600 shrink-0" strokeWidth={3} size={18} />;
+                          btnClass = "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-500 text-emerald-900 dark:text-emerald-200 font-bold";
+                          icon = <CheckCircle2 className="text-emerald-600 dark:text-emerald-400 shrink-0" strokeWidth={3} size={18} />;
                         } else if (isSelected && !isCorrect) {
-                          btnClass = "bg-red-50 border-red-500 text-red-900";
-                          icon = <XCircle className="text-red-500 shrink-0" strokeWidth={3} size={18} />;
+                          btnClass = "bg-red-50 dark:bg-red-950/80 border-red-500 text-red-900 dark:text-red-200";
+                          icon = <XCircle className="text-red-500 dark:text-red-400 shrink-0" strokeWidth={3} size={18} />;
                         } else {
-                          btnClass = "bg-white border-slate-200 opacity-50";
+                          btnClass = "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 opacity-50";
                         }
                       } else {
                         if (isSelected) {
-                          btnClass = "bg-slate-900 border-slate-900 text-white shadow-md font-semibold";
+                          btnClass = "bg-slate-900 dark:bg-emerald-600 border-slate-900 dark:border-emerald-600 text-white shadow-md font-semibold";
                           icon = <div className="w-4 h-4 rounded-full border-4 border-emerald-400 bg-white"></div>;
                         }
                       }
@@ -417,16 +417,16 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
               <button
                 onClick={() => setSubmitted(true)}
                 disabled={Object.keys(answers).length < selectedArticle.questions.length}
-                className="w-full mt-10 py-4 bg-slate-900 text-white rounded-2xl font-bold text-base sm:text-lg shadow-xl shadow-slate-300 hover:bg-slate-800 transition-all disabled:opacity-40 disabled:hover:bg-slate-900 active:scale-98"
+                className="w-full mt-10 py-4 bg-slate-900 dark:bg-emerald-600 text-white rounded-2xl font-bold text-base sm:text-lg shadow-xl shadow-slate-300 dark:shadow-none hover:bg-slate-800 dark:hover:bg-emerald-500 transition-all disabled:opacity-40 disabled:hover:bg-slate-900 dark:disabled:hover:bg-emerald-600 active:scale-98"
               >
                 Nộp bài kiểm tra ({Object.keys(answers).length}/{selectedArticle.questions.length})
               </button>
             ) : (
-              <div className="mt-10 bg-white rounded-3xl p-6 sm:p-8 text-center border-2 border-emerald-500 shadow-xl shadow-emerald-100">
+              <div className="mt-10 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 text-center border-2 border-emerald-500 shadow-xl shadow-emerald-100 dark:shadow-none">
                 <div className="text-5xl mb-3">🏆</div>
-                <h3 className="text-2xl font-black text-slate-900 mb-1">Hoàn thành bài đọc!</h3>
-                <p className="text-base text-slate-600 font-medium">
-                  Bạn trả lời đúng <strong className="text-emerald-600 text-lg font-black">{score}</strong> / {selectedArticle.questions.length} câu
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-1">Hoàn thành bài đọc!</h3>
+                <p className="text-base text-slate-600 dark:text-slate-300 font-medium">
+                  Bạn trả lời đúng <strong className="text-emerald-600 dark:text-emerald-400 text-lg font-black">{score}</strong> / {selectedArticle.questions.length} câu
                 </p>
                 <button
                   onClick={() => {
@@ -435,7 +435,7 @@ export default function ReadingMode({ articles, onBack }: ReadingModeProps) {
                       window.speechSynthesis.cancel();
                     }
                   }}
-                  className="mt-6 px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-md active:scale-95"
+                  className="mt-6 px-8 py-3 bg-slate-900 dark:bg-emerald-600 text-white rounded-xl font-bold hover:bg-slate-800 dark:hover:bg-emerald-500 transition-all shadow-md active:scale-95"
                 >
                   Quay lại danh sách bài đọc
                 </button>

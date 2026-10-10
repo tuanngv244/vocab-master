@@ -38,39 +38,7 @@ export default defineConfig(() => {
             }
           ]
         }
-      }),
-      {
-        name: 'telemetry-cron-endpoint',
-        configureServer(server) {
-          server.middlewares.use('/api/cron-report', (req, res) => {
-            if (req.method === 'POST') {
-              let body = '';
-              req.on('data', chunk => { body += chunk; });
-              req.on('end', () => {
-                try {
-                  const data = JSON.parse(body);
-                  console.log('\n=========================================');
-                  console.log('📬 [CRON 4H] TELEMETRY REPORT RECEIVED');
-                  console.log('⏰ Time:', new Date().toLocaleString('vi-VN'));
-                  console.log('🎯 Recipient:', 'tuanngv24.4@gmail.com');
-                  console.log('👤 User status:', data['TRẠNG THÁI NGƯỜI DÙNG'] || 'Guest');
-                  console.log('📱 Device:', data['Loại thiết bị'], '|', data['Hệ điều hành (OS)'], '|', data['Trình duyệt (Browser)']);
-                  console.log('📐 Screen:', data['Độ phân giải màn hình'], '| Viewport:', data['Kích thước Viewport hiển thị']);
-                  console.log('📚 Current Lesson:', data['Chủ đề / Bài học cụ thể']);
-                  console.log('=========================================\n');
-                } catch {
-                  console.log('[CRON 4H] Telemetry report received');
-                }
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ ok: true, recipient: 'tuanngv24.4@gmail.com', time: Date.now() }));
-              });
-            } else {
-              res.writeHead(405);
-              res.end();
-            }
-          });
-        }
-      }
+      })
     ],
     resolve: {
       alias: {

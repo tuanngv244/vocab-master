@@ -488,10 +488,10 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
       <div className="flex-1 w-full max-w-[620px] p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center min-h-[460px]">
         {/* Progress Bar */}
         <div className="w-full max-w-[560px] mb-4 md:mb-6">
-          <div className="flex items-center justify-between mb-2 text-[10px] sm:text-xs font-bold text-slate-500">
+          <div className="flex items-center justify-between mb-2 text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400">
             <div className="flex items-center gap-2">
-              <span className="text-slate-800 font-extrabold">Thẻ {currentIndex + 1} / {topic.words.length}</span>
-              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200" title={getCurrentWeekLabel()}>
+              <span className="text-slate-800 dark:text-slate-200 font-extrabold">Thẻ {currentIndex + 1} / {topic.words.length}</span>
+              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/70 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/80" title={getCurrentWeekLabel()}>
                 💾 Nhớ vị trí tuần (Tự reset Thứ 7)
               </span>
             </div>
@@ -501,7 +501,7 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
               {currentIndex > 0 && (
                 <button
                   onClick={() => setCurrentIndex(0)}
-                  className="text-[10px] text-slate-400 hover:text-slate-700 flex items-center gap-0.5 p-1 rounded hover:bg-slate-100 transition-colors"
+                  className="text-[10px] text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-0.5 p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   title="Học lại từ đầu (Thẻ 1)"
                 >
                   <RotateCcw size={12} />
@@ -510,7 +510,7 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
               )}
             </div>
           </div>
-          <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+          <div className="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
             <div 
               className="h-full bg-emerald-500 rounded-full transition-all duration-300" 
               style={{ width: `${progressPercent}%` }}
@@ -652,7 +652,7 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
           <button
             onClick={handlePrev}
             disabled={currentIndex === 0}
-            className="w-12 h-12 flex-shrink-0 sm:w-14 sm:h-14 rounded-2xl border-2 border-slate-200 text-slate-500 flex items-center justify-center hover:bg-slate-100 transition-all active:scale-95 disabled:opacity-40 disabled:hover:bg-transparent"
+            className="w-12 h-12 flex-shrink-0 sm:w-14 sm:h-14 rounded-2xl border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95 disabled:opacity-40 disabled:hover:bg-transparent"
             title="Từ trước đó"
           >
             <span className="text-2xl leading-none">←</span>
@@ -662,7 +662,7 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
             onClick={handleCardClick}
             className={`flex-1 py-3.5 sm:py-4 rounded-2xl font-bold text-sm sm:text-base shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 ${
               isFlipped
-                ? "bg-slate-800 text-white shadow-slate-300 hover:bg-slate-900"
+                ? "bg-slate-800 dark:bg-slate-700 text-white shadow-slate-300 dark:shadow-none hover:bg-slate-900 dark:hover:bg-slate-650"
                 : "bg-emerald-600 text-white shadow-emerald-500/20 hover:bg-emerald-700"
             }`}
           >
@@ -672,7 +672,7 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
           <button
             onClick={handleNext}
             disabled={currentIndex === topic.words.length - 1}
-            className="w-12 h-12 flex-shrink-0 sm:w-14 sm:h-14 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200 hover:bg-emerald-600 transition-all active:scale-95 disabled:opacity-40 disabled:hover:bg-emerald-500"
+            className="w-12 h-12 flex-shrink-0 sm:w-14 sm:h-14 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200/50 dark:shadow-none hover:bg-emerald-600 transition-all active:scale-95 disabled:opacity-40 disabled:hover:bg-emerald-500"
             title="Từ tiếp theo"
           >
             <span className="text-2xl leading-none">→</span>
@@ -681,17 +681,17 @@ export default function StudyMode({ topic, onBack, onLearnWord, userData }: Stud
       </div>
 
       {/* Quick Stats Footer */}
-      <footer className="h-14 bg-white border-t border-slate-100 px-4 md:px-8 flex items-center gap-4 sm:gap-8 mt-auto shrink-0 w-full overflow-x-auto">
+      <footer className="h-14 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-4 md:px-8 flex items-center gap-4 sm:gap-8 mt-auto shrink-0 w-full overflow-x-auto">
         <div className="flex items-center gap-2 shrink-0">
           <div className="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
-          <span className="text-xs sm:text-sm font-semibold text-slate-600">Đã học: <span className="text-slate-900 font-bold">{masteredCount}</span></span>
+          <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">Đã học: <span className="text-slate-900 dark:text-white font-bold">{masteredCount}</span></span>
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
-          <span className="text-xs sm:text-sm font-semibold text-slate-600">Tổng từ: <span className="text-slate-900 font-bold">{topic.words.length}</span></span>
+          <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">Tổng từ: <span className="text-slate-900 dark:text-white font-bold">{topic.words.length}</span></span>
         </div>
-        <div className="ml-auto text-xs text-slate-400 font-medium hidden md:block shrink-0">
-          Phím số <kbd className="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 font-sans">1-4</kbd> chọn nhanh • <kbd className="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 font-sans">Enter / →</kbd> từ kế tiếp
+        <div className="ml-auto text-xs text-slate-400 dark:text-slate-500 font-medium hidden md:block shrink-0">
+          Phím số <kbd className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 font-sans">1-4</kbd> chọn nhanh • <kbd className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 font-sans">Enter / →</kbd> từ kế tiếp
         </div>
       </footer>
     </div>

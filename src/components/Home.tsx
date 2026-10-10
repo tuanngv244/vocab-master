@@ -282,7 +282,7 @@ export default function Home({
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(index * 0.03, 0.3) }}
-                className={`rounded-[30px] p-7 border bg-white dark:bg-slate-900 hover:shadow-2xl transition-all flex flex-col group relative overflow-hidden ${
+                className={`rounded-[26px] sm:rounded-[30px] p-5 sm:p-7 border bg-white dark:bg-slate-900 hover:shadow-2xl transition-all flex flex-col group relative overflow-hidden ${
                   isSpecialized 
                     ? "border-emerald-300 dark:border-emerald-600/80 shadow-md shadow-emerald-50 dark:shadow-none hover:shadow-emerald-100/50 ring-1 ring-emerald-200 dark:ring-emerald-700/60" 
                     : "border-slate-100 dark:border-slate-800 shadow-lg shadow-slate-200/40 dark:shadow-none hover:shadow-slate-200/50"
